@@ -2,6 +2,7 @@ import os
 import subprocess
 import sqlite3
 import sys
+import threading
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -17,6 +18,7 @@ from app.schemas import RagResponse, TextRequest
 
 app = Server()
 harness: VoiceRAGHarness | None = None
+_index_ready = threading.Event()
 
 
 @spaces.GPU
@@ -54,10 +56,39 @@ def _needs_index_build():
         return True
 
 
+def _build_index_background():
+    global harness
+    try:
+        print("[BUILD] Starting index build in background...")
+        result = subprocess.run(
+            [sys.executable, "scripts/build_index.py", "--languages", "hin", "--max-rows", "500"],
+            capture_output=True, text=True, timeout=1200,
+        )
+        print(f"[BUILD] Exit code: {result.returncode}")
+        if result.stdout:
+            for line in result.stdout.strip().split("\n")[-30:]:
+                print(f"[BUILD] {line}")
+        if result.returncode != 0 and result.stderr:
+            for line in result.stderr.strip().split("\n")[-30:]:
+                print(f"[BUILD ERR] {line}")
+    except subprocess.TimeoutExpired:
+        print("[BUILD] Index build timed out after 1200s")
+    except Exception as e:
+        print(f"[BUILD] Exception: {e}")
+
+    print("[BUILD] Index build done. Initializing harness...")
+    try:
+        harness = VoiceRAGHarness()
+        _index_ready.set()
+        print("[BUILD] Harness initialized successfully.")
+    except Exception as e:
+        print(f"[BUILD] Harness init FAILED: {e}")
+        import traceback
+        traceback.print_exc()
+
+
 @app.on_event("startup")
 def startup_event():
-    global harness
-
     print(f"[STARTUP] QDRANT_PATH={settings.qdrant_path}")
     print(f"[STARTUP] SQLITE_FTS_PATH={settings.sqlite_fts_path}")
     print(f"[STARTUP] QDRANT_URL={settings.qdrant_url}")
@@ -65,35 +96,18 @@ def startup_event():
     _ensure_sqlite_tables()
 
     if _needs_index_build():
-        print("[STARTUP] Index empty or missing. Building from HF dataset (~5-10 min)...")
-        try:
-            result = subprocess.run(
-                [sys.executable, "scripts/build_index.py", "--languages", "hin", "--max-rows", "500"],
-                capture_output=True, text=True, timeout=900,
-            )
-            print(f"[STARTUP] build_index exit code: {result.returncode}")
-            if result.stdout:
-                lines = result.stdout.strip().split("\n")
-                print(f"[STARTUP] stdout (last 20 lines):\n" + "\n".join(lines[-20:]))
-            if result.returncode != 0 and result.stderr:
-                lines = result.stderr.strip().split("\n")
-                print(f"[STARTUP] stderr (last 20 lines):\n" + "\n".join(lines[-20:]))
-        except subprocess.TimeoutExpired:
-            print("[STARTUP] Index build timed out after 900s")
-        except Exception as e:
-            print(f"[STARTUP] Index build exception: {e}")
+        print("[STARTUP] Index empty. Kicking off background build...")
+        threading.Thread(target=_build_index_background, daemon=True).start()
     else:
-        print("[STARTUP] Index already has data, skipping build.")
-
-    print("[STARTUP] Initializing VoiceRAGHarness...")
-    try:
-        harness = VoiceRAGHarness()
-        print("[STARTUP] VoiceRAGHarness initialized successfully.")
-    except Exception as e:
-        print(f"[STARTUP] VoiceRAGHarness init FAILED: {e}")
-        import traceback
-        traceback.print_exc()
-        harness = None
+        print("[STARTUP] Index exists. Initializing harness...")
+        try:
+            harness = VoiceRAGHarness()
+            _index_ready.set()
+            print("[STARTUP] Harness initialized.")
+        except Exception as e:
+            print(f"[STARTUP] Harness init FAILED: {e}")
+            import traceback
+            traceback.print_exc()
 
 
 @app.get("/health")
@@ -107,14 +121,14 @@ def health_check():
 @app.post("/api/ask-text", response_model=RagResponse)
 def ask_text(req: TextRequest):
     if not harness:
-        raise HTTPException(status_code=503, detail="Harness not initialized")
+        raise HTTPException(status_code=503, detail="Harness not initialized yet. Index is building in background, try again in a few minutes.")
     return harness.ask_text(req.query)
 
 
 @app.post("/api/ask-audio", response_model=RagResponse)
 async def ask_audio(file: UploadFile = File(...)):
     if not harness:
-        raise HTTPException(status_code=503, detail="Harness not initialized")
+        raise HTTPException(status_code=503, detail="Harness not initialized yet. Index is building in background, try again in a few minutes.")
 
     audio_bytes = await file.read()
     filename = file.filename or "audio.webm"
