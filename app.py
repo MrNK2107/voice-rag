@@ -1,4 +1,6 @@
 import os
+os.environ["CUDA_VISIBLE_DEVICES"] = ""
+
 import subprocess
 import sqlite3
 import sys
