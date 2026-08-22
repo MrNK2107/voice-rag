@@ -1,5 +1,6 @@
 fastapi
 gradio
+spaces
 uvicorn[standard]
 python-multipart
 requests

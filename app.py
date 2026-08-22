@@ -6,12 +6,18 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from fastapi import File, UploadFile, HTTPException
 from fastapi.responses import FileResponse
 from gradio import Server
+import spaces
 
 from app.harness import VoiceRAGHarness
 from app.schemas import RagResponse, TextRequest
 
 app = Server()
 harness: VoiceRAGHarness | None = None
+
+
+@spaces.GPU
+def _gpu_placeholder():
+    pass
 
 
 @app.on_event("startup")
