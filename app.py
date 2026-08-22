@@ -1,5 +1,7 @@
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
+os.environ["FORCE_CUDA"] = "0"
+os.environ["CUDA_MODULE_LOADING"] = "LAZY"
 
 import subprocess
 import sqlite3
@@ -16,9 +18,15 @@ from fastapi.responses import FileResponse
 from gradio import Server
 import spaces
 
+import torch
+_original_cuda_init = torch._C._cuda_init
+torch._C._cuda_init = lambda: None
+
 from app.config import settings
 from app.harness import VoiceRAGHarness
 from app.schemas import RagResponse, TextRequest
+
+torch._C._cuda_init = _original_cuda_init
 
 app = Server()
 harness: VoiceRAGHarness | None = None
@@ -80,7 +88,7 @@ def _build_and_init():
             for line in result.stdout.strip().split("\n")[-30:]:
                 _log(f"  {line}")
         if result.stderr:
-            for line in result.stderr.strip().split("\n")[-30:]:
+            for line in result.stderr.strip().split("\n")[-10:]:
                 _log(f"ERR: {line}")
     except subprocess.TimeoutExpired:
         _log("build_index TIMED OUT")
