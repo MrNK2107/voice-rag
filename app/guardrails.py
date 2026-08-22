@@ -1,8 +1,11 @@
 import re
+import regex
 from typing import List, Optional, Tuple
 
 from app.config import settings
 from app.schemas import RetrievedContext
+
+_WORD_PATTERN = regex.compile(r"[\p{L}\p{M}\p{N}]+", flags=regex.UNICODE)
 
 
 UNSAFE_PATTERNS = [
@@ -88,8 +91,8 @@ def grounding_check(answer: str, contexts: List[RetrievedContext]) -> bool:
     context_text = " ".join(c.text.lower() for c in contexts)
 
     answer_tokens = {
-        t for t in re.findall(r"\w+", answer.lower())
-        if len(t) > 3
+        t for t in _WORD_PATTERN.findall(answer.lower())
+        if len(t) >= 2
     }
 
     if not answer_tokens:
@@ -99,3 +102,4 @@ def grounding_check(answer: str, contexts: List[RetrievedContext]) -> bool:
     ratio = supported / max(len(answer_tokens), 1)
 
     return ratio >= 0.40
+
