@@ -2,40 +2,40 @@
   "num_queries": 30,
   "metrics": {
     "input_guard_ms": {
-      "P50": 0.03,
-      "P70": 0.03,
-      "P100": 0.04,
-      "mean": 0.03
+      "P50": 0.02,
+      "P70": 0.02,
+      "P100": 0.03,
+      "mean": 0.02
     },
     "retrieval_ms": {
-      "P50": 37.13,
-      "P70": 49.47,
-      "P100": 108.09,
-      "mean": 43.88
+      "P50": 12.28,
+      "P70": 14.9,
+      "P100": 18.48,
+      "mean": 12.88
     },
     "retrieval_guard_ms": {
       "P50": 0.0,
       "P70": 0.0,
-      "P100": 0.01,
+      "P100": 0.0,
       "mean": 0.0
     },
     "generation_ms": {
-      "P50": 0.47,
-      "P70": 0.8,
-      "P100": 1.77,
-      "mean": 0.82
+      "P50": 0.26,
+      "P70": 0.36,
+      "P100": 1.36,
+      "mean": 0.38
     },
     "grounding_ms": {
-      "P50": 0.07,
-      "P70": 0.08,
-      "P100": 0.28,
-      "mean": 0.09
+      "P50": 0.05,
+      "P70": 0.07,
+      "P100": 0.14,
+      "mean": 0.06
     },
     "post_stt_total_ms": {
-      "P50": 36.65,
-      "P70": 46.75,
-      "P100": 108.8,
-      "mean": 38.55
+      "P50": 11.68,
+      "P70": 14.15,
+      "P100": 19.92,
+      "mean": 11.42
     }
   },
   "details": [
@@ -46,13 +46,13 @@
       "abstained": false,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.024,
-        "retrieval_ms": 37.174,
-        "retrieval_guard_ms": 0.003,
-        "generation_ms": 0.426,
-        "grounding_ms": 0.054,
-        "post_stt_total_ms": 37.729,
-        "total_ms": 37.729
+        "input_guard_ms": 0.02,
+        "retrieval_ms": 10.399,
+        "retrieval_guard_ms": 0.001,
+        "generation_ms": 0.176,
+        "grounding_ms": 0.026,
+        "post_stt_total_ms": 10.638,
+        "total_ms": 10.638
       }
     },
     {
@@ -62,13 +62,13 @@
       "abstained": false,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.026,
-        "retrieval_ms": 37.084,
-        "retrieval_guard_ms": 0.003,
-        "generation_ms": 1.708,
-        "grounding_ms": 0.145,
-        "post_stt_total_ms": 39.04,
-        "total_ms": 39.04
+        "input_guard_ms": 0.013,
+        "retrieval_ms": 10.19,
+        "retrieval_guard_ms": 0.002,
+        "generation_ms": 0.12,
+        "grounding_ms": 0.028,
+        "post_stt_total_ms": 10.37,
+        "total_ms": 10.37
       }
     },
     {
@@ -78,13 +78,13 @@
       "abstained": false,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.03,
-        "retrieval_ms": 56.013,
-        "retrieval_guard_ms": 0.003,
-        "generation_ms": 0.468,
-        "grounding_ms": 0.074,
-        "post_stt_total_ms": 56.65,
-        "total_ms": 56.65
+        "input_guard_ms": 0.014,
+        "retrieval_ms": 12.143,
+        "retrieval_guard_ms": 0.002,
+        "generation_ms": 0.209,
+        "grounding_ms": 0.053,
+        "post_stt_total_ms": 12.442,
+        "total_ms": 12.442
       }
     },
     {
@@ -94,13 +94,13 @@
       "abstained": false,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.03,
-        "retrieval_ms": 55.72,
-        "retrieval_guard_ms": 0.004,
-        "generation_ms": 1.773,
-        "grounding_ms": 0.283,
-        "post_stt_total_ms": 57.886,
-        "total_ms": 57.886
+        "input_guard_ms": 0.016,
+        "retrieval_ms": 15.857,
+        "retrieval_guard_ms": 0.002,
+        "generation_ms": 0.746,
+        "grounding_ms": 0.145,
+        "post_stt_total_ms": 16.786,
+        "total_ms": 16.786
       }
     },
     {
@@ -110,29 +110,29 @@
       "abstained": false,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.031,
-        "retrieval_ms": 52.734,
-        "retrieval_guard_ms": 0.003,
-        "generation_ms": 0.5,
-        "grounding_ms": 0.068,
-        "post_stt_total_ms": 53.385,
-        "total_ms": 53.385
+        "input_guard_ms": 0.016,
+        "retrieval_ms": 13.042,
+        "retrieval_guard_ms": 0.002,
+        "generation_ms": 0.262,
+        "grounding_ms": 0.049,
+        "post_stt_total_ms": 13.391,
+        "total_ms": 13.391
       }
     },
     {
       "id": "q6",
       "query": "\u091c\u0932\u0935\u093e\u092f\u0941 \u092e\u094c\u0938\u092e \u0915\u093e \u0905\u0927\u094d\u092f\u092f\u0928",
       "category": "relevant",
-      "abstained": true,
-      "grounded": false,
+      "abstained": false,
+      "grounded": true,
       "timings": {
-        "input_guard_ms": 0.025,
-        "retrieval_ms": 38.126,
+        "input_guard_ms": 0.012,
+        "retrieval_ms": 15.379,
         "retrieval_guard_ms": 0.003,
-        "generation_ms": 0.858,
-        "grounding_ms": 0.058,
-        "post_stt_total_ms": 39.12,
-        "total_ms": 39.12
+        "generation_ms": 0.262,
+        "grounding_ms": 0.061,
+        "post_stt_total_ms": 15.75,
+        "total_ms": 15.75
       }
     },
     {
@@ -142,13 +142,13 @@
       "abstained": false,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.026,
-        "retrieval_ms": 36.795,
-        "retrieval_guard_ms": 0.003,
-        "generation_ms": 1.754,
-        "grounding_ms": 0.115,
-        "post_stt_total_ms": 38.745,
-        "total_ms": 38.745
+        "input_guard_ms": 0.031,
+        "retrieval_ms": 18.476,
+        "retrieval_guard_ms": 0.002,
+        "generation_ms": 1.357,
+        "grounding_ms": 0.032,
+        "post_stt_total_ms": 19.923,
+        "total_ms": 19.923
       }
     },
     {
@@ -158,13 +158,13 @@
       "abstained": false,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.022,
-        "retrieval_ms": 52.103,
-        "retrieval_guard_ms": 0.003,
-        "generation_ms": 0.439,
-        "grounding_ms": 0.055,
-        "post_stt_total_ms": 52.677,
-        "total_ms": 52.677
+        "input_guard_ms": 0.014,
+        "retrieval_ms": 12.251,
+        "retrieval_guard_ms": 0.001,
+        "generation_ms": 0.236,
+        "grounding_ms": 0.037,
+        "post_stt_total_ms": 12.557,
+        "total_ms": 12.557
       }
     },
     {
@@ -174,13 +174,13 @@
       "abstained": false,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.033,
-        "retrieval_ms": 32.378,
-        "retrieval_guard_ms": 0.003,
-        "generation_ms": 0.441,
-        "grounding_ms": 0.064,
-        "post_stt_total_ms": 32.975,
-        "total_ms": 32.975
+        "input_guard_ms": 0.014,
+        "retrieval_ms": 12.315,
+        "retrieval_guard_ms": 0.002,
+        "generation_ms": 0.227,
+        "grounding_ms": 0.037,
+        "post_stt_total_ms": 12.615,
+        "total_ms": 12.615
       }
     },
     {
@@ -190,13 +190,13 @@
       "abstained": false,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.026,
-        "retrieval_ms": 60.822,
-        "retrieval_guard_ms": 0.003,
-        "generation_ms": 0.349,
-        "grounding_ms": 0.041,
-        "post_stt_total_ms": 61.278,
-        "total_ms": 61.278
+        "input_guard_ms": 0.014,
+        "retrieval_ms": 13.55,
+        "retrieval_guard_ms": 0.001,
+        "generation_ms": 0.235,
+        "grounding_ms": 0.036,
+        "post_stt_total_ms": 13.857,
+        "total_ms": 13.857
       }
     },
     {
@@ -206,13 +206,13 @@
       "abstained": false,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.023,
-        "retrieval_ms": 62.259,
-        "retrieval_guard_ms": 0.003,
-        "generation_ms": 0.473,
-        "grounding_ms": 0.06,
-        "post_stt_total_ms": 62.858,
-        "total_ms": 62.858
+        "input_guard_ms": 0.016,
+        "retrieval_ms": 14.416,
+        "retrieval_guard_ms": 0.002,
+        "generation_ms": 0.311,
+        "grounding_ms": 0.052,
+        "post_stt_total_ms": 14.826,
+        "total_ms": 14.826
       }
     },
     {
@@ -222,13 +222,13 @@
       "abstained": false,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.03,
-        "retrieval_ms": 108.092,
+        "input_guard_ms": 0.025,
+        "retrieval_ms": 16.578,
         "retrieval_guard_ms": 0.003,
-        "generation_ms": 0.551,
-        "grounding_ms": 0.075,
-        "post_stt_total_ms": 108.804,
-        "total_ms": 108.804
+        "generation_ms": 0.419,
+        "grounding_ms": 0.082,
+        "post_stt_total_ms": 17.134,
+        "total_ms": 17.134
       }
     },
     {
@@ -238,13 +238,13 @@
       "abstained": false,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.027,
-        "retrieval_ms": 44.532,
-        "retrieval_guard_ms": 0.003,
-        "generation_ms": 1.734,
-        "grounding_ms": 0.138,
-        "post_stt_total_ms": 46.5,
-        "total_ms": 46.5
+        "input_guard_ms": 0.025,
+        "retrieval_ms": 17.365,
+        "retrieval_guard_ms": 0.002,
+        "generation_ms": 0.312,
+        "grounding_ms": 0.076,
+        "post_stt_total_ms": 17.806,
+        "total_ms": 17.806
       }
     },
     {
@@ -254,13 +254,13 @@
       "abstained": false,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.028,
-        "retrieval_ms": 46.828,
-        "retrieval_guard_ms": 0.003,
-        "generation_ms": 0.365,
-        "grounding_ms": 0.064,
-        "post_stt_total_ms": 47.326,
-        "total_ms": 47.326
+        "input_guard_ms": 0.025,
+        "retrieval_ms": 17.107,
+        "retrieval_guard_ms": 0.002,
+        "generation_ms": 0.418,
+        "grounding_ms": 0.09,
+        "post_stt_total_ms": 17.669,
+        "total_ms": 17.669
       }
     },
     {
@@ -270,13 +270,13 @@
       "abstained": false,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.016,
-        "retrieval_ms": 44.859,
-        "retrieval_guard_ms": 0.005,
-        "generation_ms": 0.397,
-        "grounding_ms": 0.078,
-        "post_stt_total_ms": 45.427,
-        "total_ms": 45.427
+        "input_guard_ms": 0.021,
+        "retrieval_ms": 15.898,
+        "retrieval_guard_ms": 0.002,
+        "generation_ms": 0.37,
+        "grounding_ms": 0.081,
+        "post_stt_total_ms": 16.4,
+        "total_ms": 16.4
       }
     },
     {
@@ -286,9 +286,9 @@
       "abstained": true,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.009,
-        "post_stt_total_ms": 0.018,
-        "total_ms": 0.018
+        "input_guard_ms": 0.006,
+        "post_stt_total_ms": 0.01,
+        "total_ms": 0.01
       }
     },
     {
@@ -298,9 +298,9 @@
       "abstained": true,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.021,
-        "post_stt_total_ms": 0.028,
-        "total_ms": 0.028
+        "input_guard_ms": 0.017,
+        "post_stt_total_ms": 0.02,
+        "total_ms": 0.02
       }
     },
     {
@@ -310,11 +310,11 @@
       "abstained": true,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.021,
-        "retrieval_ms": 35.407,
-        "retrieval_guard_ms": 0.003,
-        "post_stt_total_ms": 35.462,
-        "total_ms": 35.462
+        "input_guard_ms": 0.018,
+        "retrieval_ms": 15.617,
+        "retrieval_guard_ms": 0.002,
+        "post_stt_total_ms": 15.654,
+        "total_ms": 15.654
       }
     },
     {
@@ -324,11 +324,11 @@
       "abstained": true,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.029,
-        "retrieval_ms": 33.143,
-        "retrieval_guard_ms": 0.003,
-        "post_stt_total_ms": 33.21,
-        "total_ms": 33.21
+        "input_guard_ms": 0.021,
+        "retrieval_ms": 10.881,
+        "retrieval_guard_ms": 0.002,
+        "post_stt_total_ms": 10.922,
+        "total_ms": 10.922
       }
     },
     {
@@ -338,11 +338,11 @@
       "abstained": true,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.033,
-        "retrieval_ms": 28.26,
-        "retrieval_guard_ms": 0.003,
-        "post_stt_total_ms": 28.33,
-        "total_ms": 28.33
+        "input_guard_ms": 0.017,
+        "retrieval_ms": 8.867,
+        "retrieval_guard_ms": 0.001,
+        "post_stt_total_ms": 8.896,
+        "total_ms": 8.896
       }
     },
     {
@@ -352,11 +352,11 @@
       "abstained": true,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.031,
-        "retrieval_ms": 31.492,
-        "retrieval_guard_ms": 0.004,
-        "post_stt_total_ms": 31.562,
-        "total_ms": 31.562
+        "input_guard_ms": 0.013,
+        "retrieval_ms": 10.347,
+        "retrieval_guard_ms": 0.002,
+        "post_stt_total_ms": 10.373,
+        "total_ms": 10.373
       }
     },
     {
@@ -366,11 +366,11 @@
       "abstained": true,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.034,
-        "retrieval_ms": 34.124,
-        "retrieval_guard_ms": 0.004,
-        "post_stt_total_ms": 34.196,
-        "total_ms": 34.196
+        "input_guard_ms": 0.017,
+        "retrieval_ms": 10.391,
+        "retrieval_guard_ms": 0.001,
+        "post_stt_total_ms": 10.421,
+        "total_ms": 10.421
       }
     },
     {
@@ -380,11 +380,11 @@
       "abstained": true,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.033,
-        "retrieval_ms": 34.241,
-        "retrieval_guard_ms": 0.005,
-        "post_stt_total_ms": 34.323,
-        "total_ms": 34.323
+        "input_guard_ms": 0.03,
+        "retrieval_ms": 10.078,
+        "retrieval_guard_ms": 0.001,
+        "post_stt_total_ms": 10.122,
+        "total_ms": 10.122
       }
     },
     {
@@ -394,11 +394,11 @@
       "abstained": true,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.045,
-        "retrieval_ms": 28.832,
-        "retrieval_guard_ms": 0.003,
-        "post_stt_total_ms": 28.908,
-        "total_ms": 28.908
+        "input_guard_ms": 0.016,
+        "retrieval_ms": 9.478,
+        "retrieval_guard_ms": 0.002,
+        "post_stt_total_ms": 9.508,
+        "total_ms": 9.508
       }
     },
     {
@@ -408,11 +408,11 @@
       "abstained": true,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.025,
-        "retrieval_ms": 35.484,
-        "retrieval_guard_ms": 0.003,
-        "post_stt_total_ms": 35.545,
-        "total_ms": 35.545
+        "input_guard_ms": 0.015,
+        "retrieval_ms": 10.27,
+        "retrieval_guard_ms": 0.001,
+        "post_stt_total_ms": 10.299,
+        "total_ms": 10.299
       }
     },
     {
@@ -422,11 +422,11 @@
       "abstained": true,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.029,
-        "retrieval_ms": 53.05,
-        "retrieval_guard_ms": 0.003,
-        "post_stt_total_ms": 53.117,
-        "total_ms": 53.117
+        "input_guard_ms": 0.012,
+        "retrieval_ms": 10.685,
+        "retrieval_guard_ms": 0.001,
+        "post_stt_total_ms": 10.712,
+        "total_ms": 10.712
       }
     },
     {
@@ -436,9 +436,9 @@
       "abstained": true,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.027,
-        "post_stt_total_ms": 0.035,
-        "total_ms": 0.035
+        "input_guard_ms": 0.015,
+        "post_stt_total_ms": 0.018,
+        "total_ms": 0.018
       }
     },
     {
@@ -448,9 +448,9 @@
       "abstained": true,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.011,
-        "post_stt_total_ms": 0.016,
-        "total_ms": 0.016
+        "input_guard_ms": 0.005,
+        "post_stt_total_ms": 0.007,
+        "total_ms": 0.007
       }
     },
     {
@@ -460,11 +460,11 @@
       "abstained": true,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.018,
-        "retrieval_ms": 35.521,
-        "retrieval_guard_ms": 0.004,
-        "post_stt_total_ms": 35.574,
-        "total_ms": 35.574
+        "input_guard_ms": 0.009,
+        "retrieval_ms": 12.691,
+        "retrieval_guard_ms": 0.002,
+        "post_stt_total_ms": 12.713,
+        "total_ms": 12.713
       }
     },
     {
@@ -474,11 +474,11 @@
       "abstained": true,
       "grounded": true,
       "timings": {
-        "input_guard_ms": 0.037,
-        "retrieval_ms": 25.78,
-        "retrieval_guard_ms": 0.003,
-        "post_stt_total_ms": 25.852,
-        "total_ms": 25.852
+        "input_guard_ms": 0.018,
+        "retrieval_ms": 10.695,
+        "retrieval_guard_ms": 0.002,
+        "post_stt_total_ms": 10.728,
+        "total_ms": 10.728
       }
     }
   ]
