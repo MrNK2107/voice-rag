@@ -3,41 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Voice RAG | HH Goa 2026</title>
+  <title>Voice RAG | Hacker House Goa 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Imbue:opsz,wght@10..100,700;800;900&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Victor+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0b0f19;
-      --card-bg: rgba(21, 29, 46, 0.7);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --primary: #6366f1;
-      --primary-hover: #4f46e5;
-      --accent: #10b981;
-      --accent-warn: #f59e0b;
-      --accent-danger: #ef4444;
-      --text: #f3f4f6;
-      --text-muted: #9ca3af;
+      --bg-green: #0b6839;
+      --brand-accent: #fee101; /* Electric Yellow */
+      --brand-pink: #ff0080;   /* Hot Magenta Pink */
+      --brand-offwhite: #fffbe8; /* Card Cream */
+      --brand-dark: #073b20;
+      --card-shadow: 6px 8px 0px rgba(0, 0, 0, 0.35);
+      --card-shadow-sm: 4px 5px 0px rgba(0, 0, 0, 0.3);
+      --font-heading: 'Outfit', 'Imbue', sans-serif;
+      --font-mono: 'Victor Mono', monospace;
+      --font-body: 'Inter', sans-serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
+      font-family: var(--font-body);
+      background-color: var(--bg-green);
       background-image: 
-        radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 85% 80%, rgba(16, 185, 129, 0.12) 0%, transparent 40%);
-      color: var(--text);
+        radial-gradient(circle at 10% 15%, rgba(254, 225, 1, 0.08) 0%, transparent 35%),
+        radial-gradient(circle at 90% 85%, rgba(255, 0, 128, 0.08) 0%, transparent 35%);
+      color: #ffffff;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
+    /* Header */
     header {
-      padding: 2rem 2rem 1rem;
-      max-width: 1200px;
+      padding: 1.75rem 2rem 1rem;
+      max-width: 1280px;
       margin: 0 auto;
       width: 100%;
       display: flex;
@@ -45,359 +46,472 @@
       justify-content: space-between;
     }
 
-    .logo-group {
+    .brand-logo-group {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
-    .logo-badge {
-      background: linear-gradient(135deg, #6366f1, #10b981);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 800;
-      font-size: 0.85rem;
+    .studio-badge {
+      background: var(--brand-accent);
+      color: var(--brand-dark);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 1px;
+      box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
     }
 
-    h1 {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.8rem;
+    .tag-pill {
+      background: var(--brand-pink);
+      color: #ffffff;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-family: var(--font-mono);
       font-weight: 700;
-      background: linear-gradient(to right, #ffffff, #9ca3af);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
     }
 
-    .sub-tag {
-      color: var(--text-muted);
-      font-size: 0.9rem;
+    .hero-title-container {
+      margin-top: 0.5rem;
     }
 
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: var(--brand-accent);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .goa-stamp {
+      background: var(--brand-pink);
+      color: #ffffff;
+      padding: 2px 12px;
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+      font-weight: 800;
+      transform: rotate(-6deg);
+      display: inline-block;
+      box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-mono);
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* Main Grid */
     main {
-      max-width: 1200px;
-      margin: 0 auto 3rem;
+      max-width: 1280px;
+      margin: 1.5rem auto 3rem;
       width: 100%;
       padding: 0 2rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+      gap: 2rem;
       flex-grow: 1;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 950px) {
       main { grid-template-columns: 1fr; }
     }
 
-    .panel {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(12px);
-      border-radius: 16px;
-      padding: 1.75rem;
+    /* Neo-Brutalist Cards */
+    .hh-card {
+      background: var(--brand-offwhite);
+      color: var(--brand-dark);
+      border-radius: 12px;
+      padding: 2rem;
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      gap: 1.4rem;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      border: 1px solid rgba(0,0,0,0.1);
     }
 
-    .panel-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 600;
+    .pin-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      position: absolute;
+      top: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0px 2px 4px rgba(0,0,0,0.25);
+    }
+
+    .pin-pink { background: var(--brand-pink); }
+    .pin-yellow { background: var(--brand-accent); }
+
+    .card-header-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--brand-dark);
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
       padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--card-border);
+      border-bottom: 2px solid rgba(11, 104, 57, 0.15);
+      text-transform: uppercase;
     }
 
-    .controls-container {
+    /* Controls */
+    .controls-group {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.1rem;
     }
 
-    .btn-record {
-      background: linear-gradient(135deg, #ef4444, #dc2626);
-      color: white;
+    .btn-voice {
+      background: linear-gradient(135deg, var(--brand-pink), #d9006c);
+      color: #ffffff;
       border: none;
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-weight: 600;
+      padding: 1.1rem 1.6rem;
+      border-radius: 10px;
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+      gap: 12px;
+      transition: all 0.15s ease;
+      box-shadow: var(--card-shadow-sm);
+      text-transform: uppercase;
     }
 
-    .btn-record:hover:not(:disabled) {
+    .btn-voice:hover:not(:disabled) {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+      box-shadow: 5px 7px 0px rgba(0, 0, 0, 0.35);
     }
 
-    .btn-record.recording {
+    .btn-voice.recording {
       background: linear-gradient(135deg, #f59e0b, #d97706);
       animation: pulse 1.5s infinite;
     }
 
     @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
-      70% { box-shadow: 0 0 0 15px rgba(245, 158, 11, 0); }
+      0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.5); }
+      70% { box-shadow: 0 0 0 16px rgba(245, 158, 11, 0); }
       100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
     }
 
-    .btn-submit {
-      background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-      color: white;
-      border: none;
-      padding: 0.85rem 1.25rem;
-      border-radius: 10px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-submit:hover:not(:disabled) {
-      transform: translateY(-1px);
-    }
-
-    .btn-submit:disabled, .btn-record:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .text-input-group {
+    .text-input-row {
       display: flex;
-      gap: 10px;
+      gap: 12px;
     }
 
     input[type="text"] {
       flex-grow: 1;
-      background: rgba(0,0,0,0.3);
-      border: 1px solid var(--card-border);
-      border-radius: 10px;
-      padding: 0.75rem 1rem;
-      color: var(--text);
-      font-family: inherit;
-      font-size: 0.95rem;
+      background: #ffffff;
+      border: 2px solid rgba(11, 104, 57, 0.3);
+      border-radius: 8px;
+      padding: 0.85rem 1.1rem;
+      color: var(--brand-dark);
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
       outline: none;
+      transition: border-color 0.2s;
     }
 
     input[type="text"]:focus {
-      border-color: var(--primary);
+      border-color: var(--brand-pink);
     }
 
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      border-radius: 12px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      width: fit-content;
+    .btn-ask {
+      background: var(--brand-accent);
+      color: var(--brand-dark);
+      border: 2px solid var(--brand-dark);
+      padding: 0.85rem 1.4rem;
+      border-radius: 8px;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 3px 4px 0px var(--brand-dark);
+      transition: all 0.15s;
+      text-transform: uppercase;
     }
 
-    .status-ready { background: rgba(156, 163, 175, 0.15); color: #d1d5db; }
-    .status-recording { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
-    .status-processing { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; }
-    .status-success { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
-    .status-abstained { background: rgba(245, 158, 11, 0.2); color: #fde68a; }
+    .btn-ask:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 4px 5px 0px var(--brand-dark);
+    }
 
-    .box-title {
-      font-size: 0.8rem;
+    .btn-ask:disabled, .btn-voice:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Badges & Content */
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: var(--text-muted);
+      color: rgba(11, 104, 57, 0.75);
       margin-bottom: 6px;
     }
 
-    .content-box {
-      background: rgba(0,0,0,0.25);
-      border: 1px solid var(--card-border);
-      border-radius: 10px;
-      padding: 1rem;
-      min-height: 80px;
-      font-size: 0.95rem;
-      line-height: 1.5;
+    .status-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      width: fit-content;
+      box-shadow: 2px 2px 0px rgba(0,0,0,0.15);
     }
 
-    .citations-grid {
+    .status-ready { background: #e2e8f0; color: #475569; }
+    .status-recording { background: #ffe4e6; color: var(--brand-pink); border: 1px solid var(--brand-pink); }
+    .status-processing { background: #fef9c3; color: #854d0e; border: 1px solid #ca8a04; }
+    .status-success { background: #dcfce7; color: #15803d; border: 1px solid #16a34a; }
+    .status-abstained { background: #ffedd5; color: #c2410c; border: 1px solid #ea580c; }
+
+    .content-card-box {
+      background: #ffffff;
+      border: 1px solid rgba(11, 104, 57, 0.2);
+      border-radius: 8px;
+      padding: 1.1rem;
+      min-height: 85px;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: #1e293b;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .citations-container {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      max-height: 250px;
+      max-height: 230px;
       overflow-y: auto;
     }
 
-    .citation-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 0.75rem;
-      font-size: 0.85rem;
+    .citation-tile {
+      background: #ffffff;
+      border: 1px solid rgba(11, 104, 57, 0.2);
+      border-left: 4px solid var(--brand-pink);
+      border-radius: 6px;
+      padding: 0.85rem;
+      font-size: 0.86rem;
+      line-height: 1.45;
     }
 
-    .citation-header {
+    .citation-meta {
       display: flex;
       justify-content: space-between;
-      color: var(--text-muted);
+      font-family: var(--font-mono);
       font-size: 0.75rem;
-      margin-bottom: 4px;
+      color: var(--brand-dark);
+      font-weight: 700;
+      margin-bottom: 6px;
+      padding-bottom: 4px;
+      border-bottom: 1px dashed rgba(11, 104, 57, 0.2);
     }
 
-    .latency-grid {
+    /* Latency Cards */
+    .metrics-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 12px;
     }
 
-    .metric-card {
-      background: rgba(0,0,0,0.3);
-      border: 1px solid var(--card-border);
+    .metric-pill-card {
+      background: #ffffff;
+      border: 2px solid var(--brand-dark);
       border-radius: 8px;
-      padding: 0.75rem;
+      padding: 0.85rem 0.6rem;
       text-align: center;
+      box-shadow: 3px 3px 0px var(--brand-dark);
     }
 
-    .metric-val {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.3rem;
+    .metric-title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
       font-weight: 700;
-      color: var(--accent);
+      color: rgba(11, 104, 57, 0.8);
+    }
+
+    .metric-number {
+      font-family: var(--font-heading);
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--brand-pink);
       margin-top: 4px;
     }
 
-    .metric-val.highlight {
-      color: #818cf8;
+    .metric-number.accent {
+      color: #0284c7;
     }
 
     .timing-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.85rem;
-      margin-top: 0.5rem;
+      font-family: var(--font-mono);
+      margin-top: 0.6rem;
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(11, 104, 57, 0.2);
     }
 
     .timing-table th, .timing-table td {
-      padding: 6px 10px;
+      padding: 8px 12px;
       text-align: left;
-      border-bottom: 1px solid var(--card-border);
+      border-bottom: 1px solid rgba(11, 104, 57, 0.1);
     }
 
     .timing-table th {
-      color: var(--text-muted);
-      font-weight: 500;
+      background: rgba(11, 104, 57, 0.08);
+      color: var(--brand-dark);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.75rem;
     }
 
     footer {
       text-align: center;
-      padding: 1rem;
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      border-top: 1px solid var(--card-border);
+      padding: 1.5rem;
+      color: rgba(255, 255, 255, 0.85);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(0, 0, 0, 0.15);
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="logo-group">
-      <div class="logo-badge">HH Goa 2026</div>
-      <div>
-        <h1>Voice-Enabled Grounded RAG</h1>
-        <div class="sub-tag">MSMARCO-XI Multilingual Vector Pipeline</div>
+    <div>
+      <div class="brand-logo-group">
+        <div class="studio-badge">2:47 PM STUDIO</div>
+        <div class="tag-pill">#RAGInGoa</div>
+      </div>
+      <div class="hero-title-container">
+        <div class="hero-title">
+          Hacker House <span class="goa-stamp">गोवा</span> Voice RAG
+        </div>
+        <div class="hero-subtitle">
+          GOA, INDIA · 28 - 31 OCT 2026 · SUB-200MS VOICE PIPELINE
+        </div>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- Left Column: Audio & Text Controls -->
-    <div class="panel">
-      <div class="panel-title">
-        🎤 Input Interface
+    <!-- Left Card: Voice & Text Input -->
+    <div class="hh-card">
+      <div class="pin-dot pin-pink"></div>
+
+      <div class="card-header-title">
+        <span>🎙️ Input Interface</span>
+        <span style="font-size: 0.8rem; font-weight: 700; color: var(--brand-pink);">SARVAM STT</span>
       </div>
 
-      <div class="controls-container">
-        <button id="recordBtn" class="btn-record">
-          <span id="recordIcon">🔴</span>
+      <div class="controls-group">
+        <button id="recordBtn" class="btn-voice">
+          <span id="recordIcon">🎙️</span>
           <span id="recordText">Start Voice Recording</span>
         </button>
 
-        <div class="text-input-group">
-          <input type="text" id="textInput" placeholder="Or type a question for fast benchmarking..." />
-          <button id="submitTextBtn" class="btn-submit">Ask Text</button>
+        <div class="text-input-row">
+          <input type="text" id="textInput" placeholder="Or type a query for instant benchmarking..." />
+          <button id="submitTextBtn" class="btn-ask">Ask Text</button>
         </div>
       </div>
 
       <div>
-        <div class="box-title">System Status</div>
-        <div id="statusBadge" class="status-badge status-ready">Ready</div>
+        <div class="section-label">System Status</div>
+        <div id="statusBadge" class="status-capsule status-ready">System Ready</div>
       </div>
 
       <div>
-        <div class="box-title">Speech Transcript</div>
-        <div id="transcriptBox" class="content-box">Speech transcript will appear here after recording...</div>
+        <div class="section-label">Speech Transcript</div>
+        <div id="transcriptBox" class="content-card-box">Spoken speech transcript will appear here after recording...</div>
       </div>
 
       <div>
-        <div class="box-title">Audio Preview</div>
+        <div class="section-label">Audio Stream Preview</div>
         <audio id="audioPreview" controls style="width: 100%; margin-top: 4px; display: none;"></audio>
       </div>
     </div>
 
-    <!-- Right Column: Grounded Answer & Latency Analytics -->
-    <div class="panel">
-      <div class="panel-title">
-        ⚡ RAG Response & Latency Breakdown
+    <!-- Right Card: Grounded Answer & Latency Analytics -->
+    <div class="hh-card">
+      <div class="pin-dot pin-yellow"></div>
+
+      <div class="card-header-title">
+        <span>⚡ Grounded RAG & Analytics</span>
+        <span style="font-size: 0.8rem; font-weight: 700; color: var(--bg-green);">HYBRID DENSE+LEXICAL</span>
       </div>
 
       <div>
-        <div class="box-title">Grounded Answer</div>
-        <div id="answerBox" class="content-box">The system answer will be rendered here with citations...</div>
+        <div class="section-label">Grounded Answer Output</div>
+        <div id="answerBox" class="content-card-box">Extracted grounded answer will render here...</div>
       </div>
 
       <div>
-        <div class="box-title">Citations & Evidence Chunks</div>
-        <div id="citationsBox" class="citations-grid">
-          <div style="color: var(--text-muted); font-size: 0.85rem;">No citations loaded yet.</div>
+        <div class="section-label">Evidence Chunks & Citations</div>
+        <div id="citationsBox" class="citations-container">
+          <div style="color: rgba(11, 104, 57, 0.6); font-size: 0.85rem; font-family: var(--font-mono);">No citations loaded yet.</div>
         </div>
       </div>
 
       <div>
-        <div class="box-title">Stage-wise Latency Metrics (ms)</div>
-        <div class="latency-grid">
-          <div class="metric-card">
-            <div class="box-title">Post-STT RAG</div>
-            <div id="metricPostStt" class="metric-val">0 ms</div>
+        <div class="section-label">Pipeline Execution Latency (ms)</div>
+        <div class="metrics-row">
+          <div class="metric-pill-card">
+            <div class="metric-title">POST-STT RAG</div>
+            <div id="metricPostStt" class="metric-number">0 ms</div>
           </div>
-          <div class="metric-card">
-            <div class="box-title">Dense Search</div>
-            <div id="metricDense" class="metric-val highlight">0 ms</div>
+          <div class="metric-pill-card">
+            <div class="metric-title">DENSE SEARCH</div>
+            <div id="metricDense" class="metric-number accent">0 ms</div>
           </div>
-          <div class="metric-card">
-            <div class="box-title">Total Latency</div>
-            <div id="metricTotal" class="metric-val" style="color: #f43f5e;">0 ms</div>
+          <div class="metric-pill-card">
+            <div class="metric-title">TOTAL TIME</div>
+            <div id="metricTotal" class="metric-number" style="color: var(--bg-green);">0 ms</div>
           </div>
         </div>
 
         <table class="timing-table">
           <thead>
             <tr>
-              <th>Pipeline Stage</th>
-              <th>Execution Time</th>
+              <th>Pipeline Sub-Stage</th>
+              <th>Latency (ms)</th>
             </tr>
           </thead>
           <tbody id="timingTableBody">
-            <tr><td colspan="2" style="color: var(--text-muted);">No execution timings available</td></tr>
+            <tr><td colspan="2" style="color: rgba(11, 104, 57, 0.6);">No execution timing data available</td></tr>
           </tbody>
         </table>
       </div>
@@ -405,7 +519,7 @@
   </main>
 
   <footer>
-    Voice RAG Pipeline | HH Goa 2026 Shortlisting Task 2 | Optimized for Sub-200ms Post-STT RAG Latency
+    Hacker House Goa 2026 | Voice-Enabled RAG System (Task #2) | Built for sub-200ms post-STT latency | #RAGInGoa
   </footer>
 
   <script>
@@ -431,7 +545,7 @@
 
     function setStatus(text, cls) {
       statusBadge.textContent = text;
-      statusBadge.className = "status-badge " + cls;
+      statusBadge.className = "status-capsule " + cls;
     }
 
     recordBtn.onclick = async () => {
@@ -462,7 +576,7 @@
         mediaRecorder.stop();
         isRecording = false;
         recordBtn.classList.remove("recording");
-        recordIcon.textContent = "🔴";
+        recordIcon.textContent = "🎙️";
         recordText.textContent = "Start Voice Recording";
         setStatus("Processing STT & RAG...", "status-processing");
       }
@@ -514,8 +628,8 @@
       // Render Citations
       if (data.citations && data.citations.length > 0) {
         citationsBox.innerHTML = data.citations.map(c => `
-          <div class="citation-card">
-            <div class="citation-header">
+          <div class="citation-tile">
+            <div class="citation-meta">
               <span>Chunk ID: ${c.chunk_id.substring(0, 8)}... | Strategy: ${c.strategy || 'standard'}</span>
               <span>Score: ${c.score.toFixed(4)}</span>
             </div>
@@ -523,7 +637,7 @@
           </div>
         `).join("");
       } else {
-        citationsBox.innerHTML = '<div style="color: var(--text-muted); font-size: 0.85rem;">No citations available.</div>';
+        citationsBox.innerHTML = '<div style="color: rgba(11, 104, 57, 0.6); font-size: 0.85rem; font-family: var(--font-mono);">No citations available.</div>';
       }
 
       // Render Metrics
