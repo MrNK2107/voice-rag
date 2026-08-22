@@ -8,12 +8,12 @@ class Settings(BaseSettings):
     sarvam_stt_model: str = "saarika:v2.5"
 
     qdrant_url: str = "http://localhost:6333"
-    qdrant_path: str = "storage/qdrant_db"
+    qdrant_path: str = os.environ.get("QDRANT_PATH", "storage/qdrant_db")
     qdrant_api_key: str | None = None
     qdrant_collection: str = "msmarco_xi_chunks"
 
     embed_model: str = "intfloat/multilingual-e5-small"
-    sqlite_fts_path: str = "storage/chunks.sqlite"
+    sqlite_fts_path: str = os.environ.get("SQLITE_FTS_PATH", "storage/chunks.sqlite")
 
     generation_mode: str = "extractive"
 

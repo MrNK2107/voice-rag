@@ -1,4 +1,5 @@
 fastapi
+gradio
 uvicorn[standard]
 python-multipart
 requests

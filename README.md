@@ -1,3 +1,13 @@
+---
+title: Voice RAG
+emoji: 🎙️
+colorFrom: green
+colorTo: yellow
+sdk: gradio
+app_port: 7860
+pinned: false
+---
+
 # Voice-Enabled RAG System (HH Goa 2026 Task 2)
 
 An end-to-end, ultra-low-latency voice-enabled Retrieval-Augmented Generation (RAG) system built for the `ai4bharat/MSMARCO-XI` dataset.
