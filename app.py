@@ -1,4 +1,5 @@
 import os
+import subprocess
 import sys
 from pathlib import Path
 
@@ -9,6 +10,7 @@ from fastapi.responses import FileResponse
 from gradio import Server
 import spaces
 
+from app.config import settings
 from app.harness import VoiceRAGHarness
 from app.schemas import RagResponse, TextRequest
 
@@ -24,14 +26,24 @@ def _gpu_placeholder():
 @app.on_event("startup")
 def startup_event():
     global harness
-    from app.config import settings
+
     if not os.path.exists(settings.sqlite_fts_path):
-        print("Index not found. Building from HF dataset (~5-10 min)...")
-        os.system("python scripts/build_index.py --languages hin --max-rows 500")
-        print("Index build complete.")
-    print("Initializing VoiceRAGHarness and preloading embedding model...")
+        print(f"[STARTUP] Index not found at {settings.sqlite_fts_path}. Building...")
+        result = subprocess.run(
+            [sys.executable, "scripts/build_index.py", "--languages", "hin", "--max-rows", "500"],
+            capture_output=True, text=True, timeout=900,
+        )
+        print(f"[STARTUP] build_index.py stdout:\n{result.stdout[-2000:]}")
+        if result.returncode != 0:
+            print(f"[STARTUP] build_index.py FAILED (rc={result.returncode}):\n{result.stderr[-2000:]}")
+        else:
+            print("[STARTUP] Index build complete.")
+    else:
+        print(f"[STARTUP] Index found at {settings.sqlite_fts_path}, skipping build.")
+
+    print("[STARTUP] Initializing VoiceRAGHarness...")
     harness = VoiceRAGHarness()
-    print("VoiceRAGHarness initialized successfully.")
+    print("[STARTUP] VoiceRAGHarness initialized successfully.")
 
 
 @app.get("/health")
