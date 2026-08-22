@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 
@@ -23,6 +24,11 @@ def _gpu_placeholder():
 @app.on_event("startup")
 def startup_event():
     global harness
+    from app.config import settings
+    if not os.path.exists(settings.sqlite_fts_path):
+        print("Index not found. Building from HF dataset (~5-10 min)...")
+        os.system("python scripts/build_index.py --languages hin --max-rows 500")
+        print("Index build complete.")
     print("Initializing VoiceRAGHarness and preloading embedding model...")
     harness = VoiceRAGHarness()
     print("VoiceRAGHarness initialized successfully.")

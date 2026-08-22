@@ -27,4 +27,4 @@ USER user
 ENV HOME=/home/user \
     PATH=/home/user/.local/bin:$PATH
 
-CMD ["sh", "-c", "python scripts/build_index.py --languages hin --max-rows 500 && python app.py"]
+CMD ["python", "app.py"]
