@@ -1,7 +1,6 @@
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
 os.environ["FORCE_CUDA"] = "0"
-os.environ["CUDA_MODULE_LOADING"] = "LAZY"
 
 import subprocess
 import sqlite3
@@ -13,11 +12,6 @@ from datetime import datetime
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-import torch
-torch._C._cuda_init = lambda: None
-torch.cuda.is_available = lambda: False
-torch.cuda.device_count = lambda: 0
-
 from fastapi import File, UploadFile, HTTPException
 from fastapi.responses import FileResponse
 from gradio import Server
@@ -28,7 +22,7 @@ from app.harness import VoiceRAGHarness
 from app.schemas import RagResponse, TextRequest
 
 app = Server()
-harness: VoiceRAGHarness | None = None
+harness = None
 _log_entries = []
 
 
@@ -45,12 +39,9 @@ def _gpu_placeholder():
 
 
 def _init_app():
-    _log(f"Python: {sys.executable}")
-    _log(f"CWD: {os.getcwd()}")
     _log(f"QDRANT_PATH={settings.qdrant_path}")
     _log(f"SQLITE_FTS_PATH={settings.sqlite_fts_path}")
     _log(f"HF_TOKEN={'set' if os.environ.get('HF_TOKEN') else 'NOT SET'}")
-    _log(f"SARVAM_API_KEY={'set' if os.environ.get('SARVAM_API_KEY') else 'NOT SET'}")
 
     Path(settings.sqlite_fts_path).parent.mkdir(parents=True, exist_ok=True)
     Path(settings.qdrant_path).mkdir(parents=True, exist_ok=True)
@@ -67,15 +58,14 @@ def _init_app():
             _log(f"SQLite check: {e}")
 
     if not has_data:
-        _log("No index. Building in background thread...")
+        _log("No index. Building in background...")
         threading.Thread(target=_build_and_init, daemon=True).start()
     else:
-        _log("Index exists. Initializing harness directly...")
+        _log("Index exists. Initializing harness...")
         _init_harness()
 
 
 def _build_and_init():
-    global harness
     try:
         _log("Running build_index.py...")
         result = subprocess.run(
@@ -84,16 +74,13 @@ def _build_and_init():
         )
         _log(f"build_index exit code: {result.returncode}")
         if result.stdout:
-            for line in result.stdout.strip().split("\n")[-30:]:
+            for line in result.stdout.strip().split("\n")[-15:]:
                 _log(f"  {line}")
-        if result.stderr:
+        if result.returncode != 0 and result.stderr:
             for line in result.stderr.strip().split("\n")[-10:]:
                 _log(f"ERR: {line}")
-    except subprocess.TimeoutExpired:
-        _log("build_index TIMED OUT")
     except Exception as e:
         _log(f"build_index EXCEPTION: {e}")
-        traceback.print_exc()
 
     _init_harness()
 

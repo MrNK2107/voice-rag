@@ -33,7 +33,7 @@ def escape_fts_query(q: str) -> str:
 
 class HybridRetriever:
     def __init__(self):
-        self.model = SentenceTransformer(settings.embed_model)
+        self.model = SentenceTransformer(settings.embed_model, device="cpu")
 
         try:
             self.qdrant = QdrantClient(
