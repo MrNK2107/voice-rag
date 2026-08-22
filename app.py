@@ -13,20 +13,19 @@ from datetime import datetime
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import torch
+torch._C._cuda_init = lambda: None
+torch.cuda.is_available = lambda: False
+torch.cuda.device_count = lambda: 0
+
 from fastapi import File, UploadFile, HTTPException
 from fastapi.responses import FileResponse
 from gradio import Server
 import spaces
 
-import torch
-_original_cuda_init = torch._C._cuda_init
-torch._C._cuda_init = lambda: None
-
 from app.config import settings
 from app.harness import VoiceRAGHarness
 from app.schemas import RagResponse, TextRequest
-
-torch._C._cuda_init = _original_cuda_init
 
 app = Server()
 harness: VoiceRAGHarness | None = None
@@ -103,9 +102,7 @@ def _init_harness():
     global harness
     _log("Creating VoiceRAGHarness...")
     try:
-        torch._C._cuda_init = lambda: None
         harness = VoiceRAGHarness()
-        torch._C._cuda_init = _original_cuda_init
         _log("Harness READY!")
     except Exception as e:
         _log(f"Harness FAILED: {e}")
