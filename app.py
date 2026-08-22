@@ -103,7 +103,9 @@ def _init_harness():
     global harness
     _log("Creating VoiceRAGHarness...")
     try:
+        torch._C._cuda_init = lambda: None
         harness = VoiceRAGHarness()
+        torch._C._cuda_init = _original_cuda_init
         _log("Harness READY!")
     except Exception as e:
         _log(f"Harness FAILED: {e}")
