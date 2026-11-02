@@ -1,0 +1,16 @@
+# Lightweight test dependencies: the test suite mocks the embedding model,
+# Sarvam STT and Qdrant server, so torch / sentence-transformers / gradio /
+# datasets are NOT needed to run `pytest`.
+fastapi
+httpx
+uvicorn
+python-multipart
+requests
+qdrant-client
+numpy
+pydantic
+pydantic-settings
+tenacity
+regex
+pytest
+pypdf

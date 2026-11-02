@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vouch · Console</title>
+  <meta name="description" content="Manage collections, read the gap report and get the embed snippet.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="/static/admin.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23c8432b'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11' stroke='%23fff6f1' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+</head>
+<body>
+  <header class="adm-top">
+    <div class="wrap adm-bar">
+      <a class="brand" href="/" aria-label="Vouch home">
+        <svg class="seal-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="var(--seal)"/><circle cx="16" cy="16" r="11.5" fill="none" stroke="var(--seal-ink)" stroke-width="1" stroke-dasharray="2 2" opacity=".7"/><path d="M10 16.5l4 4L22.5 12" stroke="var(--seal-ink)" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Vouch <span class="console-tag mono">console</span>
+      </a>
+      <nav class="tabs" role="tablist">
+        <button role="tab" data-tab="collections" aria-selected="true">Collections</button>
+        <button role="tab" data-tab="insights" aria-selected="false">Insights</button>
+        <button role="tab" data-tab="embed" aria-selected="false">Embed</button>
+      </nav>
+      <div class="adm-actions">
+        <button class="icon-btn" id="theme-btn" aria-label="Toggle dark mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+        <a class="btn primary small" href="/app">Open the desk</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap adm-main">
+    <div class="token-bar card" id="token-bar" hidden>
+      <span>This server requires an admin token for changes and insights.</span>
+      <input type="text" id="token" placeholder="Admin token" autocomplete="off">
+      <button class="btn small primary" id="token-save">Use token</button>
+    </div>
+
+    <!-- Collections -->
+    <section id="tab-collections" class="tab" role="tabpanel">
+      <div class="sec-head">
+        <div><p class="eyebrow">Collections</p><h1 class="display">Your documents</h1></div>
+        <button class="btn seal" id="new-btn">+ New collection</button>
+      </div>
+      <form class="card new-form" id="new-form" hidden>
+        <label>Name <input type="text" id="nf-title" placeholder="Tenant handbook" required maxlength="60"></label>
+        <label>Description <input type="text" id="nf-desc" placeholder="Who asks, and about what" maxlength="200"></label>
+        <button class="btn primary" type="submit">Create</button>
+      </form>
+      <div class="col-grid" id="col-grid"></div>
+
+      <div class="detail card" id="detail" hidden>
+        <div class="detail-head">
+          <div><p class="eyebrow" id="d-name"></p><h2 class="display" id="d-title"></h2><p class="muted" id="d-desc"></p></div>
+          <div class="detail-actions">
+            <a class="btn small ghost" id="d-open" href="/app">Ask it</a>
+            <button class="btn small ghost danger" id="d-delete">Delete</button>
+          </div>
+        </div>
+        <div class="ingest" id="ingest">
+          <label class="drop big" id="d-drop">
+            <input type="file" id="d-files" multiple accept=".pdf,.txt,.md,.markdown,.html,.htm">
+            <strong>Drop files to add them</strong><span class="muted">PDF (cited by page), TXT, Markdown, HTML · up to 20 MB each</span>
+          </label>
+          <form class="inline-form" id="d-url-form"><input type="url" id="d-url" placeholder="https://example.org/faq" required><button class="btn small primary">Add URL</button></form>
+          <details><summary class="muted">Paste text instead</summary>
+            <form class="paste-form" id="d-text-form"><input type="text" id="d-text-title" placeholder="Title" maxlength="120"><textarea id="d-text" rows="5" placeholder="Paste a policy, FAQ or notes…" required></textarea><button class="btn small primary">Add text</button></form>
+          </details>
+        </div>
+        <table class="docs">
+          <thead><tr><th>Document</th><th>Language</th><th>Chunks</th><th>Source</th></tr></thead>
+          <tbody id="d-docs"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Insights -->
+    <section id="tab-insights" class="tab" role="tabpanel" hidden>
+      <div class="sec-head">
+        <div><p class="eyebrow">Insights · last <span id="i-days">30</span> days</p><h1 class="display">What people ask</h1></div>
+        <select id="i-col" aria-label="Collection"><option value="">All collections</option></select>
+      </div>
+      <div class="kpis" id="kpis"></div>
+      <div class="ins-grid">
+        <div class="card panel"><h3>Questions per day</h3><div id="chart" class="chart"></div></div>
+        <div class="card panel"><h3>Languages</h3><div id="langs"></div></div>
+        <div class="card panel gaps-panel"><h3>Gap report <span class="muted">· questions your documents couldn't answer</span></h3><ol id="gaps" class="qlist"></ol>
+          <p class="muted small-note">Each gap is a document to write. Add it to the collection and the next asker gets a quote.</p></div>
+        <div class="card panel"><h3>Top questions</h3><ol id="top" class="qlist"></ol></div>
+      </div>
+    </section>
+
+    <!-- Embed -->
+    <section id="tab-embed" class="tab" role="tabpanel" hidden>
+      <div class="sec-head"><div><p class="eyebrow">Embed</p><h1 class="display">Put the desk on your site</h1></div></div>
+      <div class="embed-grid">
+        <div class="card panel">
+          <label>Collection <select id="e-col"></select></label>
+          <label>Button label <input type="text" id="e-label" value="Ask a question" maxlength="40"></label>
+          <label>Colour <input type="text" id="e-color" value="#c8432b" maxlength="9"></label>
+          <label>Position <select id="e-pos"><option value="right">Bottom right</option><option value="left">Bottom left</option></select></label>
+          <pre class="snippet" id="e-snippet"></pre>
+          <div class="row-btns"><button class="btn primary small" id="e-copy">Copy snippet</button><a class="btn ghost small" id="e-share" target="_blank" rel="noopener">Open share link</a></div>
+        </div>
+        <div class="card panel preview">
+          <h3>Preview</h3>
+          <iframe id="e-frame" title="Widget preview" allow="microphone"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="/static/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "_note": "Held-out answerability set, written on 2026-11-02 AFTER the query-coverage rule was frozen at commit ba46ffd and committed before it was ever run. Never used to tune anything. Same author as the rule (not independent). Same labels as demo_answerability.json.",
+  "answerable": [
+    {"q": "How long should a baby get only breast milk?", "doc": "bf_en"},
+    {"q": "What is colostrum?", "doc": "bf_en"},
+    {"q": "Which mosquito spreads dengue?", "doc": "dengue_en"},
+    {"q": "What are the signs of heat stroke?", "doc": "heat_en"},
+    {"q": "Where can I get a free sputum test?", "doc": "tb_en"},
+    {"q": "What foods are rich in iron?", "doc": "anaemia_en"},
+    {"q": "Why should I avoid aspirin in dengue?", "doc": "dengue_en"},
+    {"q": "When should we wash hands?", "doc": "hands_en"},
+    {"q": "What should I remove near a snake bite?", "doc": "snake_en"},
+    {"q": "Which vaccines does a newborn get at birth?", "doc": "uip_en"},
+    {"q": "टीबी के लक्षण क्या हैं?", "doc": "tb_hi"},
+    {"q": "एडीज़ मच्छर कहाँ पनपता है?", "doc": "dengue_hi"},
+    {"q": "गर्भवती महिला को कितनी जाँच करानी चाहिए?", "doc": "anc_hi"},
+    {"q": "स्तनपान कब शुरू करना चाहिए?", "doc": "bf_hi"}
+  ],
+  "unanswerable": [
+    {"q": "Can ORS be given to a diabetic adult?"},
+    {"q": "How long can prepared ORS be kept?"},
+    {"q": "Is papaya leaf juice good for dengue?"},
+    {"q": "Does the TB test hurt?"},
+    {"q": "Is TB contagious after two weeks of treatment?"},
+    {"q": "Can I eat mangoes during pregnancy?"},
+    {"q": "How do I store expressed breast milk?"},
+    {"q": "Which vaccine is given at nine months?"},
+    {"q": "Can heat stroke happen indoors at night?"},
+    {"q": "Is a rat snake poisonous?"},
+    {"q": "How much iron does a teenage girl need per day?"},
+    {"q": "Is hand washing with ash safe?"},
+    {"q": "क्या डेंगू में पपीते के पत्ते का रस फ़ायदेमंद है?"},
+    {"q": "बनाया हुआ ओआरएस कितनी देर तक रख सकते हैं?"},
+    {"q": "क्या गर्भावस्था में आम खा सकते हैं?"},
+    {"q": "नौ महीने पर कौन सा टीका लगता है?"}
+  ]
+}

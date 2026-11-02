@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vouch · Ask</title>
+  <meta name="description" content="Ask your documents out loud, in any language. Cited answers, or an honest 'not in your documents'.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="/static/app.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23c8432b'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11' stroke='%23fff6f1' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+</head>
+<body class="app-page">
+  <div class="shell">
+    <aside class="sidebar" id="sidebar" aria-label="Collections">
+      <div class="side-top">
+        <a class="brand" href="/" aria-label="Vouch home">
+          <svg class="seal-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="var(--seal)"/><circle cx="16" cy="16" r="11.5" fill="none" stroke="var(--seal-ink)" stroke-width="1" stroke-dasharray="2 2" opacity=".7"/><path d="M10 16.5l4 4L22.5 12" stroke="var(--seal-ink)" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Vouch
+        </a>
+        <button class="icon-btn only-mobile" id="close-side" aria-label="Close collections">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <p class="eyebrow side-label">Collections</p>
+      <nav id="collections" class="collections"></nav>
+      <details class="new-col" id="new-col">
+        <summary class="btn ghost small">+ New collection</summary>
+        <form id="new-col-form">
+          <input type="text" id="new-col-title" placeholder="Name, e.g. Tenant handbook" required maxlength="60">
+          <label class="drop" id="drop">
+            <input type="file" id="new-col-files" multiple accept=".pdf,.txt,.md,.markdown,.html,.htm">
+            <span>Drop PDF, TXT, MD or HTML<br><small class="muted">or click to choose</small></span>
+          </label>
+          <input type="url" id="new-col-url" placeholder="…or a web page URL">
+          <button class="btn primary small" type="submit">Create &amp; ingest</button>
+        </form>
+      </details>
+      <div class="side-foot">
+        <a href="/admin" class="side-link">Console &amp; insights →</a>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="icon-btn only-mobile" id="open-side" aria-label="Open collections">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+        </button>
+        <div class="col-head">
+          <h1 class="display" id="col-title">Loading…</h1>
+          <p class="muted" id="col-meta"></p>
+        </div>
+        <div class="top-actions">
+          <span class="lang-indicator" id="lang-indicator" title="Language of your last question">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>
+            <span id="lang-name">Any language</span>
+          </span>
+          <button class="icon-btn" id="settings-btn" aria-label="Voice settings" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+          </button>
+          <button class="icon-btn" id="theme-btn" aria-label="Toggle dark mode">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+          </button>
+        </div>
+        <div class="settings card" id="settings" hidden>
+          <label>Speak in
+            <select id="lang-select"><option value="auto">Detect automatically</option></select>
+          </label>
+          <label>Speech recognition
+            <select id="stt-select"></select>
+          </label>
+          <label class="toggle"><input type="checkbox" id="tts-toggle"> Read answers aloud</label>
+          <p class="muted small-print">Browser recognition needs no key and stays in your browser. Server recognition uses Sarvam for Indian languages and Whisper for everything else, when configured.</p>
+        </div>
+      </header>
+
+      <section class="thread" id="thread" aria-live="polite">
+        <div class="welcome" id="welcome">
+          <p class="eyebrow">Ask out loud · any language</p>
+          <h2 class="display">What do you want to know?</h2>
+          <p class="muted">Every answer is a quote from this collection, with its source. If the documents don't say, Vouch tells you so.</p>
+          <div class="suggestions" id="suggestions"></div>
+        </div>
+      </section>
+
+      <form class="composer" id="composer">
+        <div class="rec-status" id="rec-status" hidden><span class="dot"></span><span id="rec-text">Listening…</span><span class="mono" id="rec-timer">0:00</span></div>
+        <div class="composer-row">
+          <textarea id="query" rows="1" dir="auto" placeholder="Ask in any language…" aria-label="Your question" maxlength="1000"></textarea>
+          <button class="send" type="submit" aria-label="Send">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <button class="mic" type="button" id="mic" aria-label="Ask by voice" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+          </button>
+        </div>
+      </form>
+    </main>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

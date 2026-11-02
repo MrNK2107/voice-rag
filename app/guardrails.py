@@ -3,6 +3,9 @@ import regex
 from typing import List, Optional, Tuple
 
 from app.config import settings
+from app.injection_clf import classify_injection
+from app.langid import detect_language
+from app.safety import detect_injection, normalize_text
 from app.schemas import RetrievedContext
 
 _WORD_PATTERN = regex.compile(r"[\p{L}\p{M}\p{N}]+", flags=regex.UNICODE)
@@ -20,6 +23,10 @@ UNSAFE_PATTERNS = [
     r"\bhack system\b",
 ]
 
+# Kept for reference / backwards compatibility. The live check is
+# app.safety.detect_injection, which normalises text first (case, NFKC,
+# zero-width, look-alike letters, leetspeak) and has a much broader English,
+# Hindi and Hinglish pattern set. These 7 phrases are all still caught by it.
 PROMPT_INJECTION_PATTERNS = [
     r"ignore previous instructions",
     r"ignore all instructions",
@@ -31,29 +38,53 @@ PROMPT_INJECTION_PATTERNS = [
 ]
 
 
+# Languages the learned injection classifier was trained on.
+_CLASSIFIER_LANGS = {"en", "hi", "hi-Latn", "ta", "und"}
+
+
+def classifier_applies(text: str) -> bool:
+    """False for text confidently in a Latin-script language the classifier
+    never saw (Spanish, French, German...). Other scripts keep the classifier:
+    unseen character n-grams only lower its score, so it can't add false
+    positives there."""
+    lang = detect_language(text, use_fallback=False)
+    if lang.script != "Latin":
+        return True
+    return lang.code in _CLASSIFIER_LANGS or lang.confidence < 0.4
+
+
 def input_guard(query: str) -> Tuple[bool, Optional[str]]:
     q = query.strip().lower()
 
-    if not q:
+    if not normalize_text(q):
         return False, "Empty transcript received."
 
     if len(q) > 1000:
         return False, "Query is too long (exceeds 1000 characters)."
 
+    q_norm = normalize_text(q)
     for pat in UNSAFE_PATTERNS:
-        if re.search(pat, q):
+        if re.search(pat, q) or re.search(pat, q_norm):
             return False, "Unsafe query blocked by safety policy."
 
-    for pat in PROMPT_INJECTION_PATTERNS:
-        if re.search(pat, q):
-            return False, "Prompt-injection attempt detected and blocked."
+    if detect_injection(query):
+        return False, "Prompt-injection attempt detected and blocked."
+
+    # Second stage: small learned classifier, only adds blocks (pattern OR clf).
+    # It was trained on English, Hindi, Hinglish, Tamil and Tanglish only; on
+    # other Latin-script languages its scores drift towards the threshold
+    # (a benign French question scored 0.55 vs 0.59), so those rely on the
+    # pattern stage, which has per-language rules (app/safety.py WORLD_PATTERNS).
+    if (settings.injection_classifier_enabled and classifier_applies(query)
+            and classify_injection(query)):
+        return False, "Prompt-injection attempt detected and blocked."
 
     return True, None
 
 
 def retrieval_guard(contexts: List[RetrievedContext], confidence: Optional[dict] = None) -> Tuple[bool, Optional[str]]:
     if not contexts:
-        return False, "No relevant context found in MSMARCO-XI dataset."
+        return False, f"No relevant context found in the {settings.corpus_name}."
 
     # NOTE: absolute e5 cosine similarity does NOT generalize as a relevance
     # threshold across corpus sizes - empirically, the "noise floor" score for

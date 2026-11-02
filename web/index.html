@@ -2,658 +2,202 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Voice RAG | Hacker House Goa 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vouch · Answers your documents can vouch for</title>
+  <meta name="description" content="Vouch is a voice-first answer desk over your own documents. Ask out loud in any language; get a cited quote, or an honest 'not in your documents'.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Imbue:opsz,wght@10..100,700;800;900&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Victor+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-green: #0b6839;
-      --brand-accent: #fee101; /* Electric Yellow */
-      --brand-pink: #ff0080;   /* Hot Magenta Pink */
-      --brand-offwhite: #fffbe8; /* Card Cream */
-      --brand-dark: #073b20;
-      --card-shadow: 6px 8px 0px rgba(0, 0, 0, 0.35);
-      --card-shadow-sm: 4px 5px 0px rgba(0, 0, 0, 0.3);
-      --font-heading: 'Outfit', 'Imbue', sans-serif;
-      --font-mono: 'Victor Mono', monospace;
-      --font-body: 'Inter', sans-serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: var(--font-body);
-      background-color: var(--bg-green);
-      background-image: 
-        radial-gradient(circle at 10% 15%, rgba(254, 225, 1, 0.08) 0%, transparent 35%),
-        radial-gradient(circle at 90% 85%, rgba(255, 0, 128, 0.08) 0%, transparent 35%);
-      color: #ffffff;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Header */
-    header {
-      padding: 1.75rem 2rem 1rem;
-      max-width: 1280px;
-      margin: 0 auto;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand-logo-group {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .studio-badge {
-      background: var(--brand-accent);
-      color: var(--brand-dark);
-      padding: 5px 12px;
-      border-radius: 6px;
-      font-family: var(--font-mono);
-      font-weight: 700;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
-    }
-
-    .tag-pill {
-      background: var(--brand-pink);
-      color: #ffffff;
-      padding: 5px 14px;
-      border-radius: 20px;
-      font-family: var(--font-mono);
-      font-weight: 700;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
-    }
-
-    .hero-title-container {
-      margin-top: 0.5rem;
-    }
-
-    .hero-title {
-      font-family: var(--font-heading);
-      font-size: 2.2rem;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      color: var(--brand-accent);
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .goa-stamp {
-      background: var(--brand-pink);
-      color: #ffffff;
-      padding: 2px 12px;
-      border-radius: 6px;
-      font-family: var(--font-body);
-      font-size: 1.1rem;
-      font-weight: 800;
-      transform: rotate(-6deg);
-      display: inline-block;
-      box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
-    }
-
-    .hero-subtitle {
-      font-family: var(--font-mono);
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 0.85rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-top: 2px;
-    }
-
-    /* Main Grid */
-    main {
-      max-width: 1280px;
-      margin: 1.5rem auto 3rem;
-      width: 100%;
-      padding: 0 2rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      flex-grow: 1;
-    }
-
-    @media (max-width: 950px) {
-      main { grid-template-columns: 1fr; }
-    }
-
-    /* Neo-Brutalist Cards */
-    .hh-card {
-      background: var(--brand-offwhite);
-      color: var(--brand-dark);
-      border-radius: 12px;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.4rem;
-      box-shadow: var(--card-shadow);
-      position: relative;
-      border: 1px solid rgba(0,0,0,0.1);
-    }
-
-    .pin-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      position: absolute;
-      top: -7px;
-      left: 50%;
-      transform: translateX(-50%);
-      box-shadow: 0px 2px 4px rgba(0,0,0,0.25);
-    }
-
-    .pin-pink { background: var(--brand-pink); }
-    .pin-yellow { background: var(--brand-accent); }
-
-    .card-header-title {
-      font-family: var(--font-heading);
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--brand-dark);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-bottom: 0.75rem;
-      border-bottom: 2px solid rgba(11, 104, 57, 0.15);
-      text-transform: uppercase;
-    }
-
-    /* Controls */
-    .controls-group {
-      display: flex;
-      flex-direction: column;
-      gap: 1.1rem;
-    }
-
-    .btn-voice {
-      background: linear-gradient(135deg, var(--brand-pink), #d9006c);
-      color: #ffffff;
-      border: none;
-      padding: 1.1rem 1.6rem;
-      border-radius: 10px;
-      font-family: var(--font-heading);
-      font-size: 1.15rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      transition: all 0.15s ease;
-      box-shadow: var(--card-shadow-sm);
-      text-transform: uppercase;
-    }
-
-    .btn-voice:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 5px 7px 0px rgba(0, 0, 0, 0.35);
-    }
-
-    .btn-voice.recording {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.5); }
-      70% { box-shadow: 0 0 0 16px rgba(245, 158, 11, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
-    }
-
-    .text-input-row {
-      display: flex;
-      gap: 12px;
-    }
-
-    input[type="text"] {
-      flex-grow: 1;
-      background: #ffffff;
-      border: 2px solid rgba(11, 104, 57, 0.3);
-      border-radius: 8px;
-      padding: 0.85rem 1.1rem;
-      color: var(--brand-dark);
-      font-family: var(--font-mono);
-      font-size: 0.92rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    input[type="text"]:focus {
-      border-color: var(--brand-pink);
-    }
-
-    .btn-ask {
-      background: var(--brand-accent);
-      color: var(--brand-dark);
-      border: 2px solid var(--brand-dark);
-      padding: 0.85rem 1.4rem;
-      border-radius: 8px;
-      font-family: var(--font-heading);
-      font-size: 1rem;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 3px 4px 0px var(--brand-dark);
-      transition: all 0.15s;
-      text-transform: uppercase;
-    }
-
-    .btn-ask:hover:not(:disabled) {
-      transform: translateY(-1px);
-      box-shadow: 4px 5px 0px var(--brand-dark);
-    }
-
-    .btn-ask:disabled, .btn-voice:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    /* Badges & Content */
-    .section-label {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: rgba(11, 104, 57, 0.75);
-      margin-bottom: 6px;
-    }
-
-    .status-capsule {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-      font-weight: 700;
-      width: fit-content;
-      box-shadow: 2px 2px 0px rgba(0,0,0,0.15);
-    }
-
-    .status-ready { background: #e2e8f0; color: #475569; }
-    .status-recording { background: #ffe4e6; color: var(--brand-pink); border: 1px solid var(--brand-pink); }
-    .status-processing { background: #fef9c3; color: #854d0e; border: 1px solid #ca8a04; }
-    .status-success { background: #dcfce7; color: #15803d; border: 1px solid #16a34a; }
-    .status-abstained { background: #ffedd5; color: #c2410c; border: 1px solid #ea580c; }
-
-    .content-card-box {
-      background: #ffffff;
-      border: 1px solid rgba(11, 104, 57, 0.2);
-      border-radius: 8px;
-      padding: 1.1rem;
-      min-height: 85px;
-      font-size: 0.95rem;
-      line-height: 1.55;
-      color: #1e293b;
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
-    }
-
-    .citations-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-height: 230px;
-      overflow-y: auto;
-    }
-
-    .citation-tile {
-      background: #ffffff;
-      border: 1px solid rgba(11, 104, 57, 0.2);
-      border-left: 4px solid var(--brand-pink);
-      border-radius: 6px;
-      padding: 0.85rem;
-      font-size: 0.86rem;
-      line-height: 1.45;
-    }
-
-    .citation-meta {
-      display: flex;
-      justify-content: space-between;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--brand-dark);
-      font-weight: 700;
-      margin-bottom: 6px;
-      padding-bottom: 4px;
-      border-bottom: 1px dashed rgba(11, 104, 57, 0.2);
-    }
-
-    /* Latency Cards */
-    .metrics-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .metric-pill-card {
-      background: #ffffff;
-      border: 2px solid var(--brand-dark);
-      border-radius: 8px;
-      padding: 0.85rem 0.6rem;
-      text-align: center;
-      box-shadow: 3px 3px 0px var(--brand-dark);
-    }
-
-    .metric-title {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: rgba(11, 104, 57, 0.8);
-    }
-
-    .metric-number {
-      font-family: var(--font-heading);
-      font-size: 1.45rem;
-      font-weight: 900;
-      color: var(--brand-pink);
-      margin-top: 4px;
-    }
-
-    .metric-number.accent {
-      color: #0284c7;
-    }
-
-    .timing-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.85rem;
-      font-family: var(--font-mono);
-      margin-top: 0.6rem;
-      background: #ffffff;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid rgba(11, 104, 57, 0.2);
-    }
-
-    .timing-table th, .timing-table td {
-      padding: 8px 12px;
-      text-align: left;
-      border-bottom: 1px solid rgba(11, 104, 57, 0.1);
-    }
-
-    .timing-table th {
-      background: rgba(11, 104, 57, 0.08);
-      color: var(--brand-dark);
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 0.75rem;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      color: rgba(255, 255, 255, 0.85);
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-      background: rgba(0, 0, 0, 0.15);
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="/static/landing.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23c8432b'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11' stroke='%23fff6f1' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 </head>
 <body>
-
-  <header>
-    <div>
-      <div class="brand-logo-group">
-        <div class="studio-badge">2:47 PM STUDIO</div>
-        <div class="tag-pill">#RAGInGoa</div>
-      </div>
-      <div class="hero-title-container">
-        <div class="hero-title">
-          Hacker House <span class="goa-stamp">गोवा</span> Voice RAG
-        </div>
-        <div class="hero-subtitle">
-          GOA, INDIA · 28 - 31 OCT 2026 · SUB-200MS VOICE PIPELINE
-        </div>
-      </div>
+  <header class="nav wrap">
+    <a class="brand" href="/" aria-label="Vouch home">
+      <svg class="seal-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="var(--seal)"/><circle cx="16" cy="16" r="11.5" fill="none" stroke="var(--seal-ink)" stroke-width="1" stroke-dasharray="2 2" opacity=".7"/><path d="M10 16.5l4 4L22.5 12" stroke="var(--seal-ink)" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Vouch
+    </a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#languages">Languages</a>
+      <a href="#who">Who it's for</a>
+      <a href="/admin">Console</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="icon-btn" id="theme-btn" aria-label="Toggle dark mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+      <a class="btn primary small" href="/app">Try it</a>
     </div>
   </header>
 
   <main>
-    <!-- Left Card: Voice & Text Input -->
-    <div class="hh-card">
-      <div class="pin-dot pin-pink"></div>
-
-      <div class="card-header-title">
-        <span>🎙️ Input Interface</span>
-        <span style="font-size: 0.8rem; font-weight: 700; color: var(--brand-pink);">SARVAM STT</span>
-      </div>
-
-      <div class="controls-group">
-        <button id="recordBtn" class="btn-voice">
-          <span id="recordIcon">🎙️</span>
-          <span id="recordText">Start Voice Recording</span>
-        </button>
-
-        <div class="text-input-row">
-          <input type="text" id="textInput" placeholder="Or type a query for instant benchmarking..." />
-          <button id="submitTextBtn" class="btn-ask">Ask Text</button>
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Voice-first · grounded · any language</p>
+        <h1 class="display">Ask out loud.<br>In any language.<br><em>Get answers your documents can vouch for.</em></h1>
+        <p class="lede">Vouch turns your PDFs, handbooks and web pages into an answer desk people can talk to. Every answer is a quote with its source. When the documents don't say, Vouch says so, and doesn't guess.</p>
+        <div class="hero-cta">
+          <a class="btn seal" href="/app">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+            Ask the sample city desk
+          </a>
+          <a class="btn ghost" href="/admin">Bring your own documents</a>
         </div>
+        <p class="fine muted">Self-hosted and open source. Runs offline with no API keys.</p>
       </div>
 
-      <div>
-        <div class="section-label">System Status</div>
-        <div id="statusBadge" class="status-capsule status-ready">System Ready</div>
-      </div>
-
-      <div>
-        <div class="section-label">Speech Transcript</div>
-        <div id="transcriptBox" class="content-card-box">Spoken speech transcript will appear here after recording...</div>
-      </div>
-
-      <div>
-        <div class="section-label">Audio Stream Preview</div>
-        <audio id="audioPreview" controls style="width: 100%; margin-top: 4px; display: none;"></audio>
-      </div>
-    </div>
-
-    <!-- Right Card: Grounded Answer & Latency Analytics -->
-    <div class="hh-card">
-      <div class="pin-dot pin-yellow"></div>
-
-      <div class="card-header-title">
-        <span>⚡ Grounded RAG & Analytics</span>
-        <span style="font-size: 0.8rem; font-weight: 700; color: var(--bg-green);">HYBRID DENSE+LEXICAL</span>
-      </div>
-
-      <div>
-        <div class="section-label">Grounded Answer Output</div>
-        <div id="answerBox" class="content-card-box">Extracted grounded answer will render here...</div>
-      </div>
-
-      <div>
-        <div class="section-label">Evidence Chunks & Citations</div>
-        <div id="citationsBox" class="citations-container">
-          <div style="color: rgba(11, 104, 57, 0.6); font-size: 0.85rem; font-family: var(--font-mono);">No citations loaded yet.</div>
-        </div>
-      </div>
-
-      <div>
-        <div class="section-label">Pipeline Execution Latency (ms)</div>
-        <div class="metrics-row">
-          <div class="metric-pill-card">
-            <div class="metric-title">POST-STT RAG</div>
-            <div id="metricPostStt" class="metric-number">0 ms</div>
+      <div class="hero-visual" aria-label="Example: a question in Arabic answered with a quoted, cited passage">
+        <div class="float-q q1" lang="es">¿A qué hora abre la biblioteca?</div>
+        <div class="float-q q2" lang="zh">老人怎么办理半价公交月票？</div>
+        <div class="float-q q3" lang="hi">संपत्ति कर पर छूट कब मिलती है?</div>
+        <div class="demo-card card" id="demo-card">
+          <div class="demo-q" dir="rtl" lang="ar"><span class="mic-dot"></span><span id="demo-q">كيف أدفع فاتورة المياه؟</span></div>
+          <div class="answer verified demo-a">
+            <svg class="stamp" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="none" stroke="var(--verified)" stroke-width="2.5"/><circle cx="32" cy="32" r="23" fill="none" stroke="var(--verified)" stroke-width="1" stroke-dasharray="2 2.5"/><path d="M21 33l7 7 15-16" fill="none" stroke="var(--verified)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="answer-head"><span class="status ok">Vouched · 1 source</span><span class="lang-pill" id="demo-lang">Arabic</span></div>
+            <p class="answer-text" dir="rtl" lang="ar" id="demo-a">يمكن دفع فاتورة المياه عبر الإنترنت أو في مكتب خدمة العملاء في مبنى البلدية.</p>
+            <div class="cites"><span class="cite-chip"><b>[1]</b><span id="demo-src">فاتورة المياه</span></span></div>
           </div>
-          <div class="metric-pill-card">
-            <div class="metric-title">DENSE SEARCH</div>
-            <div id="metricDense" class="metric-number accent">0 ms</div>
-          </div>
-          <div class="metric-pill-card">
-            <div class="metric-title">TOTAL TIME</div>
-            <div id="metricTotal" class="metric-number" style="color: var(--bg-green);">0 ms</div>
+          <div class="demo-gap answer gap">
+            <div class="answer-head"><span class="status gap">Not in your documents</span></div>
+            <p class="answer-text">“How much is a passport?” isn't covered. Logged as a gap for the document owner.</p>
           </div>
         </div>
-
-        <table class="timing-table">
-          <thead>
-            <tr>
-              <th>Pipeline Sub-Stage</th>
-              <th>Latency (ms)</th>
-            </tr>
-          </thead>
-          <tbody id="timingTableBody">
-            <tr><td colspan="2" style="color: rgba(11, 104, 57, 0.6);">No execution timing data available</td></tr>
-          </tbody>
-        </table>
       </div>
-    </div>
+    </section>
+
+    <section class="proof wrap" aria-label="What makes Vouch different">
+      <div><strong class="display">0</strong><span>words invented. Answers are quoted sentences, checked against the cited passage.</span></div>
+      <div><strong class="display">100+</strong><span>languages detected and heard, with right-to-left layout for Arabic, Urdu, Persian and Hebrew.</span></div>
+      <div><strong class="display">1</strong><span>script tag to put the answer desk on any website.</span></div>
+    </section>
+
+    <section class="how wrap" id="how">
+      <p class="eyebrow">How it works</p>
+      <h2 class="display">Three steps, and a stamp.</h2>
+      <ol class="steps">
+        <li class="card">
+          <span class="step-n mono">01</span>
+          <h3>Drop in your documents</h3>
+          <p>PDFs (page-level citations), text, Markdown, HTML or a URL, into named collections. Vouch detects each document's language and indexes it for meaning and keywords.</p>
+        </li>
+        <li class="card">
+          <span class="step-n mono">02</span>
+          <h3>Ask by voice or text</h3>
+          <p>Tap the mic and speak. The browser can transcribe with no key; Sarvam handles Indian languages and Whisper the rest. Typing works too, in any script.</p>
+        </li>
+        <li class="card">
+          <span class="step-n mono">03</span>
+          <h3>Get the quote, or an honest no</h3>
+          <p>The answer is copied from the best passage and stamped with its source. Tap a citation to see the passage with the quote highlighted. If nothing answers it, you get "not in your documents".</p>
+        </li>
+      </ol>
+      <div class="pipeline card">
+        <span>question</span><i></i><span>injection guard</span><i></i><span>hybrid search<br><small>meaning + keywords</small></span><i></i><span>passage scan</span><i></i><span>extract quote</span><i></i><span>citation check</span><i></i><span class="ok">stamped answer</span>
+      </div>
+    </section>
+
+    <section class="langs" id="languages">
+      <div class="wrap">
+        <p class="eyebrow">Languages</p>
+        <h2 class="display">Speak the way you speak.</h2>
+        <p class="lede">Vouch answers in the language of the passage it quotes and replies to you in yours: interface messages, safety notices and emergency advice are localised.</p>
+      </div>
+      <div class="marquee" aria-hidden="true">
+        <div class="track">
+          <span lang="en">Where do I pay my water bill?</span><span lang="hi">पानी का बिल कहाँ जमा करूँ?</span><span lang="ar" dir="rtl">أين أدفع فاتورة المياه؟</span><span lang="zh">在哪里缴水费？</span><span lang="es">¿Dónde pago el agua?</span><span lang="ta">தண்ணீர் கட்டணம் எங்கே செலுத்துவது?</span><span lang="sw">Nalipa wapi bili ya maji?</span><span lang="ru">Где оплатить воду?</span><span lang="ur" dir="rtl">پانی کا بل کہاں جمع کروں؟</span><span lang="ja">水道代はどこで払えますか？</span><span lang="fr">Où payer l'eau ?</span><span lang="bn">জলের বিল কোথায় দেব?</span><span lang="ko">수도 요금은 어디서 내나요?</span><span lang="pt">Onde pago a água?</span>
+          <span lang="en">Where do I pay my water bill?</span><span lang="hi">पानी का बिल कहाँ जमा करूँ?</span><span lang="ar" dir="rtl">أين أدفع فاتورة المياه؟</span><span lang="zh">在哪里缴水费？</span><span lang="es">¿Dónde pago el agua?</span><span lang="ta">தண்ணீர் கட்டணம் எங்கே செலுத்துவது?</span><span lang="sw">Nalipa wapi bili ya maji?</span><span lang="ru">Где оплатить воду?</span><span lang="ur" dir="rtl">پانی کا بل کہاں جمع کروں؟</span><span lang="ja">水道代はどこで払えますか？</span><span lang="fr">Où payer l'eau ?</span><span lang="bn">জলের বিল কোথায় দেব?</span><span lang="ko">수도 요금은 어디서 내나요?</span><span lang="pt">Onde pago a água?</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="who wrap" id="who">
+      <p class="eyebrow">Who it's for</p>
+      <h2 class="display">For people who don't type in English, and can't afford a confident wrong answer.</h2>
+      <div class="cases">
+        <article class="case card">
+          <h3>Public service desks</h3>
+          <p>Ration cards, water bills, permits. Callers and walk-ins ask in their own language; staff and kiosks answer from the official circulars.</p>
+        </article>
+        <article class="case card">
+          <h3>Field workers</h3>
+          <p>Community health workers and extension officers ask a phone out loud and get the protocol sentence, with the page it came from.</p>
+        </article>
+        <article class="case card">
+          <h3>Institutions</h3>
+          <p>Universities, councils and HR teams turn handbooks and regulations into a desk that knows when to say "ask a person".</p>
+        </article>
+      </div>
+      <div class="compare card">
+        <div class="row head"><span></span><span>Generic chatbot</span><span>Vouch</span></div>
+        <div class="row"><span>Where answers come from</span><span>whatever the model remembers</span><span>a quote from your document</span></div>
+        <div class="row"><span>When it doesn't know</span><span>answers anyway</span><span>"not in your documents", logged as a gap</span></div>
+        <div class="row"><span>Asking in Tamil or Arabic</span><span>often replies in English</span><span>replies in your language, right-to-left where needed</span></div>
+        <div class="row"><span>Voice</span><span>an add-on</span><span>the main way in</span></div>
+        <div class="row"><span>Emergencies</span><span>a paragraph of advice</span><span>a call-for-help banner in your language</span></div>
+      </div>
+    </section>
+
+    <section class="embed wrap" id="embed">
+      <div>
+        <p class="eyebrow">Embed</p>
+        <h2 class="display">One line on any website.</h2>
+        <p class="lede">The widget opens a Vouch desk scoped to one collection. Your visitors never leave your page.</p>
+        <a class="btn primary" href="/admin#embed">Get your snippet</a>
+      </div>
+      <pre class="snippet card"><code>&lt;script src="https://your-vouch-host/widget.js"
+        data-collection="city-desk"
+        data-label="Ask the city"
+        defer&gt;&lt;/script&gt;</code></pre>
+    </section>
+
+    <section class="final wrap">
+      <h2 class="display">Your documents already have the answers.<br>Let people ask for them.</h2>
+      <div class="hero-cta center">
+        <a class="btn seal" href="/app">Try the live demo</a>
+        <a class="btn ghost" href="/demo/health">See the health demo</a>
+      </div>
+    </section>
   </main>
 
-  <footer>
-    Hacker House Goa 2026 | Voice-Enabled RAG System (Task #2) | Built for sub-200ms post-STT latency | #RAGInGoa
+  <footer class="footer wrap">
+    <span class="brand small-brand">
+      <svg class="seal-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="var(--seal)"/><path d="M10 16.5l4 4L22.5 12" stroke="var(--seal-ink)" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Vouch
+    </span>
+    <span class="muted">Grounded, multilingual, voice-first answers from your own documents.</span>
+    <span class="muted"><a href="/app">Ask</a> · <a href="/admin">Console</a> · <a href="/docs">API</a></span>
   </footer>
 
   <script>
-    let mediaRecorder;
-    let audioChunks = [];
-    let isRecording = false;
-
-    const recordBtn = document.getElementById("recordBtn");
-    const recordIcon = document.getElementById("recordIcon");
-    const recordText = document.getElementById("recordText");
-    const textInput = document.getElementById("textInput");
-    const submitTextBtn = document.getElementById("submitTextBtn");
-    const statusBadge = document.getElementById("statusBadge");
-    const transcriptBox = document.getElementById("transcriptBox");
-    const answerBox = document.getElementById("answerBox");
-    const citationsBox = document.getElementById("citationsBox");
-    const audioPreview = document.getElementById("audioPreview");
-
-    const metricPostStt = document.getElementById("metricPostStt");
-    const metricDense = document.getElementById("metricDense");
-    const metricTotal = document.getElementById("metricTotal");
-    const timingTableBody = document.getElementById("timingTableBody");
-
-    function setStatus(text, cls) {
-      statusBadge.textContent = text;
-      statusBadge.className = "status-capsule " + cls;
-    }
-
-    recordBtn.onclick = async () => {
-      if (!isRecording) {
-        audioChunks = [];
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          mediaRecorder = new MediaRecorder(stream);
-          mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
-          
-          mediaRecorder.onstop = async () => {
-            const blob = new Blob(audioChunks, { type: "audio/webm" });
-            audioPreview.src = URL.createObjectURL(blob);
-            audioPreview.style.display = "block";
-            await submitAudio(blob);
-          };
-
-          mediaRecorder.start();
-          isRecording = true;
-          recordBtn.classList.add("recording");
-          recordIcon.textContent = "⏹️";
-          recordText.textContent = "Stop & Process Question";
-          setStatus("Recording Audio...", "status-recording");
-        } catch (err) {
-          alert("Microphone access denied or error: " + err);
-        }
-      } else {
-        mediaRecorder.stop();
-        isRecording = false;
-        recordBtn.classList.remove("recording");
-        recordIcon.textContent = "🎙️";
-        recordText.textContent = "Start Voice Recording";
-        setStatus("Processing STT & RAG...", "status-processing");
-      }
-    };
-
-    submitTextBtn.onclick = async () => {
-      const q = textInput.value.trim();
-      if (!q) return;
-      setStatus("Processing RAG Query...", "status-processing");
-      try {
-        const res = await fetch("/api/ask-text", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ query: q })
-        });
-        const data = await res.json();
-        renderResponse(data);
-      } catch (err) {
-        setStatus("Error processing query", "status-recording");
-      }
-    };
-
-    async function submitAudio(blob) {
-      const formData = new FormData();
-      formData.append("file", blob, "question.webm");
-
-      try {
-        const res = await fetch("/api/ask-audio", {
-          method: "POST",
-          body: formData
-        });
-        const data = await res.json();
-        renderResponse(data);
-      } catch (err) {
-        setStatus("Error uploading audio", "status-recording");
-      }
-    }
-
-    function renderResponse(data) {
-      transcriptBox.textContent = data.transcript || "[Empty Transcript]";
-      answerBox.textContent = data.answer || "[No answer]";
-
-      if (data.abstained) {
-        setStatus("Abstained: " + (data.abstain_reason || "Insufficient Context"), "status-abstained");
-      } else {
-        setStatus("Answer Grounded Successfully", "status-success");
-      }
-
-      // Render Citations
-      if (data.citations && data.citations.length > 0) {
-        citationsBox.innerHTML = data.citations.map(c => `
-          <div class="citation-tile">
-            <div class="citation-meta">
-              <span>Chunk ID: ${c.chunk_id.substring(0, 8)}... | Strategy: ${c.strategy || 'standard'}</span>
-              <span>Score: ${c.score.toFixed(4)}</span>
-            </div>
-            <div>"${c.quote}"</div>
-          </div>
-        `).join("");
-      } else {
-        citationsBox.innerHTML = '<div style="color: rgba(11, 104, 57, 0.6); font-size: 0.85rem; font-family: var(--font-mono);">No citations available.</div>';
-      }
-
-      // Render Metrics
-      const t = data.timings_ms || {};
-      metricPostStt.textContent = (t.post_stt_total_ms || t.total_ms || 0) + " ms";
-      metricDense.textContent = (t.retrieval_ms || 0) + " ms";
-      metricTotal.textContent = (t.total_ms || 0) + " ms";
-
-      // Timing Table
-      timingTableBody.innerHTML = Object.entries(t).map(([stage, ms]) => `
-        <tr>
-          <td>${stage}</td>
-          <td><strong>${ms} ms</strong></td>
-        </tr>
-      `).join("");
-    }
+    (function () {
+      try { var t = localStorage.getItem("vouch.theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+      document.getElementById("theme-btn").addEventListener("click", function () {
+        var d = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = d ? "light" : "dark";
+        try { localStorage.setItem("vouch.theme", document.documentElement.dataset.theme); } catch (e) {}
+      });
+      // Hero: cycle a few real answers from the sample collection.
+      var demos = [
+        { q: "كيف أدفع فاتورة المياه؟", a: "يمكن دفع فاتورة المياه عبر الإنترنت أو في مكتب خدمة العملاء في مبنى البلدية.", l: "Arabic", s: "فاتورة المياه", lang: "ar", rtl: true },
+        { q: "¿A qué hora abre la biblioteca central?", a: "La Biblioteca Central de Lakeview abre de lunes a sábado, de 9 a 20 horas, y los domingos permanece cerrada.", l: "Spanish", s: "Biblioteca Central", lang: "es" },
+        { q: "老人怎么办理半价公交月票？", a: "学生和六十五岁以上的老人可以申请半价公交月票。", l: "Chinese", s: "公交月票", lang: "zh" },
+        { q: "संपत्ति कर पर छूट कब मिलती है?", a: "30 अप्रैल से पहले पूरा संपत्ति कर जमा करने पर 5 प्रतिशत की छूट मिलती है।", l: "Hindi", s: "संपत्ति कर", lang: "hi" }
+      ];
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      var i = 0, card = document.getElementById("demo-card");
+      setInterval(function () {
+        i = (i + 1) % demos.length; var d = demos[i];
+        card.classList.add("swap");
+        setTimeout(function () {
+          var q = document.getElementById("demo-q"), a = document.getElementById("demo-a");
+          q.textContent = d.q; a.textContent = d.a;
+          q.parentNode.dir = a.dir = d.rtl ? "rtl" : "ltr"; q.parentNode.lang = a.lang = d.lang;
+          document.getElementById("demo-lang").textContent = d.l; document.getElementById("demo-src").textContent = d.s;
+          card.classList.remove("swap");
+        }, 300);
+      }, 4200);
+    })();
   </script>
 </body>
 </html>

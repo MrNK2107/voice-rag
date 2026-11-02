@@ -1,0 +1,26 @@
+# Lean image for the offline "Swasthya Saathi" health demo.
+# Build: docker build -f Dockerfile.demo -t voice-rag-demo .
+# Run:   docker run --rm -p 8000:8000 voice-rag-demo   ->  http://localhost:8000
+FROM python:3.12-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    VOICE_RAG_DEMO=1 \
+    PORT=8000
+
+RUN useradd -m -u 1000 user
+WORKDIR /app
+
+COPY requirements-demo.txt .
+RUN pip install --no-cache-dir -r requirements-demo.txt
+
+COPY --chown=user app ./app
+COPY --chown=user web ./web
+COPY --chown=user scripts/demo.py ./scripts/demo.py
+
+USER user
+EXPOSE 8000
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s \
+    CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health').status==200 else 1)"
+
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT}"]

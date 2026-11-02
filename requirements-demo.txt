@@ -1,0 +1,15 @@
+# Runtime deps for the offline demo image (VOICE_RAG_DEMO=1).
+# No torch / sentence-transformers / gradio / datasets: the demo uses a
+# hashing embedder, in-memory Qdrant and SQLite FTS5.
+fastapi
+uvicorn[standard]
+python-multipart
+requests
+qdrant-client
+numpy
+pydantic
+pydantic-settings
+tenacity
+regex
+python-dotenv
+pypdf

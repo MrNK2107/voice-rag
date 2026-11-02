@@ -1,14 +1,14 @@
 import regex
 import sqlite3
 from collections import defaultdict
-from typing import Dict, List
+from typing import Any, Dict, List, Optional
 
 from qdrant_client import QdrantClient
 from qdrant_client.models import SearchParams
-from sentence_transformers import SentenceTransformer
 
 from app.config import settings
 from app.schemas import RetrievedContext
+from app.textutil import is_unspaced_token, tokenize
 
 # stdlib re's Unicode \w excludes combining marks, shredding Indic-script conjuncts
 # (see app/generator.py for the full explanation). Use the same \p{L}\p{M}\p{N}
@@ -27,30 +27,60 @@ _STOPWORDS = {
 
 
 def escape_fts_query(q: str) -> str:
-    terms = [t for t in _WORD_PATTERN.findall(q) if t.lower() not in _STOPWORDS]
+    terms = []
+    for t in tokenize(q):
+        if t.lower() in _STOPWORDS:
+            continue
+        # CJK/Thai bigrams are indexed one character per token (textutil.fts_text),
+        # so a bigram is matched as a two-token phrase.
+        terms.append('"' + " ".join(t) + '"' if is_unspaced_token(t) and len(t) > 1 else t)
     return " OR ".join(terms[:20]) if terms else ""
 
 
 class HybridRetriever:
-    def __init__(self):
-        self.model = SentenceTransformer(settings.embed_model, device="cpu")
+    def __init__(
+        self,
+        model: Optional[Any] = None,
+        qdrant: Optional[QdrantClient] = None,
+        sqlite_path: Optional[str] = None,
+        warmup: bool = True,
+        collection: Optional[str] = None,
+    ):
+        """
+        All three backends can be injected (used by the offline test-suite and the
+        mock benchmark). With no arguments the production behaviour is unchanged:
+        load the e5 SentenceTransformer on CPU, connect to the Qdrant server or fall
+        back to the embedded on-disk Qdrant, and read the FTS5 index from settings.
+        """
+        if model is None:
+            # Imported lazily so the (torch-heavy) dependency is only required
+            # when a real embedding model is actually needed.
+            from sentence_transformers import SentenceTransformer
 
-        try:
-            self.qdrant = QdrantClient(
-                url=settings.qdrant_url,
-                api_key=settings.qdrant_api_key or None,
-                timeout=2.0,
-            )
-            # test connectivity
-            self.qdrant.get_collections()
-        except Exception:
-            # Fallback to local embedded Qdrant database
-            self.qdrant = QdrantClient(path=settings.qdrant_path)
+            model = SentenceTransformer(settings.embed_model, device="cpu")
+        self.model = model
 
-        self.sqlite_path = settings.sqlite_fts_path
+        if qdrant is None:
+            try:
+                qdrant = QdrantClient(
+                    url=settings.qdrant_url,
+                    api_key=settings.qdrant_api_key or None,
+                    timeout=2.0,
+                )
+                # test connectivity
+                qdrant.get_collections()
+            except Exception:
+                # Fallback to local embedded Qdrant database
+                qdrant = QdrantClient(path=settings.qdrant_path)
+        self.qdrant = qdrant
+
+        self.sqlite_path = sqlite_path or settings.sqlite_fts_path
+        # Qdrant collection name; None follows settings (the legacy single index).
+        self._collection = collection
 
         # Preload / warmup embedding model on startup
-        self.model.encode(["query: warmup"], normalize_embeddings=True)
+        if warmup:
+            self.model.encode(["query: warmup"], normalize_embeddings=True)
 
     def _get_sqlite_conn(self):
         return sqlite3.connect(self.sqlite_path, check_same_thread=False)
@@ -58,27 +88,21 @@ class HybridRetriever:
     def dense_search(self, query: str, limit: int = 40) -> List[Dict]:
         qvec = self.model.encode([f"query: {query}"], normalize_embeddings=True)[0]
 
+        # qdrant-client >= 1.13 removed the legacy `search()` method, so
+        # `query_points()` is the only API used. Backend failures degrade to an
+        # empty dense leg (lexical search still runs) instead of raising.
         try:
             res = self.qdrant.query_points(
-                collection_name=settings.qdrant_collection,
+                collection_name=self._collection or settings.qdrant_collection,
                 query=qvec.tolist(),
                 limit=limit,
                 with_payload=True,
                 search_params=SearchParams(hnsw_ef=32),
             )
             result = res.points
-        except Exception:
-            try:
-                result = self.qdrant.search(
-                    collection_name=settings.qdrant_collection,
-                    query_vector=qvec.tolist(),
-                    limit=limit,
-                    with_payload=True,
-                    search_params=SearchParams(hnsw_ef=32),
-                )
-            except Exception as e:
-                print(f"Qdrant search error: {e}")
-                result = []
+        except Exception as e:
+            print(f"Qdrant query_points error: {e}")
+            result = []
 
         hits = []
         for rank, r in enumerate(result, start=1):
@@ -92,6 +116,8 @@ class HybridRetriever:
                 "language": payload.get("language", ""),
                 "parent_doc_id": payload.get("parent_doc_id", ""),
                 "title": payload.get("title", ""),
+                "doc_source": payload.get("source"),
+                "page": payload.get("page"),
                 "source": "dense",
             })
 
@@ -211,6 +237,8 @@ class HybridRetriever:
                     language=item.get("language"),
                     parent_doc_id=item.get("parent_doc_id"),
                     title=item.get("title"),
+                    source=item.get("doc_source"),
+                    page=item.get("page"),
                 )
             )
 
@@ -233,7 +261,9 @@ class HybridRetriever:
 
         top = scores[0]
         tail = scores[10:40] if len(scores) > 10 else scores[1:]
-        tail_mean = (sum(tail) / len(tail)) if tail else top
+        # A collection with a single chunk has no tail to compare against; its
+        # margin is the top score itself (the absolute floor still applies).
+        tail_mean = (sum(tail) / len(tail)) if tail else 0.0
 
         return {"top_dense": top, "margin": top - tail_mean}
 

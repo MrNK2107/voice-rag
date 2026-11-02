@@ -1,0 +1,331 @@
+[
+ {
+  "claim": "To prepare ORS, mix one ORS packet in one litre of clean drinking water and give small, frequent sips after every loose stool.",
+  "doc": "ors_en",
+  "label": true,
+  "kind": "verbatim",
+  "passage": "Diarrhoea causes the body to lose water and salts, which is called dehydration. Oral rehydration solution (ORS) replaces this lost water and salt. To prepare ORS, mix one ORS packet in one litre of clean drinking water and give small, frequent sips after every loose stool. Keep breastfeeding and feeding the child during diarrhoea. Zinc tablets for 10 to 14 days help children with diarrhoea recover faster. Go to a health centre if there is blood in the stool, the child cannot drink, or the child is very sleepy."
+ },
+ {
+  "claim": "Zinc tablets for 10 to 14 days help children with diarrhoea recover faster.",
+  "doc": "ors_en",
+  "label": true,
+  "kind": "verbatim",
+  "passage": "Diarrhoea causes the body to lose water and salts, which is called dehydration. Oral rehydration solution (ORS) replaces this lost water and salt. To prepare ORS, mix one ORS packet in one litre of clean drinking water and give small, frequent sips after every loose stool. Keep breastfeeding and feeding the child during diarrhoea. Zinc tablets for 10 to 14 days help children with diarrhoea recover faster. Go to a health centre if there is blood in the stool, the child cannot drink, or the child is very sleepy."
+ },
+ {
+  "claim": "For dengue fever use paracetamol and drink plenty of fluids; avoid aspirin and ibuprofen because they can increase bleeding.",
+  "doc": "dengue_en",
+  "label": true,
+  "kind": "verbatim",
+  "passage": "Dengue is a viral infection spread by the bite of the Aedes mosquito, which bites during the daytime. Common symptoms of dengue are high fever, severe headache, pain behind the eyes, joint and muscle pain, and rash. For dengue fever use paracetamol and drink plenty of fluids; avoid aspirin and ibuprofen because they can increase bleeding. Warning signs of severe dengue are severe stomach pain, repeated vomiting, bleeding gums, and extreme tiredness; go to a hospital immediately. Aedes mosquitoes breed in clean stored water, so empty and scrub water containers, coolers and flower pots every week."
+ },
+ {
+  "claim": "TB is curable when the full course of medicines, usually at least six months, is completed without missing doses.",
+  "doc": "tb_en",
+  "label": true,
+  "kind": "verbatim",
+  "passage": "Tuberculosis (TB) is a bacterial disease that usually affects the lungs and spreads through the air when a person with TB coughs. A cough lasting more than two weeks, fever, night sweats and weight loss are common symptoms of TB. Anyone with these symptoms should get a free sputum test at the nearest government health centre. TB diagnosis and treatment are free under India's National TB Elimination Programme. TB is curable when the full course of medicines, usually at least six months, is completed without missing doses."
+ },
+ {
+  "claim": "If any danger sign appears, go to a hospital immediately or call 108 or 102 for an ambulance.",
+  "doc": "anc_en",
+  "label": true,
+  "kind": "verbatim",
+  "passage": "A pregnant woman should have at least four antenatal check-ups at a health centre during pregnancy. She should take one iron and folic acid tablet every day and receive the tetanus-diphtheria (Td) vaccine. Danger signs in pregnancy are bleeding, severe headache, blurred vision, fits, high fever, swelling of the face or hands, and reduced baby movement. If any danger sign appears, go to a hospital immediately or call 108 or 102 for an ambulance. Delivery in a hospital is safer, and eligible women receive cash assistance for institutional delivery under Janani Suraksha Yojana."
+ },
+ {
+  "claim": "Rub all parts of the hands with soap for at least 20 seconds and rinse with clean water.",
+  "doc": "hands_en",
+  "label": true,
+  "kind": "verbatim",
+  "passage": "Washing hands with soap and water prevents diarrhoea and respiratory infections. Rub all parts of the hands with soap for at least 20 seconds and rinse with clean water. Wash hands before cooking, before eating, before feeding a child, after using the toilet, and after cleaning a child."
+ },
+ {
+  "claim": "Breastfeeding should start within one hour of birth.",
+  "doc": "bf_en",
+  "label": true,
+  "kind": "verbatim",
+  "passage": "Breastfeeding should start within one hour of birth. The first thick yellow milk, called colostrum, protects the newborn baby from infections. Give only breast milk, not even water, for the first six months of life. After six months, start soft home-made complementary foods and continue breastfeeding up to two years or beyond."
+ },
+ {
+  "claim": "Move the person to a cool shaded place, loosen clothes, cool the body with wet cloths and a fan, and call 108.",
+  "doc": "heat_en",
+  "label": true,
+  "kind": "verbatim",
+  "passage": "Heat stroke is a medical emergency caused by high temperatures during a heat wave. Signs of heat stroke include very high body temperature, confusion, fainting, and hot dry skin. Move the person to a cool shaded place, loosen clothes, cool the body with wet cloths and a fan, and call 108. To prevent heat illness, drink water often even if not thirsty, avoid going out between noon and 3 pm, and wear light cotton clothes."
+ },
+ {
+  "claim": "Mix 1 ORS packet in 1 litre of clean drinking water.",
+  "doc": "ors_en",
+  "label": true,
+  "kind": "paraphrase-digits",
+  "passage": "Diarrhoea causes the body to lose water and salts, which is called dehydration. Oral rehydration solution (ORS) replaces this lost water and salt. To prepare ORS, mix one ORS packet in one litre of clean drinking water and give small, frequent sips after every loose stool. Keep breastfeeding and feeding the child during diarrhoea. Zinc tablets for 10 to 14 days help children with diarrhoea recover faster. Go to a health centre if there is blood in the stool, the child cannot drink, or the child is very sleepy."
+ },
+ {
+  "claim": "Give zinc tablets for 10 to 14 days to children with diarrhoea.",
+  "doc": "ors_en",
+  "label": true,
+  "kind": "paraphrase",
+  "passage": "Diarrhoea causes the body to lose water and salts, which is called dehydration. Oral rehydration solution (ORS) replaces this lost water and salt. To prepare ORS, mix one ORS packet in one litre of clean drinking water and give small, frequent sips after every loose stool. Keep breastfeeding and feeding the child during diarrhoea. Zinc tablets for 10 to 14 days help children with diarrhoea recover faster. Go to a health centre if there is blood in the stool, the child cannot drink, or the child is very sleepy."
+ },
+ {
+  "claim": "Use paracetamol for dengue fever and avoid aspirin.",
+  "doc": "dengue_en",
+  "label": true,
+  "kind": "paraphrase",
+  "passage": "Dengue is a viral infection spread by the bite of the Aedes mosquito, which bites during the daytime. Common symptoms of dengue are high fever, severe headache, pain behind the eyes, joint and muscle pain, and rash. For dengue fever use paracetamol and drink plenty of fluids; avoid aspirin and ibuprofen because they can increase bleeding. Warning signs of severe dengue are severe stomach pain, repeated vomiting, bleeding gums, and extreme tiredness; go to a hospital immediately. Aedes mosquitoes breed in clean stored water, so empty and scrub water containers, coolers and flower pots every week."
+ },
+ {
+  "claim": "TB treatment usually takes at least 6 months.",
+  "doc": "tb_en",
+  "label": true,
+  "kind": "paraphrase-digits",
+  "passage": "Tuberculosis (TB) is a bacterial disease that usually affects the lungs and spreads through the air when a person with TB coughs. A cough lasting more than two weeks, fever, night sweats and weight loss are common symptoms of TB. Anyone with these symptoms should get a free sputum test at the nearest government health centre. TB diagnosis and treatment are free under India's National TB Elimination Programme. TB is curable when the full course of medicines, usually at least six months, is completed without missing doses."
+ },
+ {
+  "claim": "A pregnant woman should take one iron and folic acid tablet every day.",
+  "doc": "anc_en",
+  "label": true,
+  "kind": "paraphrase",
+  "passage": "A pregnant woman should have at least four antenatal check-ups at a health centre during pregnancy. She should take one iron and folic acid tablet every day and receive the tetanus-diphtheria (Td) vaccine. Danger signs in pregnancy are bleeding, severe headache, blurred vision, fits, high fever, swelling of the face or hands, and reduced baby movement. If any danger sign appears, go to a hospital immediately or call 108 or 102 for an ambulance. Delivery in a hospital is safer, and eligible women receive cash assistance for institutional delivery under Janani Suraksha Yojana."
+ },
+ {
+  "claim": "Give only breast milk for the first six months.",
+  "doc": "bf_en",
+  "label": true,
+  "kind": "paraphrase",
+  "passage": "Breastfeeding should start within one hour of birth. The first thick yellow milk, called colostrum, protects the newborn baby from infections. Give only breast milk, not even water, for the first six months of life. After six months, start soft home-made complementary foods and continue breastfeeding up to two years or beyond."
+ },
+ {
+  "claim": "Call 108 for heat stroke.",
+  "doc": "heat_en",
+  "label": true,
+  "kind": "paraphrase",
+  "passage": "Heat stroke is a medical emergency caused by high temperatures during a heat wave. Signs of heat stroke include very high body temperature, confusion, fainting, and hot dry skin. Move the person to a cool shaded place, loosen clothes, cool the body with wet cloths and a fan, and call 108. To prevent heat illness, drink water often even if not thirsty, avoid going out between noon and 3 pm, and wear light cotton clothes."
+ },
+ {
+  "claim": "Wash hands with soap for at least 20 seconds.",
+  "doc": "hands_en",
+  "label": true,
+  "kind": "paraphrase",
+  "passage": "Washing hands with soap and water prevents diarrhoea and respiratory infections. Rub all parts of the hands with soap for at least 20 seconds and rinse with clean water. Wash hands before cooking, before eating, before feeding a child, after using the toilet, and after cleaning a child."
+ },
+ {
+  "claim": "Do not cut the wound and do not suck out venom.",
+  "doc": "snake_en",
+  "label": true,
+  "kind": "paraphrase",
+  "passage": "After a snakebite, keep the person calm and still, and keep the bitten arm or leg immobile. Remove rings, bangles or tight clothing near the bite because swelling may follow. Do not cut the wound, do not suck out venom, do not tie a tight tourniquet, and do not apply ice. Take the person to a hospital as fast as possible; anti-snake venom is available at government hospitals."
+ },
+ {
+  "claim": "Eat iron-rich foods such as green leafy vegetables, pulses and eggs.",
+  "doc": "anaemia_en",
+  "label": true,
+  "kind": "paraphrase",
+  "passage": "Anaemia means the blood has too little haemoglobin, which causes tiredness, weakness, breathlessness and pale skin. Eat iron-rich foods such as green leafy vegetables, pulses, eggs, meat and fish. Vitamin C from fruits like amla, guava and lemon helps the body absorb iron, while tea or coffee with meals reduces absorption. Under Anemia Mukt Bharat, iron and folic acid supplements are given free to children, adolescents and pregnant women."
+ },
+ {
+  "claim": "Keep the person calm and take them to a hospital as fast as possible.",
+  "doc": "snake_en",
+  "label": true,
+  "kind": "paraphrase",
+  "passage": "After a snakebite, keep the person calm and still, and keep the bitten arm or leg immobile. Remove rings, bangles or tight clothing near the bite because swelling may follow. Do not cut the wound, do not suck out venom, do not tie a tight tourniquet, and do not apply ice. Take the person to a hospital as fast as possible; anti-snake venom is available at government hospitals."
+ },
+ {
+  "claim": "Anti-snake venom is available at government hospitals.",
+  "doc": "snake_en",
+  "label": true,
+  "kind": "verbatim-part",
+  "passage": "After a snakebite, keep the person calm and still, and keep the bitten arm or leg immobile. Remove rings, bangles or tight clothing near the bite because swelling may follow. Do not cut the wound, do not suck out venom, do not tie a tight tourniquet, and do not apply ice. Take the person to a hospital as fast as possible; anti-snake venom is available at government hospitals."
+ },
+ {
+  "claim": "एक ओआरएस पैकेट को एक लीटर साफ़ पीने के पानी में घोलें और हर पतले दस्त के बाद थोड़ा-थोड़ा पिलाएँ।",
+  "doc": "ors_hi",
+  "label": true,
+  "kind": "verbatim-hi",
+  "passage": "दस्त में शरीर से पानी और नमक निकल जाता है जिसे निर्जलीकरण कहते हैं। ओआरएस का घोल शरीर में पानी और नमक की कमी पूरी करता है। एक ओआरएस पैकेट को एक लीटर साफ़ पीने के पानी में घोलें और हर पतले दस्त के बाद थोड़ा-थोड़ा पिलाएँ। दस्त के दौरान बच्चे को स्तनपान और खाना देते रहें। बच्चों को दस्त में 10 से 14 दिन तक ज़िंक की गोली देने से वे जल्दी ठीक होते हैं। मल में खून आए, बच्चा पी न सके या बहुत सुस्त हो तो तुरंत स्वास्थ्य केंद्र जाएँ।"
+ },
+ {
+  "claim": "टीबी एक बैक्टीरिया से होने वाली बीमारी है जो ज़्यादातर फेफड़ों को प्रभावित करती है और खाँसी से हवा में फैलती है।",
+  "doc": "tb_hi",
+  "label": true,
+  "kind": "verbatim-hi",
+  "passage": "टीबी एक बैक्टीरिया से होने वाली बीमारी है जो ज़्यादातर फेफड़ों को प्रभावित करती है और खाँसी से हवा में फैलती है। दो हफ़्ते से ज़्यादा खाँसी, बुखार, रात को पसीना और वज़न कम होना टीबी के आम लक्षण हैं। ऐसे लक्षण होने पर नज़दीकी सरकारी स्वास्थ्य केंद्र में बलगम की मुफ़्त जाँच कराएँ। राष्ट्रीय टीबी उन्मूलन कार्यक्रम के तहत टीबी की जाँच और इलाज मुफ़्त है। दवाई का पूरा कोर्स, आमतौर पर कम से कम छह महीने, बिना खुराक छोड़े पूरा करने से टीबी ठीक हो जाती है।"
+ },
+ {
+  "claim": "गर्भवती महिला को गर्भावस्था के दौरान कम से कम चार प्रसवपूर्व जाँच करानी चाहिए।",
+  "doc": "anc_hi",
+  "label": true,
+  "kind": "verbatim-hi",
+  "passage": "गर्भवती महिला को गर्भावस्था के दौरान कम से कम चार प्रसवपूर्व जाँच करानी चाहिए। गर्भवती महिला को रोज़ आयरन और फोलिक एसिड की एक गोली लेनी चाहिए और टीडी का टीका लगवाना चाहिए। गर्भावस्था में खून आना, तेज़ सिरदर्द, धुंधला दिखना, दौरे पड़ना, चेहरे या हाथों पर सूजन और बच्चे का कम हिलना खतरे के संकेत हैं। कोई भी खतरे का संकेत दिखे तो तुरंत अस्पताल जाएँ या एम्बुलेंस के लिए 108 या 102 पर फ़ोन करें। अस्पताल में प्रसव ज़्यादा सुरक्षित है और जननी सुरक्षा योजना के तहत पात्र महिलाओं को संस्थागत प्रसव पर नकद सहायता मिलती है।"
+ },
+ {
+  "claim": "जन्म के एक घंटे के अंदर स्तनपान शुरू करना चाहिए।",
+  "doc": "bf_hi",
+  "label": true,
+  "kind": "verbatim-hi",
+  "passage": "जन्म के एक घंटे के अंदर स्तनपान शुरू करना चाहिए। पहला गाढ़ा पीला दूध, जिसे खीस या कोलोस्ट्रम कहते हैं, नवजात शिशु को संक्रमण से बचाता है। पहले छह महीने तक शिशु को सिर्फ़ माँ का दूध दें, पानी भी नहीं। छह महीने के बाद घर का बना नरम पूरक आहार शुरू करें और दो साल या उससे ज़्यादा तक स्तनपान जारी रखें।"
+ },
+ {
+  "claim": "Zinc tablets for 5 to 7 days help children with diarrhoea recover faster.",
+  "doc": "ors_en",
+  "label": false,
+  "kind": "number-swap",
+  "passage": "Diarrhoea causes the body to lose water and salts, which is called dehydration. Oral rehydration solution (ORS) replaces this lost water and salt. To prepare ORS, mix one ORS packet in one litre of clean drinking water and give small, frequent sips after every loose stool. Keep breastfeeding and feeding the child during diarrhoea. Zinc tablets for 10 to 14 days help children with diarrhoea recover faster. Go to a health centre if there is blood in the stool, the child cannot drink, or the child is very sleepy."
+ },
+ {
+  "claim": "To prepare ORS, mix one ORS packet in two litres of clean drinking water.",
+  "doc": "ors_en",
+  "label": false,
+  "kind": "number-swap-word",
+  "passage": "Diarrhoea causes the body to lose water and salts, which is called dehydration. Oral rehydration solution (ORS) replaces this lost water and salt. To prepare ORS, mix one ORS packet in one litre of clean drinking water and give small, frequent sips after every loose stool. Keep breastfeeding and feeding the child during diarrhoea. Zinc tablets for 10 to 14 days help children with diarrhoea recover faster. Go to a health centre if there is blood in the stool, the child cannot drink, or the child is very sleepy."
+ },
+ {
+  "claim": "TB is curable when the full course of medicines, usually at least two months, is completed.",
+  "doc": "tb_en",
+  "label": false,
+  "kind": "number-swap-word",
+  "passage": "Tuberculosis (TB) is a bacterial disease that usually affects the lungs and spreads through the air when a person with TB coughs. A cough lasting more than two weeks, fever, night sweats and weight loss are common symptoms of TB. Anyone with these symptoms should get a free sputum test at the nearest government health centre. TB diagnosis and treatment are free under India's National TB Elimination Programme. TB is curable when the full course of medicines, usually at least six months, is completed without missing doses."
+ },
+ {
+  "claim": "If any danger sign appears, call 100 for an ambulance.",
+  "doc": "anc_en",
+  "label": false,
+  "kind": "helpline-swap",
+  "passage": "A pregnant woman should have at least four antenatal check-ups at a health centre during pregnancy. She should take one iron and folic acid tablet every day and receive the tetanus-diphtheria (Td) vaccine. Danger signs in pregnancy are bleeding, severe headache, blurred vision, fits, high fever, swelling of the face or hands, and reduced baby movement. If any danger sign appears, go to a hospital immediately or call 108 or 102 for an ambulance. Delivery in a hospital is safer, and eligible women receive cash assistance for institutional delivery under Janani Suraksha Yojana."
+ },
+ {
+  "claim": "Rub all parts of the hands with soap for at least 5 seconds and rinse with clean water.",
+  "doc": "hands_en",
+  "label": false,
+  "kind": "number-swap",
+  "passage": "Washing hands with soap and water prevents diarrhoea and respiratory infections. Rub all parts of the hands with soap for at least 20 seconds and rinse with clean water. Wash hands before cooking, before eating, before feeding a child, after using the toilet, and after cleaning a child."
+ },
+ {
+  "claim": "Breastfeeding should start within six hours of birth.",
+  "doc": "bf_en",
+  "label": false,
+  "kind": "number-swap-word",
+  "passage": "Breastfeeding should start within one hour of birth. The first thick yellow milk, called colostrum, protects the newborn baby from infections. Give only breast milk, not even water, for the first six months of life. After six months, start soft home-made complementary foods and continue breastfeeding up to two years or beyond."
+ },
+ {
+  "claim": "A pregnant woman should have at least two antenatal check-ups during pregnancy.",
+  "doc": "anc_en",
+  "label": false,
+  "kind": "number-swap-word",
+  "passage": "A pregnant woman should have at least four antenatal check-ups at a health centre during pregnancy. She should take one iron and folic acid tablet every day and receive the tetanus-diphtheria (Td) vaccine. Danger signs in pregnancy are bleeding, severe headache, blurred vision, fits, high fever, swelling of the face or hands, and reduced baby movement. If any danger sign appears, go to a hospital immediately or call 108 or 102 for an ambulance. Delivery in a hospital is safer, and eligible women receive cash assistance for institutional delivery under Janani Suraksha Yojana."
+ },
+ {
+  "claim": "Give only breast milk for the first four months of life.",
+  "doc": "bf_en",
+  "label": false,
+  "kind": "number-swap-word",
+  "passage": "Breastfeeding should start within one hour of birth. The first thick yellow milk, called colostrum, protects the newborn baby from infections. Give only breast milk, not even water, for the first six months of life. After six months, start soft home-made complementary foods and continue breastfeeding up to two years or beyond."
+ },
+ {
+  "claim": "For dengue fever use aspirin and drink plenty of fluids.",
+  "doc": "dengue_en",
+  "label": false,
+  "kind": "drug-swap (both drugs in passage)",
+  "passage": "Dengue is a viral infection spread by the bite of the Aedes mosquito, which bites during the daytime. Common symptoms of dengue are high fever, severe headache, pain behind the eyes, joint and muscle pain, and rash. For dengue fever use paracetamol and drink plenty of fluids; avoid aspirin and ibuprofen because they can increase bleeding. Warning signs of severe dengue are severe stomach pain, repeated vomiting, bleeding gums, and extreme tiredness; go to a hospital immediately. Aedes mosquitoes breed in clean stored water, so empty and scrub water containers, coolers and flower pots every week."
+ },
+ {
+  "claim": "For dengue fever use ibuprofen and drink plenty of fluids.",
+  "doc": "dengue_en",
+  "label": false,
+  "kind": "drug-swap (both drugs in passage)",
+  "passage": "Dengue is a viral infection spread by the bite of the Aedes mosquito, which bites during the daytime. Common symptoms of dengue are high fever, severe headache, pain behind the eyes, joint and muscle pain, and rash. For dengue fever use paracetamol and drink plenty of fluids; avoid aspirin and ibuprofen because they can increase bleeding. Warning signs of severe dengue are severe stomach pain, repeated vomiting, bleeding gums, and extreme tiredness; go to a hospital immediately. Aedes mosquitoes breed in clean stored water, so empty and scrub water containers, coolers and flower pots every week."
+ },
+ {
+  "claim": "Amoxicillin tablets for 10 to 14 days help children with diarrhoea recover faster.",
+  "doc": "ors_en",
+  "label": false,
+  "kind": "drug-swap",
+  "passage": "Diarrhoea causes the body to lose water and salts, which is called dehydration. Oral rehydration solution (ORS) replaces this lost water and salt. To prepare ORS, mix one ORS packet in one litre of clean drinking water and give small, frequent sips after every loose stool. Keep breastfeeding and feeding the child during diarrhoea. Zinc tablets for 10 to 14 days help children with diarrhoea recover faster. Go to a health centre if there is blood in the stool, the child cannot drink, or the child is very sleepy."
+ },
+ {
+  "claim": "She should take one iron and folic acid tablet every day and receive the measles vaccine.",
+  "doc": "anc_en",
+  "label": false,
+  "kind": "vaccine-swap",
+  "passage": "A pregnant woman should have at least four antenatal check-ups at a health centre during pregnancy. She should take one iron and folic acid tablet every day and receive the tetanus-diphtheria (Td) vaccine. Danger signs in pregnancy are bleeding, severe headache, blurred vision, fits, high fever, swelling of the face or hands, and reduced baby movement. If any danger sign appears, go to a hospital immediately or call 108 or 102 for an ambulance. Delivery in a hospital is safer, and eligible women receive cash assistance for institutional delivery under Janani Suraksha Yojana."
+ },
+ {
+  "claim": "Apply ice and tie a tight tourniquet after a snakebite.",
+  "doc": "snake_en",
+  "label": false,
+  "kind": "negation-flip (words all in passage)",
+  "passage": "After a snakebite, keep the person calm and still, and keep the bitten arm or leg immobile. Remove rings, bangles or tight clothing near the bite because swelling may follow. Do not cut the wound, do not suck out venom, do not tie a tight tourniquet, and do not apply ice. Take the person to a hospital as fast as possible; anti-snake venom is available at government hospitals."
+ },
+ {
+  "claim": "Give 500 mg paracetamol every 4 hours for dengue fever.",
+  "doc": "dengue_en",
+  "label": false,
+  "kind": "invented-dose",
+  "passage": "Dengue is a viral infection spread by the bite of the Aedes mosquito, which bites during the daytime. Common symptoms of dengue are high fever, severe headache, pain behind the eyes, joint and muscle pain, and rash. For dengue fever use paracetamol and drink plenty of fluids; avoid aspirin and ibuprofen because they can increase bleeding. Warning signs of severe dengue are severe stomach pain, repeated vomiting, bleeding gums, and extreme tiredness; go to a hospital immediately. Aedes mosquitoes breed in clean stored water, so empty and scrub water containers, coolers and flower pots every week."
+ },
+ {
+  "claim": "Dengue is a viral infection spread by the bite of the Aedes mosquito.",
+  "doc": "tb_en",
+  "label": false,
+  "kind": "wrong-passage",
+  "passage": "Tuberculosis (TB) is a bacterial disease that usually affects the lungs and spreads through the air when a person with TB coughs. A cough lasting more than two weeks, fever, night sweats and weight loss are common symptoms of TB. Anyone with these symptoms should get a free sputum test at the nearest government health centre. TB diagnosis and treatment are free under India's National TB Elimination Programme. TB is curable when the full course of medicines, usually at least six months, is completed without missing doses."
+ },
+ {
+  "claim": "Tuberculosis spreads through contaminated drinking water and food.",
+  "doc": "tb_en",
+  "label": false,
+  "kind": "unsupported",
+  "passage": "Tuberculosis (TB) is a bacterial disease that usually affects the lungs and spreads through the air when a person with TB coughs. A cough lasting more than two weeks, fever, night sweats and weight loss are common symptoms of TB. Anyone with these symptoms should get a free sputum test at the nearest government health centre. TB diagnosis and treatment are free under India's National TB Elimination Programme. TB is curable when the full course of medicines, usually at least six months, is completed without missing doses."
+ },
+ {
+  "claim": "Anaemia is cured by drinking tea with every meal.",
+  "doc": "anaemia_en",
+  "label": false,
+  "kind": "contradiction",
+  "passage": "Anaemia means the blood has too little haemoglobin, which causes tiredness, weakness, breathlessness and pale skin. Eat iron-rich foods such as green leafy vegetables, pulses, eggs, meat and fish. Vitamin C from fruits like amla, guava and lemon helps the body absorb iron, while tea or coffee with meals reduces absorption. Under Anemia Mukt Bharat, iron and folic acid supplements are given free to children, adolescents and pregnant women."
+ },
+ {
+  "claim": "Heat stroke is best treated with hot drinks and heavy blankets.",
+  "doc": "heat_en",
+  "label": false,
+  "kind": "unsupported",
+  "passage": "Heat stroke is a medical emergency caused by high temperatures during a heat wave. Signs of heat stroke include very high body temperature, confusion, fainting, and hot dry skin. Move the person to a cool shaded place, loosen clothes, cool the body with wet cloths and a fan, and call 108. To prevent heat illness, drink water often even if not thirsty, avoid going out between noon and 3 pm, and wear light cotton clothes."
+ },
+ {
+  "claim": "Cut the wound and suck out venom.",
+  "doc": "snake_en",
+  "label": false,
+  "kind": "negation-flip (words all in passage)",
+  "passage": "After a snakebite, keep the person calm and still, and keep the bitten arm or leg immobile. Remove rings, bangles or tight clothing near the bite because swelling may follow. Do not cut the wound, do not suck out venom, do not tie a tight tourniquet, and do not apply ice. Take the person to a hospital as fast as possible; anti-snake venom is available at government hospitals."
+ },
+ {
+  "claim": "Stop breastfeeding and feeding the child during diarrhoea.",
+  "doc": "ors_en",
+  "label": false,
+  "kind": "negation-flip",
+  "passage": "Diarrhoea causes the body to lose water and salts, which is called dehydration. Oral rehydration solution (ORS) replaces this lost water and salt. To prepare ORS, mix one ORS packet in one litre of clean drinking water and give small, frequent sips after every loose stool. Keep breastfeeding and feeding the child during diarrhoea. Zinc tablets for 10 to 14 days help children with diarrhoea recover faster. Go to a health centre if there is blood in the stool, the child cannot drink, or the child is very sleepy."
+ },
+ {
+  "claim": "ओआरएस पैकेट को दो लीटर साफ़ पानी में घोलें।",
+  "doc": "ors_hi",
+  "label": false,
+  "kind": "number-swap-hi",
+  "passage": "दस्त में शरीर से पानी और नमक निकल जाता है जिसे निर्जलीकरण कहते हैं। ओआरएस का घोल शरीर में पानी और नमक की कमी पूरी करता है। एक ओआरएस पैकेट को एक लीटर साफ़ पीने के पानी में घोलें और हर पतले दस्त के बाद थोड़ा-थोड़ा पिलाएँ। दस्त के दौरान बच्चे को स्तनपान और खाना देते रहें। बच्चों को दस्त में 10 से 14 दिन तक ज़िंक की गोली देने से वे जल्दी ठीक होते हैं। मल में खून आए, बच्चा पी न सके या बहुत सुस्त हो तो तुरंत स्वास्थ्य केंद्र जाएँ।"
+ },
+ {
+  "claim": "टीबी की दवा का पूरा कोर्स आमतौर पर कम से कम दो महीने का होता है।",
+  "doc": "tb_hi",
+  "label": false,
+  "kind": "number-swap-hi",
+  "passage": "टीबी एक बैक्टीरिया से होने वाली बीमारी है जो ज़्यादातर फेफड़ों को प्रभावित करती है और खाँसी से हवा में फैलती है। दो हफ़्ते से ज़्यादा खाँसी, बुखार, रात को पसीना और वज़न कम होना टीबी के आम लक्षण हैं। ऐसे लक्षण होने पर नज़दीकी सरकारी स्वास्थ्य केंद्र में बलगम की मुफ़्त जाँच कराएँ। राष्ट्रीय टीबी उन्मूलन कार्यक्रम के तहत टीबी की जाँच और इलाज मुफ़्त है। दवाई का पूरा कोर्स, आमतौर पर कम से कम छह महीने, बिना खुराक छोड़े पूरा करने से टीबी ठीक हो जाती है।"
+ },
+ {
+  "claim": "गर्भवती महिला को कम से कम दो प्रसवपूर्व जाँच करानी चाहिए।",
+  "doc": "anc_hi",
+  "label": false,
+  "kind": "number-swap-hi",
+  "passage": "गर्भवती महिला को गर्भावस्था के दौरान कम से कम चार प्रसवपूर्व जाँच करानी चाहिए। गर्भवती महिला को रोज़ आयरन और फोलिक एसिड की एक गोली लेनी चाहिए और टीडी का टीका लगवाना चाहिए। गर्भावस्था में खून आना, तेज़ सिरदर्द, धुंधला दिखना, दौरे पड़ना, चेहरे या हाथों पर सूजन और बच्चे का कम हिलना खतरे के संकेत हैं। कोई भी खतरे का संकेत दिखे तो तुरंत अस्पताल जाएँ या एम्बुलेंस के लिए 108 या 102 पर फ़ोन करें। अस्पताल में प्रसव ज़्यादा सुरक्षित है और जननी सुरक्षा योजना के तहत पात्र महिलाओं को संस्थागत प्रसव पर नकद सहायता मिलती है।"
+ }
+]

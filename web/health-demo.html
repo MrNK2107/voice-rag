@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vouch · Health demo (Swasthya Saathi)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Imbue:opsz,wght@10..100,700;800;900&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Victor+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-green: #0b6839;
+      --brand-accent: #fee101; /* Electric Yellow */
+      --brand-pink: #ff0080;   /* Hot Magenta Pink */
+      --brand-offwhite: #fffbe8; /* Card Cream */
+      --brand-dark: #073b20;
+      --card-shadow: 6px 8px 0px rgba(0, 0, 0, 0.35);
+      --card-shadow-sm: 4px 5px 0px rgba(0, 0, 0, 0.3);
+      --font-heading: 'Outfit', 'Imbue', sans-serif;
+      --font-mono: 'Victor Mono', monospace;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-green);
+      background-image: 
+        radial-gradient(circle at 10% 15%, rgba(254, 225, 1, 0.08) 0%, transparent 35%),
+        radial-gradient(circle at 90% 85%, rgba(255, 0, 128, 0.08) 0%, transparent 35%);
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    header {
+      padding: 1.75rem 2rem 1rem;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-logo-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .studio-badge {
+      background: var(--brand-accent);
+      color: var(--brand-dark);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
+    }
+
+    .tag-pill {
+      background: var(--brand-pink);
+      color: #ffffff;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
+    }
+
+    .hero-title-container {
+      margin-top: 0.5rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: var(--brand-accent);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .goa-stamp {
+      background: var(--brand-pink);
+      color: #ffffff;
+      padding: 2px 12px;
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+      font-weight: 800;
+      transform: rotate(-6deg);
+      display: inline-block;
+      box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-mono);
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* Main Grid */
+    main {
+      max-width: 1280px;
+      margin: 1.5rem auto 3rem;
+      width: 100%;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      flex-grow: 1;
+    }
+
+    @media (max-width: 950px) {
+      main { grid-template-columns: 1fr; }
+    }
+
+    /* Neo-Brutalist Cards */
+    .hh-card {
+      background: var(--brand-offwhite);
+      color: var(--brand-dark);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .pin-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      position: absolute;
+      top: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0px 2px 4px rgba(0,0,0,0.25);
+    }
+
+    .pin-pink { background: var(--brand-pink); }
+    .pin-yellow { background: var(--brand-accent); }
+
+    .card-header-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--brand-dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid rgba(11, 104, 57, 0.15);
+      text-transform: uppercase;
+    }
+
+    /* Controls */
+    .controls-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .btn-voice {
+      background: linear-gradient(135deg, var(--brand-pink), #d9006c);
+      color: #ffffff;
+      border: none;
+      padding: 1.1rem 1.6rem;
+      border-radius: 10px;
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: all 0.15s ease;
+      box-shadow: var(--card-shadow-sm);
+      text-transform: uppercase;
+    }
+
+    .btn-voice:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 5px 7px 0px rgba(0, 0, 0, 0.35);
+    }
+
+    .btn-voice.recording {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.5); }
+      70% { box-shadow: 0 0 0 16px rgba(245, 158, 11, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+    }
+
+    .text-input-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    input[type="text"] {
+      flex-grow: 1;
+      background: #ffffff;
+      border: 2px solid rgba(11, 104, 57, 0.3);
+      border-radius: 8px;
+      padding: 0.85rem 1.1rem;
+      color: var(--brand-dark);
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--brand-pink);
+    }
+
+    .btn-ask {
+      background: var(--brand-accent);
+      color: var(--brand-dark);
+      border: 2px solid var(--brand-dark);
+      padding: 0.85rem 1.4rem;
+      border-radius: 8px;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 3px 4px 0px var(--brand-dark);
+      transition: all 0.15s;
+      text-transform: uppercase;
+    }
+
+    .btn-ask:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 4px 5px 0px var(--brand-dark);
+    }
+
+    .btn-ask:disabled, .btn-voice:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Badges & Content */
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(11, 104, 57, 0.75);
+      margin-bottom: 6px;
+    }
+
+    .status-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      width: fit-content;
+      box-shadow: 2px 2px 0px rgba(0,0,0,0.15);
+    }
+
+    .status-ready { background: #e2e8f0; color: #475569; }
+    .status-recording { background: #ffe4e6; color: var(--brand-pink); border: 1px solid var(--brand-pink); }
+    .status-processing { background: #fef9c3; color: #854d0e; border: 1px solid #ca8a04; }
+    .status-success { background: #dcfce7; color: #15803d; border: 1px solid #16a34a; }
+    .status-abstained { background: #ffedd5; color: #c2410c; border: 1px solid #ea580c; }
+
+    .content-card-box {
+      background: #ffffff;
+      border: 1px solid rgba(11, 104, 57, 0.2);
+      border-radius: 8px;
+      padding: 1.1rem;
+      min-height: 85px;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: #1e293b;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .citations-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 230px;
+      overflow-y: auto;
+    }
+
+    .citation-tile {
+      background: #ffffff;
+      border: 1px solid rgba(11, 104, 57, 0.2);
+      border-left: 4px solid var(--brand-pink);
+      border-radius: 6px;
+      padding: 0.85rem;
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+
+    .citation-meta {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--brand-dark);
+      font-weight: 700;
+      margin-bottom: 6px;
+      padding-bottom: 4px;
+      border-bottom: 1px dashed rgba(11, 104, 57, 0.2);
+    }
+
+    /* Latency Cards */
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .metric-pill-card {
+      background: #ffffff;
+      border: 2px solid var(--brand-dark);
+      border-radius: 8px;
+      padding: 0.85rem 0.6rem;
+      text-align: center;
+      box-shadow: 3px 3px 0px var(--brand-dark);
+    }
+
+    .metric-title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: rgba(11, 104, 57, 0.8);
+    }
+
+    .metric-number {
+      font-family: var(--font-heading);
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--brand-pink);
+      margin-top: 4px;
+    }
+
+    .metric-number.accent {
+      color: #0284c7;
+    }
+
+    .timing-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      margin-top: 0.6rem;
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(11, 104, 57, 0.2);
+    }
+
+    .timing-table th, .timing-table td {
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 1px solid rgba(11, 104, 57, 0.1);
+    }
+
+    .timing-table th {
+      background: rgba(11, 104, 57, 0.08);
+      color: var(--brand-dark);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: rgba(255, 255, 255, 0.85);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    /* Demo mode (VOICE_RAG_DEMO=1) */
+    #demoPanel { display: none; background: var(--brand-offwhite); color: var(--brand-dark); border: 2px solid var(--brand-dark); border-radius: 12px; padding: 0.85rem; }
+    #demoPanel .demo-title { font-family: var(--font-heading); font-weight: 800; font-size: 1rem; margin-bottom: 0.25rem; }
+    #demoPanel .demo-note { font-size: 0.75rem; opacity: 0.8; margin-bottom: 0.6rem; }
+    .demo-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .demo-chip { font-family: var(--font-body); font-size: 0.8rem; text-align: left; padding: 0.4rem 0.6rem; border-radius: 8px; border: 1.5px solid var(--brand-dark); background: #fff; color: var(--brand-dark); cursor: pointer; }
+    .demo-chip:hover, .demo-chip:focus-visible { background: var(--brand-accent); outline: none; }
+    .demo-chip small { display: block; font-size: 0.68rem; opacity: 0.7; }
+    #advisoryBox { display: none; background: #fee2e2; color: #991b1b; border: 2px solid #dc2626; border-radius: 10px; padding: 0.7rem 0.85rem; font-weight: 700; }
+    .citation-source a { color: var(--bg-green); font-size: 0.75rem; }
+
+    /* Agent mode: step trace, clarifying question, facility card */
+    .agent-toggle { display: flex; align-items: center; gap: 0.45rem; font-size: 0.85rem; font-weight: 700; color: var(--brand-dark); }
+    .agent-toggle input { width: 1.05rem; height: 1.05rem; accent-color: var(--brand-pink); }
+    #agentPanel { display: none; }
+    #clarifyBox { display: none; background: #fef9c3; color: #713f12; border: 2px solid #ca8a04; border-radius: 10px; padding: 0.6rem 0.85rem; font-weight: 700; }
+    #clarifyBox small { display: block; font-weight: 500; font-size: 0.75rem; margin-top: 0.2rem; }
+    #facilityBox { display: none; background: #ecfdf5; color: #065f46; border: 2px solid #059669; border-radius: 10px; padding: 0.6rem 0.85rem; font-size: 0.85rem; }
+    #facilityBox .helpline { display: inline-block; margin: 0.25rem 0.35rem 0 0; padding: 0.15rem 0.5rem; border-radius: 999px; background: #065f46; color: #fff; font-family: var(--font-mono); font-size: 0.78rem; }
+    .trace { list-style: none; margin: 0; padding: 0; font-size: 0.8rem; }
+    .trace li { display: grid; grid-template-columns: 1.6rem 1fr auto; gap: 0.4rem; align-items: start; padding: 0.4rem 0.5rem; border-left: 3px solid var(--brand-dark); background: #fff; color: var(--brand-dark); margin-bottom: 0.3rem; border-radius: 0 8px 8px 0; }
+    .trace li.safety { border-left-color: #dc2626; }
+    .trace li .n, .trace li .tool { font-family: var(--font-mono); font-weight: 800; }
+    .trace li .obs { display: block; opacity: 0.85; word-break: break-word; }
+    .trace li .meta { font-family: var(--font-mono); font-size: 0.7rem; opacity: 0.7; text-align: right; white-space: nowrap; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <div class="brand-logo-group">
+        <div class="studio-badge">2:47 PM STUDIO</div>
+        <div class="tag-pill">#RAGInGoa</div>
+      </div>
+      <div class="hero-title-container">
+        <div class="hero-title">
+          Hacker House <span class="goa-stamp">गोवा</span> Voice RAG
+        </div>
+        <div class="hero-subtitle">
+          GOA, INDIA · 28 - 31 OCT 2026 · SUB-200MS VOICE PIPELINE
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Left Card: Voice & Text Input -->
+    <div class="hh-card">
+      <div class="pin-dot pin-pink"></div>
+
+      <div class="card-header-title">
+        <span>🎙️ Input Interface</span>
+        <span style="font-size: 0.8rem; font-weight: 700; color: var(--brand-pink);">SARVAM STT</span>
+      </div>
+
+      <div class="controls-group">
+        <button id="recordBtn" class="btn-voice">
+          <span id="recordIcon">🎙️</span>
+          <span id="recordText">Start Voice Recording</span>
+        </button>
+
+        <div class="text-input-row">
+          <input type="text" id="textInput" placeholder="Or type a query for instant benchmarking..." />
+          <button id="submitTextBtn" class="btn-ask">Ask Text</button>
+        </div>
+        <label class="agent-toggle"><input type="checkbox" id="agentToggle" /> Agent mode: triage, clarify, facility lookup, cited retrieval (shows a step trace)</label>
+      </div>
+
+      <div id="demoPanel" aria-live="polite">
+        <div class="demo-title">Swasthya Saathi demo (offline health corpus)</div>
+        <div class="demo-note" id="demoDisclaimer"></div>
+        <div class="demo-chips" id="demoChips"></div>
+      </div>
+
+      <div>
+        <div class="section-label">System Status</div>
+        <div id="statusBadge" class="status-capsule status-ready">System Ready</div>
+      </div>
+
+      <div>
+        <div class="section-label">Speech Transcript</div>
+        <div id="transcriptBox" class="content-card-box">Spoken speech transcript will appear here after recording...</div>
+      </div>
+
+      <div>
+        <div class="section-label">Audio Stream Preview</div>
+        <audio id="audioPreview" controls style="width: 100%; margin-top: 4px; display: none;"></audio>
+      </div>
+    </div>
+
+    <!-- Right Card: Grounded Answer & Latency Analytics -->
+    <div class="hh-card">
+      <div class="pin-dot pin-yellow"></div>
+
+      <div class="card-header-title">
+        <span>⚡ Grounded RAG & Analytics</span>
+        <span style="font-size: 0.8rem; font-weight: 700; color: var(--bg-green);">HYBRID DENSE+LEXICAL</span>
+      </div>
+
+      <div id="advisoryBox" role="alert"></div>
+      <div id="clarifyBox" aria-live="polite"></div>
+      <div id="facilityBox"></div>
+
+      <div id="agentPanel">
+        <div class="section-label">Agent Step Trace <span id="agentPlanner" style="font-weight: 500;"></span></div>
+        <ol class="trace" id="traceList"></ol>
+      </div>
+
+      <div>
+        <div class="section-label">Grounded Answer Output</div>
+        <div id="answerBox" class="content-card-box">Extracted grounded answer will render here...</div>
+      </div>
+
+      <div>
+        <div class="section-label">Evidence Chunks & Citations</div>
+        <div id="citationsBox" class="citations-container">
+          <div style="color: rgba(11, 104, 57, 0.6); font-size: 0.85rem; font-family: var(--font-mono);">No citations loaded yet.</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label">Pipeline Execution Latency (ms)</div>
+        <div class="metrics-row">
+          <div class="metric-pill-card">
+            <div class="metric-title">POST-STT RAG</div>
+            <div id="metricPostStt" class="metric-number">0 ms</div>
+          </div>
+          <div class="metric-pill-card">
+            <div class="metric-title">DENSE SEARCH</div>
+            <div id="metricDense" class="metric-number accent">0 ms</div>
+          </div>
+          <div class="metric-pill-card">
+            <div class="metric-title">TOTAL TIME</div>
+            <div id="metricTotal" class="metric-number" style="color: var(--bg-green);">0 ms</div>
+          </div>
+        </div>
+
+        <table class="timing-table">
+          <thead>
+            <tr>
+              <th>Pipeline Sub-Stage</th>
+              <th>Latency (ms)</th>
+            </tr>
+          </thead>
+          <tbody id="timingTableBody">
+            <tr><td colspan="2" style="color: rgba(11, 104, 57, 0.6);">No execution timing data available</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    Hacker House Goa 2026 | Voice-Enabled RAG System (Task #2) | Built for sub-200ms post-STT latency | #RAGInGoa
+  </footer>
+
+  <script>
+    let mediaRecorder;
+    let audioChunks = [];
+    let isRecording = false;
+
+    const recordBtn = document.getElementById("recordBtn");
+    const recordIcon = document.getElementById("recordIcon");
+    const recordText = document.getElementById("recordText");
+    const textInput = document.getElementById("textInput");
+    const submitTextBtn = document.getElementById("submitTextBtn");
+    const statusBadge = document.getElementById("statusBadge");
+    const transcriptBox = document.getElementById("transcriptBox");
+    const answerBox = document.getElementById("answerBox");
+    const citationsBox = document.getElementById("citationsBox");
+    const audioPreview = document.getElementById("audioPreview");
+
+    const metricPostStt = document.getElementById("metricPostStt");
+    const metricDense = document.getElementById("metricDense");
+    const metricTotal = document.getElementById("metricTotal");
+    const timingTableBody = document.getElementById("timingTableBody");
+
+    function setStatus(text, cls) {
+      statusBadge.textContent = text;
+      statusBadge.className = "status-capsule " + cls;
+    }
+
+    recordBtn.onclick = async () => {
+      if (!isRecording) {
+        audioChunks = [];
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          mediaRecorder = new MediaRecorder(stream);
+          mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+          
+          mediaRecorder.onstop = async () => {
+            const blob = new Blob(audioChunks, { type: "audio/webm" });
+            audioPreview.src = URL.createObjectURL(blob);
+            audioPreview.style.display = "block";
+            await submitAudio(blob);
+          };
+
+          mediaRecorder.start();
+          isRecording = true;
+          recordBtn.classList.add("recording");
+          recordIcon.textContent = "⏹️";
+          recordText.textContent = "Stop & Process Question";
+          setStatus("Recording Audio...", "status-recording");
+        } catch (err) {
+          alert("Microphone access denied or error: " + err);
+        }
+      } else {
+        mediaRecorder.stop();
+        isRecording = false;
+        recordBtn.classList.remove("recording");
+        recordIcon.textContent = "🎙️";
+        recordText.textContent = "Start Voice Recording";
+        setStatus("Processing STT & RAG...", "status-processing");
+      }
+    };
+
+    const agentToggle = document.getElementById("agentToggle");
+    // When the agent asked a clarifying question, the next text box entry is the answer.
+    let pendingClarification = null;  // { query, slot, slots }
+
+    async function askAgent(query, slots) {
+      setStatus("Agent working...", "status-processing");
+      try {
+        const res = await fetch("/api/agent", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query, slots: slots || {} })
+        });
+        renderAgent(await res.json(), slots || {});
+      } catch (err) {
+        setStatus("Error running agent", "status-recording");
+      }
+    }
+
+    submitTextBtn.onclick = async () => {
+      const q = textInput.value.trim();
+      if (!q) return;
+      if (agentToggle.checked) {
+        if (pendingClarification) {
+          const p = pendingClarification;
+          pendingClarification = null;
+          return askAgent(p.query, { ...p.slots, [p.slot]: q });
+        }
+        return askAgent(q, {});
+      }
+      setStatus("Processing RAG Query...", "status-processing");
+      try {
+        const res = await fetch("/api/ask-text", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query: q })
+        });
+        const data = await res.json();
+        ["agentPanel", "clarifyBox", "facilityBox"].forEach(id => document.getElementById(id).style.display = "none");
+        renderResponse(data);
+      } catch (err) {
+        setStatus("Error processing query", "status-recording");
+      }
+    };
+
+    async function submitAudio(blob) {
+      const formData = new FormData();
+      formData.append("file", blob, "question.webm");
+
+      try {
+        const res = await fetch("/api/ask-audio", {
+          method: "POST",
+          body: formData
+        });
+        const data = await res.json();
+        renderResponse(data);
+      } catch (err) {
+        setStatus("Error uploading audio", "status-recording");
+      }
+    }
+
+    function esc(v) {
+      return String(v ?? "").replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+    }
+
+    let demoSources = {};
+    async function loadDemo() {
+      try {
+        const info = await (await fetch("/api/demo")).json();
+        if (!info.enabled) return;
+        (info.documents || []).forEach(d => { demoSources[d.doc_id] = d.source; });
+        document.getElementById("demoDisclaimer").textContent = info.disclaimer;
+        document.getElementById("demoChips").innerHTML = info.script.map((s, i) =>
+          `<button class="demo-chip" data-i="${i}">${esc(s.query)}<small>${esc(s.shows)}</small></button>`).join("");
+        document.querySelectorAll(".demo-chip").forEach(btn => btn.onclick = () => {
+          textInput.value = info.script[btn.dataset.i].query;
+          submitTextBtn.click();
+        });
+        const agentScript = [
+          ["My child has fever since yesterday, what should I do?", "Agent asks a clarifying question (age)"],
+          ["Where can I get a TB test for a cough of two weeks?", "Agent: facility lookup + cited guidance"],
+          ["साँप के काटने पर क्या करें?", "Agent: red flag short-circuits to 108/102"],
+        ];
+        document.getElementById("demoChips").insertAdjacentHTML("beforeend", agentScript.map(([q, shows]) =>
+          `<button class="demo-chip agent-chip" data-q="${esc(q)}" style="border-color: var(--brand-pink);">${esc(q)}<small>${esc(shows)}</small></button>`).join(""));
+        document.querySelectorAll(".agent-chip").forEach(btn => btn.onclick = () => {
+          agentToggle.checked = true;
+          pendingClarification = null;
+          textInput.value = btn.dataset.q;
+          submitTextBtn.click();
+        });
+        document.getElementById("demoPanel").style.display = "block";
+      } catch (err) { /* demo endpoint unavailable: normal mode */ }
+    }
+    loadDemo();
+
+    // Deep link: /?q=<question> asks it on load (handy for demo videos and screenshots).
+    const params = new URLSearchParams(location.search);
+    const deepLinkQuery = params.get("q");
+    // /?agent=1&q=...&age=... runs the agent (optionally with an already-answered age slot).
+    if (params.get("agent") === "1") document.getElementById("agentToggle").checked = true;
+    if (deepLinkQuery && params.get("agent") === "1" && params.get("age")) {
+      setTimeout(() => askAgent(deepLinkQuery, { age: params.get("age") }), 0);
+    } else if (deepLinkQuery) {
+      textInput.value = deepLinkQuery;
+      setTimeout(() => submitTextBtn.click(), 0);
+    }
+
+    function renderAgent(data, slots) {
+      const statusText = {
+        answered: ["Agent answered with citations", "status-success"],
+        emergency: ["EMERGENCY: red flag short-circuit", "status-recording"],
+        needs_info: ["Agent needs one more detail", "status-processing"],
+        abstained: ["Agent abstained (not in corpus)", "status-abstained"],
+        blocked: ["Blocked by input guard", "status-abstained"],
+      }[data.status] || [data.status, "status-ready"];
+
+      renderResponse({
+        transcript: data.query + (Object.keys(slots).length ? "  [" + Object.entries(slots).map(([k, v]) => k + ": " + v).join(", ") + "]" : ""),
+        answer: data.answer,
+        advisory: data.advisory,
+        citations: data.citations,
+        abstained: data.status === "abstained",
+        timings_ms: Object.fromEntries((data.steps || []).map(s => [`step ${s.n}: ${s.tool}`, s.ms]).concat([["total_ms", data.total_ms]])),
+      });
+      setStatus(statusText[0], statusText[1]);
+
+      const clarifyBox = document.getElementById("clarifyBox");
+      if (data.status === "needs_info") {
+        pendingClarification = { query: data.query, slot: data.missing_slot, slots };
+        clarifyBox.innerHTML = esc(data.clarifying_question) + "<small>Type your answer in the text box and press Ask Text.</small>";
+        clarifyBox.style.display = "block";
+        textInput.value = "";
+        textInput.placeholder = "Answer: " + data.clarifying_question;
+        textInput.focus();
+      } else {
+        clarifyBox.style.display = "none";
+        textInput.placeholder = "Or type a query for instant benchmarking...";
+      }
+
+      const facilityBox = document.getElementById("facilityBox");
+      if (data.facility) {
+        facilityBox.innerHTML = `<strong>Where to go:</strong> ${esc(data.facility.facility)}<div>` +
+          data.facility.helplines.map(h => `<span class="helpline">${esc(h.number)} · ${esc(h.name)}</span>`).join("") + "</div>";
+        facilityBox.style.display = "block";
+      } else {
+        facilityBox.style.display = "none";
+      }
+
+      document.getElementById("agentPlanner").textContent = "(planner: " + data.planner + ")";
+      document.getElementById("traceList").innerHTML = (data.steps || []).map(s => `
+        <li class="${s.planner === "safety" ? "safety" : ""}">
+          <span class="n">${s.n}</span>
+          <span><span class="tool">${esc(s.tool)}</span>${Object.keys(s.args || {}).length ? " " + esc(JSON.stringify(s.args)) : ""}<span class="obs">&rarr; ${esc(s.observation)}</span></span>
+          <span class="meta">${esc(s.planner)}<br>${s.ms} ms</span>
+        </li>`).join("");
+      document.getElementById("agentPanel").style.display = "block";
+    }
+
+    function renderResponse(data) {
+      const advisoryBox = document.getElementById("advisoryBox");
+      advisoryBox.textContent = data.advisory || "";
+      advisoryBox.style.display = data.advisory ? "block" : "none";
+
+      transcriptBox.textContent = data.transcript || "[Empty Transcript]";
+      answerBox.textContent = data.answer || "[No answer]";
+
+      if (data.abstained) {
+        setStatus("Abstained: " + (data.abstain_reason || "Insufficient Context"), "status-abstained");
+      } else {
+        setStatus("Answer Grounded Successfully", "status-success");
+      }
+
+      // Render Citations
+      if (data.citations && data.citations.length > 0) {
+        citationsBox.innerHTML = data.citations.map(c => {
+          const src = demoSources[c.parent_doc_id];
+          return `
+          <div class="citation-tile">
+            <div class="citation-meta">
+              <span>${c.title ? esc(c.title) + " | " : ""}Chunk ${esc(c.chunk_id.substring(0, 8))}... | ${esc(c.strategy || 'standard')}</span>
+              <span>Score: ${c.score.toFixed(4)}</span>
+            </div>
+            <div>"${esc(c.quote)}"</div>
+            ${src ? `<div class="citation-source">Source checked against: <a href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.title)}</a></div>` : ""}
+          </div>`;
+        }).join("");
+
+      } else {
+        citationsBox.innerHTML = '<div style="color: rgba(11, 104, 57, 0.6); font-size: 0.85rem; font-family: var(--font-mono);">No citations available.</div>';
+      }
+
+      // Render Metrics
+      const t = data.timings_ms || {};
+      metricPostStt.textContent = (t.post_stt_total_ms || t.total_ms || 0) + " ms";
+      metricDense.textContent = (t.retrieval_ms || 0) + " ms";
+      metricTotal.textContent = (t.total_ms || 0) + " ms";
+
+      // Timing Table
+      timingTableBody.innerHTML = Object.entries(t).map(([stage, ms]) => `
+        <tr>
+          <td>${stage}</td>
+          <td><strong>${ms} ms</strong></td>
+        </tr>
+      `).join("");
+    }
+  </script>
+</body>
+</html>

@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
 
-_SENT_SPLIT = re.compile(r"(?<=[.!?।॥])\s+")
+from app.textutil import SENT_SPLIT_RE as _SENT_SPLIT, has_unspaced_script
 
 
 @dataclass
@@ -64,7 +64,7 @@ def make_payload(doc: RawDoc, strategy: str, extra: Optional[Dict] = None) -> Di
 
 def add_chunk(chunks: List[Chunk], doc: RawDoc, text: str, strategy: str, extra: Optional[Dict] = None):
     text = normalize_text(text)
-    if len(text) < 30:
+    if len(text) < (10 if has_unspaced_script(text) else 30):
         return
 
     key = f"{doc.doc_id}|{strategy}|{text}"
@@ -157,9 +157,35 @@ def sentence_group_chunks(
     return chunks
 
 
+def char_group_chunks(doc: RawDoc, target_chars: int = 300) -> List[Chunk]:
+    """Chunker for Chinese / Japanese / Thai text, which has no spaces, so the
+    word-window strategies below would see one giant "word". Groups whole
+    sentences up to ``target_chars`` characters, with one sentence overlap."""
+    sents = split_sentences(doc.text)
+    chunks: List[Chunk] = []
+    current: List[str] = []
+    for sent in sents:
+        if current and sum(len(s) for s in current) + len(sent) > target_chars:
+            text = "".join(current) if has_unspaced_script(current[-1]) else " ".join(current)
+            add_chunk(chunks, doc, text, "char_group_300c", {"chunk_index": len(chunks)})
+            current = current[-1:]
+        current.append(sent)
+    if current:
+        text = "".join(current) if has_unspaced_script(current[-1]) else " ".join(current)
+        add_chunk(chunks, doc, text, "char_group_300c", {"chunk_index": len(chunks)})
+    return chunks
+
+
 def make_chunks(doc: RawDoc) -> List[Chunk]:
     doc.text = normalize_text(doc.text)
     chunks: List[Chunk] = []
+    if has_unspaced_script(doc.text) and len(words(doc.text)) * 8 < len(doc.text):
+        # Mostly unspaced script (CJK / Thai): character-based chunks.
+        if len(doc.text) <= 300:
+            text = f"Title: {doc.title} {doc.text}" if doc.title else doc.text
+            add_chunk(chunks, doc, text, "atomic_short_passage")
+            return chunks
+        return char_group_chunks(doc)
     n_words = len(words(doc.text))
 
     if n_words == 0:

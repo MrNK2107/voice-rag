@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "night-run/**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true   # app/models/injection_clf.npz is an LFS object; without it the guard loses stage 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      # Lightweight deps only: STT, embeddings and Qdrant are mocked / in-memory,
+      # so no torch, no HF downloads, no Sarvam key and no Qdrant service needed.
+      - name: Install test dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Run tests
+        run: python -m pytest -q
+
+      - name: Offline latency benchmark (smoke)
+        run: python scripts/benchmark_offline.py --repeats 3

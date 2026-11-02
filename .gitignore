@@ -12,3 +12,5 @@ storage/*.sqlite
 storage/qdrant_db/
 storage/stt_cache/
 !storage/.gitkeep
+storage/collections/
+node_modules/

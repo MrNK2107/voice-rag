@@ -1,0 +1,1126 @@
+{
+ "data": "demo_answerability.json",
+ "demo_default": 0.6,
+ "runs": [
+  {
+   "threshold": 0.0,
+   "answerable": [
+    {
+     "q": "How much water should I mix with one ORS packet?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What are the symptoms of dengue?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Which painkiller is safe for dengue fever?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_en",
+     "correct_doc": true
+    },
+    {
+     "q": "How long does TB treatment take?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Is TB treatment free in India?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_en",
+     "correct_doc": true
+    },
+    {
+     "q": "How many antenatal check-ups does a pregnant woman need?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anc_en",
+     "correct_doc": true
+    },
+    {
+     "q": "When should breastfeeding start after birth?",
+     "abstained": false,
+     "reason": null,
+     "doc": "bf_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Can a missed vaccine dose be given later?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What should I do for someone with heat stroke?",
+     "abstained": false,
+     "reason": null,
+     "doc": "heat_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Should I suck out the venom after a snakebite?",
+     "abstained": false,
+     "reason": null,
+     "doc": "snake_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Which foods help the body absorb iron?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anaemia_en",
+     "correct_doc": true
+    },
+    {
+     "q": "How long should I rub my hands with soap?",
+     "abstained": false,
+     "reason": null,
+     "doc": "hands_en",
+     "correct_doc": true
+    },
+    {
+     "q": "For how many days should zinc be given in diarrhoea?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Where are vaccines given free for children?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_en",
+     "correct_doc": true
+    },
+    {
+     "q": "ओआरएस का घोल कैसे बनाएँ?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "डेंगू बुखार में कौन सी दवा लें?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "टीबी का इलाज कितने महीने चलता है?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "बच्चे को सिर्फ़ माँ का दूध कब तक देना चाहिए?",
+     "abstained": false,
+     "reason": null,
+     "doc": "bf_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "लू से कैसे बचें?",
+     "abstained": false,
+     "reason": null,
+     "doc": "heat_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "गर्भावस्था में खतरे के संकेत क्या हैं?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anc_hi",
+     "correct_doc": true
+    }
+   ],
+   "unanswerable": [
+    {
+     "q": "Is double the dose of ORS harmful for a child?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_en"
+    },
+    {
+     "q": "Can I give ORS to a dog?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_en"
+    },
+    {
+     "q": "How much does an ORS packet cost?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_en"
+    },
+    {
+     "q": "Is there a vaccine for dengue in India?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_en"
+    },
+    {
+     "q": "What is the name of the TB medicine for children?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_en"
+    },
+    {
+     "q": "Can TB come back after treatment?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_en"
+    },
+    {
+     "q": "Can a pregnant woman travel by bus in the ninth month?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Can a mother with fever continue breastfeeding?",
+     "abstained": false,
+     "reason": null,
+     "doc": "bf_en"
+    },
+    {
+     "q": "What are the side effects of the BCG vaccine?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_en"
+    },
+    {
+     "q": "How many people die of heat stroke every year in India?",
+     "abstained": false,
+     "reason": null,
+     "doc": "heat_en"
+    },
+    {
+     "q": "Which snakes are most venomous in India?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "How long does anti-snake venom take to work?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Can anaemia cause hair loss?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Is hand sanitiser better than soap?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Can I give my child antibiotics for diarrhoea?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_en"
+    },
+    {
+     "q": "क्या ओआरएस ज़्यादा पीने से नुकसान होता है?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_hi"
+    },
+    {
+     "q": "डेंगू का टीका कहाँ मिलता है?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_hi"
+    },
+    {
+     "q": "क्या टीबी दोबारा हो सकती है?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_hi"
+    },
+    {
+     "q": "बीसीजी टीके के दुष्प्रभाव क्या हैं?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_hi"
+    },
+    {
+     "q": "लू से हर साल कितने लोग मरते हैं?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "सैनिटाइज़र और साबुन में कौन बेहतर है?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    }
+   ],
+   "summary": {
+    "answerable_answered": 19,
+    "answerable_answered_correct_doc": 19,
+    "answerable_total": 20,
+    "unanswerable_abstained": 7,
+    "unanswerable_total": 21
+   }
+  },
+  {
+   "threshold": 0.5,
+   "answerable": [
+    {
+     "q": "How much water should I mix with one ORS packet?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What are the symptoms of dengue?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Which painkiller is safe for dengue fever?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_en",
+     "correct_doc": true
+    },
+    {
+     "q": "How long does TB treatment take?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Is TB treatment free in India?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_en",
+     "correct_doc": true
+    },
+    {
+     "q": "How many antenatal check-ups does a pregnant woman need?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anc_en",
+     "correct_doc": true
+    },
+    {
+     "q": "When should breastfeeding start after birth?",
+     "abstained": false,
+     "reason": null,
+     "doc": "bf_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Can a missed vaccine dose be given later?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What should I do for someone with heat stroke?",
+     "abstained": false,
+     "reason": null,
+     "doc": "heat_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Should I suck out the venom after a snakebite?",
+     "abstained": false,
+     "reason": null,
+     "doc": "snake_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Which foods help the body absorb iron?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anaemia_en",
+     "correct_doc": true
+    },
+    {
+     "q": "How long should I rub my hands with soap?",
+     "abstained": false,
+     "reason": null,
+     "doc": "hands_en",
+     "correct_doc": true
+    },
+    {
+     "q": "For how many days should zinc be given in diarrhoea?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Where are vaccines given free for children?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_en",
+     "correct_doc": true
+    },
+    {
+     "q": "ओआरएस का घोल कैसे बनाएँ?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "डेंगू बुखार में कौन सी दवा लें?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "टीबी का इलाज कितने महीने चलता है?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "बच्चे को सिर्फ़ माँ का दूध कब तक देना चाहिए?",
+     "abstained": false,
+     "reason": null,
+     "doc": "bf_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "लू से कैसे बचें?",
+     "abstained": false,
+     "reason": null,
+     "doc": "heat_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "गर्भावस्था में खतरे के संकेत क्या हैं?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anc_hi",
+     "correct_doc": true
+    }
+   ],
+   "unanswerable": [
+    {
+     "q": "Is double the dose of ORS harmful for a child?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 40% of it; missing: double, harmful, ors).",
+     "doc": null
+    },
+    {
+     "q": "Can I give ORS to a dog?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_en"
+    },
+    {
+     "q": "How much does an ORS packet cost?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_en"
+    },
+    {
+     "q": "Is there a vaccine for dengue in India?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 33% of it; missing: dengue, india).",
+     "doc": null
+    },
+    {
+     "q": "What is the name of the TB medicine for children?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 25% of it; missing: medicine, name, tb).",
+     "doc": null
+    },
+    {
+     "q": "Can TB come back after treatment?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_en"
+    },
+    {
+     "q": "Can a pregnant woman travel by bus in the ninth month?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Can a mother with fever continue breastfeeding?",
+     "abstained": false,
+     "reason": null,
+     "doc": "bf_en"
+    },
+    {
+     "q": "What are the side effects of the BCG vaccine?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_en"
+    },
+    {
+     "q": "How many people die of heat stroke every year in India?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 33% of it; missing: die, india, people, year).",
+     "doc": null
+    },
+    {
+     "q": "Which snakes are most venomous in India?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "How long does anti-snake venom take to work?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Can anaemia cause hair loss?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Is hand sanitiser better than soap?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Can I give my child antibiotics for diarrhoea?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_en"
+    },
+    {
+     "q": "क्या ओआरएस ज़्यादा पीने से नुकसान होता है?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_hi"
+    },
+    {
+     "q": "डेंगू का टीका कहाँ मिलता है?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 33% of it; missing: टीका, मिलता).",
+     "doc": null
+    },
+    {
+     "q": "क्या टीबी दोबारा हो सकती है?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_hi"
+    },
+    {
+     "q": "बीसीजी टीके के दुष्प्रभाव क्या हैं?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_hi"
+    },
+    {
+     "q": "लू से हर साल कितने लोग मरते हैं?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "सैनिटाइज़र और साबुन में कौन बेहतर है?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    }
+   ],
+   "summary": {
+    "answerable_answered": 19,
+    "answerable_answered_correct_doc": 19,
+    "answerable_total": 20,
+    "unanswerable_abstained": 12,
+    "unanswerable_total": 21
+   }
+  },
+  {
+   "threshold": 0.6,
+   "answerable": [
+    {
+     "q": "How much water should I mix with one ORS packet?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What are the symptoms of dengue?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Which painkiller is safe for dengue fever?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_en",
+     "correct_doc": true
+    },
+    {
+     "q": "How long does TB treatment take?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Is TB treatment free in India?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_en",
+     "correct_doc": true
+    },
+    {
+     "q": "How many antenatal check-ups does a pregnant woman need?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anc_en",
+     "correct_doc": true
+    },
+    {
+     "q": "When should breastfeeding start after birth?",
+     "abstained": false,
+     "reason": null,
+     "doc": "bf_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Can a missed vaccine dose be given later?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What should I do for someone with heat stroke?",
+     "abstained": false,
+     "reason": null,
+     "doc": "heat_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Should I suck out the venom after a snakebite?",
+     "abstained": false,
+     "reason": null,
+     "doc": "snake_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Which foods help the body absorb iron?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anaemia_en",
+     "correct_doc": true
+    },
+    {
+     "q": "How long should I rub my hands with soap?",
+     "abstained": false,
+     "reason": null,
+     "doc": "hands_en",
+     "correct_doc": true
+    },
+    {
+     "q": "For how many days should zinc be given in diarrhoea?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Where are vaccines given free for children?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_en",
+     "correct_doc": true
+    },
+    {
+     "q": "ओआरएस का घोल कैसे बनाएँ?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "डेंगू बुखार में कौन सी दवा लें?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "टीबी का इलाज कितने महीने चलता है?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "बच्चे को सिर्फ़ माँ का दूध कब तक देना चाहिए?",
+     "abstained": false,
+     "reason": null,
+     "doc": "bf_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "लू से कैसे बचें?",
+     "abstained": false,
+     "reason": null,
+     "doc": "heat_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "गर्भावस्था में खतरे के संकेत क्या हैं?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anc_hi",
+     "correct_doc": true
+    }
+   ],
+   "unanswerable": [
+    {
+     "q": "Is double the dose of ORS harmful for a child?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 40% of it; missing: double, harmful, ors).",
+     "doc": null
+    },
+    {
+     "q": "Can I give ORS to a dog?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 50% of it; missing: dog).",
+     "doc": null
+    },
+    {
+     "q": "How much does an ORS packet cost?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_en"
+    },
+    {
+     "q": "Is there a vaccine for dengue in India?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 33% of it; missing: dengue, india).",
+     "doc": null
+    },
+    {
+     "q": "What is the name of the TB medicine for children?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 25% of it; missing: medicine, name, tb).",
+     "doc": null
+    },
+    {
+     "q": "Can TB come back after treatment?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 50% of it; missing: back, come).",
+     "doc": null
+    },
+    {
+     "q": "Can a pregnant woman travel by bus in the ninth month?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Can a mother with fever continue breastfeeding?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 50% of it; missing: fever, mother).",
+     "doc": null
+    },
+    {
+     "q": "What are the side effects of the BCG vaccine?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 50% of it; missing: effects, side).",
+     "doc": null
+    },
+    {
+     "q": "How many people die of heat stroke every year in India?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 33% of it; missing: die, india, people, year).",
+     "doc": null
+    },
+    {
+     "q": "Which snakes are most venomous in India?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "How long does anti-snake venom take to work?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Can anaemia cause hair loss?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Is hand sanitiser better than soap?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Can I give my child antibiotics for diarrhoea?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_en"
+    },
+    {
+     "q": "क्या ओआरएस ज़्यादा पीने से नुकसान होता है?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_hi"
+    },
+    {
+     "q": "डेंगू का टीका कहाँ मिलता है?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 33% of it; missing: टीका, मिलता).",
+     "doc": null
+    },
+    {
+     "q": "क्या टीबी दोबारा हो सकती है?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 50% of it; missing: दोबारा).",
+     "doc": null
+    },
+    {
+     "q": "बीसीजी टीके के दुष्प्रभाव क्या हैं?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_hi"
+    },
+    {
+     "q": "लू से हर साल कितने लोग मरते हैं?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "सैनिटाइज़र और साबुन में कौन बेहतर है?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    }
+   ],
+   "summary": {
+    "answerable_answered": 19,
+    "answerable_answered_correct_doc": 19,
+    "answerable_total": 20,
+    "unanswerable_abstained": 17,
+    "unanswerable_total": 21
+   }
+  },
+  {
+   "threshold": 0.75,
+   "answerable": [
+    {
+     "q": "How much water should I mix with one ORS packet?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What are the symptoms of dengue?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Which painkiller is safe for dengue fever?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_en",
+     "correct_doc": true
+    },
+    {
+     "q": "How long does TB treatment take?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Is TB treatment free in India?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_en",
+     "correct_doc": true
+    },
+    {
+     "q": "How many antenatal check-ups does a pregnant woman need?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anc_en",
+     "correct_doc": true
+    },
+    {
+     "q": "When should breastfeeding start after birth?",
+     "abstained": false,
+     "reason": null,
+     "doc": "bf_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Can a missed vaccine dose be given later?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What should I do for someone with heat stroke?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 67% of it; missing: someone).",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "Should I suck out the venom after a snakebite?",
+     "abstained": false,
+     "reason": null,
+     "doc": "snake_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Which foods help the body absorb iron?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anaemia_en",
+     "correct_doc": true
+    },
+    {
+     "q": "How long should I rub my hands with soap?",
+     "abstained": false,
+     "reason": null,
+     "doc": "hands_en",
+     "correct_doc": true
+    },
+    {
+     "q": "For how many days should zinc be given in diarrhoea?",
+     "abstained": false,
+     "reason": null,
+     "doc": "ors_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Where are vaccines given free for children?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_en",
+     "correct_doc": true
+    },
+    {
+     "q": "ओआरएस का घोल कैसे बनाएँ?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "डेंगू बुखार में कौन सी दवा लें?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "टीबी का इलाज कितने महीने चलता है?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "बच्चे को सिर्फ़ माँ का दूध कब तक देना चाहिए?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 67% of it; missing: बच्चे).",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "लू से कैसे बचें?",
+     "abstained": false,
+     "reason": null,
+     "doc": "heat_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "गर्भावस्था में खतरे के संकेत क्या हैं?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anc_hi",
+     "correct_doc": true
+    }
+   ],
+   "unanswerable": [
+    {
+     "q": "Is double the dose of ORS harmful for a child?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 40% of it; missing: double, harmful, ors).",
+     "doc": null
+    },
+    {
+     "q": "Can I give ORS to a dog?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 50% of it; missing: dog).",
+     "doc": null
+    },
+    {
+     "q": "How much does an ORS packet cost?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 67% of it; missing: cost).",
+     "doc": null
+    },
+    {
+     "q": "Is there a vaccine for dengue in India?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 33% of it; missing: dengue, india).",
+     "doc": null
+    },
+    {
+     "q": "What is the name of the TB medicine for children?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 25% of it; missing: medicine, name, tb).",
+     "doc": null
+    },
+    {
+     "q": "Can TB come back after treatment?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 50% of it; missing: back, come).",
+     "doc": null
+    },
+    {
+     "q": "Can a pregnant woman travel by bus in the ninth month?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Can a mother with fever continue breastfeeding?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 50% of it; missing: fever, mother).",
+     "doc": null
+    },
+    {
+     "q": "What are the side effects of the BCG vaccine?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 50% of it; missing: effects, side).",
+     "doc": null
+    },
+    {
+     "q": "How many people die of heat stroke every year in India?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 33% of it; missing: die, india, people, year).",
+     "doc": null
+    },
+    {
+     "q": "Which snakes are most venomous in India?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "How long does anti-snake venom take to work?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Can anaemia cause hair loss?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Is hand sanitiser better than soap?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Can I give my child antibiotics for diarrhoea?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 67% of it; missing: antibiotics).",
+     "doc": null
+    },
+    {
+     "q": "क्या ओआरएस ज़्यादा पीने से नुकसान होता है?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 67% of it; missing: नुकसान).",
+     "doc": null
+    },
+    {
+     "q": "डेंगू का टीका कहाँ मिलता है?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 33% of it; missing: टीका, मिलता).",
+     "doc": null
+    },
+    {
+     "q": "क्या टीबी दोबारा हो सकती है?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 50% of it; missing: दोबारा).",
+     "doc": null
+    },
+    {
+     "q": "बीसीजी टीके के दुष्प्रभाव क्या हैं?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 67% of it; missing: दुष्प्रभाव).",
+     "doc": null
+    },
+    {
+     "q": "लू से हर साल कितने लोग मरते हैं?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "सैनिटाइज़र और साबुन में कौन बेहतर है?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    }
+   ],
+   "summary": {
+    "answerable_answered": 17,
+    "answerable_answered_correct_doc": 17,
+    "answerable_total": 20,
+    "unanswerable_abstained": 21,
+    "unanswerable_total": 21
+   }
+  }
+ ]
+}

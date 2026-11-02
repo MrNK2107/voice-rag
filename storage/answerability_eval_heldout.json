@@ -1,0 +1,838 @@
+{
+ "data": "demo_answerability_heldout.json",
+ "demo_default": 0.6,
+ "runs": [
+  {
+   "threshold": 0.0,
+   "answerable": [
+    {
+     "q": "How long should a baby get only breast milk?",
+     "abstained": false,
+     "reason": null,
+     "doc": "bf_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What is colostrum?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "Which mosquito spreads dengue?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What are the signs of heat stroke?",
+     "abstained": false,
+     "reason": null,
+     "doc": "heat_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Where can I get a free sputum test?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "What foods are rich in iron?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anaemia_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Why should I avoid aspirin in dengue?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_en",
+     "correct_doc": true
+    },
+    {
+     "q": "When should we wash hands?",
+     "abstained": false,
+     "reason": null,
+     "doc": "hands_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What should I remove near a snake bite?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "Which vaccines does a newborn get at birth?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_en",
+     "correct_doc": true
+    },
+    {
+     "q": "टीबी के लक्षण क्या हैं?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "एडीज़ मच्छर कहाँ पनपता है?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "गर्भवती महिला को कितनी जाँच करानी चाहिए?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anc_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "स्तनपान कब शुरू करना चाहिए?",
+     "abstained": false,
+     "reason": null,
+     "doc": "bf_hi",
+     "correct_doc": true
+    }
+   ],
+   "unanswerable": [
+    {
+     "q": "Can ORS be given to a diabetic adult?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "How long can prepared ORS be kept?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Is papaya leaf juice good for dengue?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_en"
+    },
+    {
+     "q": "Does the TB test hurt?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_en"
+    },
+    {
+     "q": "Is TB contagious after two weeks of treatment?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_en"
+    },
+    {
+     "q": "Can I eat mangoes during pregnancy?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "How do I store expressed breast milk?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Which vaccine is given at nine months?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_en"
+    },
+    {
+     "q": "Can heat stroke happen indoors at night?",
+     "abstained": false,
+     "reason": null,
+     "doc": "heat_en"
+    },
+    {
+     "q": "Is a rat snake poisonous?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "How much iron does a teenage girl need per day?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Is hand washing with ash safe?",
+     "abstained": false,
+     "reason": null,
+     "doc": "hands_en"
+    },
+    {
+     "q": "क्या डेंगू में पपीते के पत्ते का रस फ़ायदेमंद है?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_hi"
+    },
+    {
+     "q": "बनाया हुआ ओआरएस कितनी देर तक रख सकते हैं?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "क्या गर्भावस्था में आम खा सकते हैं?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "नौ महीने पर कौन सा टीका लगता है?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    }
+   ],
+   "summary": {
+    "answerable_answered": 11,
+    "answerable_answered_correct_doc": 11,
+    "answerable_total": 14,
+    "unanswerable_abstained": 9,
+    "unanswerable_total": 16
+   }
+  },
+  {
+   "threshold": 0.5,
+   "answerable": [
+    {
+     "q": "How long should a baby get only breast milk?",
+     "abstained": false,
+     "reason": null,
+     "doc": "bf_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What is colostrum?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "Which mosquito spreads dengue?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What are the signs of heat stroke?",
+     "abstained": false,
+     "reason": null,
+     "doc": "heat_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Where can I get a free sputum test?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "What foods are rich in iron?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anaemia_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Why should I avoid aspirin in dengue?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_en",
+     "correct_doc": true
+    },
+    {
+     "q": "When should we wash hands?",
+     "abstained": false,
+     "reason": null,
+     "doc": "hands_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What should I remove near a snake bite?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "Which vaccines does a newborn get at birth?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_en",
+     "correct_doc": true
+    },
+    {
+     "q": "टीबी के लक्षण क्या हैं?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "एडीज़ मच्छर कहाँ पनपता है?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "गर्भवती महिला को कितनी जाँच करानी चाहिए?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anc_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "स्तनपान कब शुरू करना चाहिए?",
+     "abstained": false,
+     "reason": null,
+     "doc": "bf_hi",
+     "correct_doc": true
+    }
+   ],
+   "unanswerable": [
+    {
+     "q": "Can ORS be given to a diabetic adult?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "How long can prepared ORS be kept?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Is papaya leaf juice good for dengue?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 20% of it; missing: good, juice, leaf, papaya).",
+     "doc": null
+    },
+    {
+     "q": "Does the TB test hurt?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_en"
+    },
+    {
+     "q": "Is TB contagious after two weeks of treatment?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_en"
+    },
+    {
+     "q": "Can I eat mangoes during pregnancy?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "How do I store expressed breast milk?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Which vaccine is given at nine months?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 33% of it; missing: 9, months).",
+     "doc": null
+    },
+    {
+     "q": "Can heat stroke happen indoors at night?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 40% of it; missing: happen, indoors, night).",
+     "doc": null
+    },
+    {
+     "q": "Is a rat snake poisonous?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "How much iron does a teenage girl need per day?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Is hand washing with ash safe?",
+     "abstained": false,
+     "reason": null,
+     "doc": "hands_en"
+    },
+    {
+     "q": "क्या डेंगू में पपीते के पत्ते का रस फ़ायदेमंद है?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 20% of it; missing: पत्ते, पपीते, फ़ायदेमंद, रस).",
+     "doc": null
+    },
+    {
+     "q": "बनाया हुआ ओआरएस कितनी देर तक रख सकते हैं?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "क्या गर्भावस्था में आम खा सकते हैं?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "नौ महीने पर कौन सा टीका लगता है?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    }
+   ],
+   "summary": {
+    "answerable_answered": 11,
+    "answerable_answered_correct_doc": 11,
+    "answerable_total": 14,
+    "unanswerable_abstained": 13,
+    "unanswerable_total": 16
+   }
+  },
+  {
+   "threshold": 0.6,
+   "answerable": [
+    {
+     "q": "How long should a baby get only breast milk?",
+     "abstained": false,
+     "reason": null,
+     "doc": "bf_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What is colostrum?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "Which mosquito spreads dengue?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What are the signs of heat stroke?",
+     "abstained": false,
+     "reason": null,
+     "doc": "heat_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Where can I get a free sputum test?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "What foods are rich in iron?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anaemia_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Why should I avoid aspirin in dengue?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_en",
+     "correct_doc": true
+    },
+    {
+     "q": "When should we wash hands?",
+     "abstained": false,
+     "reason": null,
+     "doc": "hands_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What should I remove near a snake bite?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "Which vaccines does a newborn get at birth?",
+     "abstained": false,
+     "reason": null,
+     "doc": "uip_en",
+     "correct_doc": true
+    },
+    {
+     "q": "टीबी के लक्षण क्या हैं?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "एडीज़ मच्छर कहाँ पनपता है?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "गर्भवती महिला को कितनी जाँच करानी चाहिए?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anc_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "स्तनपान कब शुरू करना चाहिए?",
+     "abstained": false,
+     "reason": null,
+     "doc": "bf_hi",
+     "correct_doc": true
+    }
+   ],
+   "unanswerable": [
+    {
+     "q": "Can ORS be given to a diabetic adult?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "How long can prepared ORS be kept?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Is papaya leaf juice good for dengue?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 20% of it; missing: good, juice, leaf, papaya).",
+     "doc": null
+    },
+    {
+     "q": "Does the TB test hurt?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_en"
+    },
+    {
+     "q": "Is TB contagious after two weeks of treatment?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_en"
+    },
+    {
+     "q": "Can I eat mangoes during pregnancy?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "How do I store expressed breast milk?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Which vaccine is given at nine months?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 33% of it; missing: 9, months).",
+     "doc": null
+    },
+    {
+     "q": "Can heat stroke happen indoors at night?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 40% of it; missing: happen, indoors, night).",
+     "doc": null
+    },
+    {
+     "q": "Is a rat snake poisonous?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "How much iron does a teenage girl need per day?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Is hand washing with ash safe?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 50% of it; missing: ash, safe).",
+     "doc": null
+    },
+    {
+     "q": "क्या डेंगू में पपीते के पत्ते का रस फ़ायदेमंद है?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 20% of it; missing: पत्ते, पपीते, फ़ायदेमंद, रस).",
+     "doc": null
+    },
+    {
+     "q": "बनाया हुआ ओआरएस कितनी देर तक रख सकते हैं?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "क्या गर्भावस्था में आम खा सकते हैं?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "नौ महीने पर कौन सा टीका लगता है?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    }
+   ],
+   "summary": {
+    "answerable_answered": 11,
+    "answerable_answered_correct_doc": 11,
+    "answerable_total": 14,
+    "unanswerable_abstained": 14,
+    "unanswerable_total": 16
+   }
+  },
+  {
+   "threshold": 0.75,
+   "answerable": [
+    {
+     "q": "How long should a baby get only breast milk?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 67% of it; missing: baby).",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "What is colostrum?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "Which mosquito spreads dengue?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What are the signs of heat stroke?",
+     "abstained": false,
+     "reason": null,
+     "doc": "heat_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Where can I get a free sputum test?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "What foods are rich in iron?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anaemia_en",
+     "correct_doc": true
+    },
+    {
+     "q": "Why should I avoid aspirin in dengue?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_en",
+     "correct_doc": true
+    },
+    {
+     "q": "When should we wash hands?",
+     "abstained": false,
+     "reason": null,
+     "doc": "hands_en",
+     "correct_doc": true
+    },
+    {
+     "q": "What should I remove near a snake bite?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "Which vaccines does a newborn get at birth?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 67% of it; missing: newborn).",
+     "doc": null,
+     "correct_doc": false
+    },
+    {
+     "q": "टीबी के लक्षण क्या हैं?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "एडीज़ मच्छर कहाँ पनपता है?",
+     "abstained": false,
+     "reason": null,
+     "doc": "dengue_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "गर्भवती महिला को कितनी जाँच करानी चाहिए?",
+     "abstained": false,
+     "reason": null,
+     "doc": "anc_hi",
+     "correct_doc": true
+    },
+    {
+     "q": "स्तनपान कब शुरू करना चाहिए?",
+     "abstained": false,
+     "reason": null,
+     "doc": "bf_hi",
+     "correct_doc": true
+    }
+   ],
+   "unanswerable": [
+    {
+     "q": "Can ORS be given to a diabetic adult?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "How long can prepared ORS be kept?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Is papaya leaf juice good for dengue?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 20% of it; missing: good, juice, leaf, papaya).",
+     "doc": null
+    },
+    {
+     "q": "Does the TB test hurt?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 67% of it; missing: hurt).",
+     "doc": null
+    },
+    {
+     "q": "Is TB contagious after two weeks of treatment?",
+     "abstained": false,
+     "reason": null,
+     "doc": "tb_en"
+    },
+    {
+     "q": "Can I eat mangoes during pregnancy?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "How do I store expressed breast milk?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Which vaccine is given at nine months?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 33% of it; missing: 9, months).",
+     "doc": null
+    },
+    {
+     "q": "Can heat stroke happen indoors at night?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 40% of it; missing: happen, indoors, night).",
+     "doc": null
+    },
+    {
+     "q": "Is a rat snake poisonous?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "How much iron does a teenage girl need per day?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "Is hand washing with ash safe?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 50% of it; missing: ash, safe).",
+     "doc": null
+    },
+    {
+     "q": "क्या डेंगू में पपीते के पत्ते का रस फ़ायदेमंद है?",
+     "abstained": true,
+     "reason": "The retrieved passages do not answer this question (answer covers 20% of it; missing: पत्ते, पपीते, फ़ायदेमंद, रस).",
+     "doc": null
+    },
+    {
+     "q": "बनाया हुआ ओआरएस कितनी देर तक रख सकते हैं?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "क्या गर्भावस्था में आम खा सकते हैं?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    },
+    {
+     "q": "नौ महीने पर कौन सा टीका लगता है?",
+     "abstained": true,
+     "reason": "The question appears off-topic or unsupported by the dataset.",
+     "doc": null
+    }
+   ],
+   "summary": {
+    "answerable_answered": 9,
+    "answerable_answered_correct_doc": 9,
+    "answerable_total": 14,
+    "unanswerable_abstained": 15,
+    "unanswerable_total": 16
+   }
+  }
+ ]
+}

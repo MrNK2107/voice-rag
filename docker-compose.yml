@@ -1,9 +1,23 @@
-version: '3.8'
-
 services:
+  # Offline health demo: no API keys, no Qdrant server, no model download.
+  #   docker compose up demo   ->  http://localhost:8000
+  demo:
+    build:
+      context: .
+      dockerfile: Dockerfile.demo
+    image: voice-rag-demo:local
+    ports:
+      - "8000:8000"
+    environment:
+      VOICE_RAG_DEMO: "1"
+    restart: unless-stopped
+
+  # Full pipeline: Qdrant server for the real MSMARCO-XI index
+  #   docker compose --profile full up qdrant
   qdrant:
     image: qdrant/qdrant:latest
     container_name: qdrant_msmarco
+    profiles: ["full"]
     ports:
       - "6333:6333"
       - "6334:6334"

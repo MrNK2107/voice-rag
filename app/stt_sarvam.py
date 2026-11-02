@@ -8,7 +8,10 @@ from app.config import settings
 
 
 class SarvamSTT:
+    name = "sarvam"
+
     def __init__(self):
+        self.last_language = None
         self.cache_dir = Path("storage/stt_cache")
         self.cache_dir.mkdir(parents=True, exist_ok=True)
 
@@ -67,6 +70,10 @@ class SarvamSTT:
             or payload.get("output")
             or ""
         ).strip()
+
+        # Sarvam reports the detected language as e.g. "hi-IN".
+        code = payload.get("language_code")
+        self.last_language = code.split("-")[0] if isinstance(code, str) and code else None
 
         if settings.stt_cache_enabled and text:
             path = self._cache_path(audio_bytes)

@@ -1,8 +1,7 @@
-import os
-import sys
 import unittest
+from unittest import mock
 
-sys.path.insert(0, os.path.abspath("."))
+import requests
 
 from app.chunking import RawDoc, make_chunks
 from app.guardrails import input_guard, retrieval_guard, grounding_check
@@ -61,14 +60,40 @@ class TestVoiceRAGSubsystems(unittest.TestCase):
 
         print("[OK] Input guardrails test passed.")
 
-    def test_03_stt_sarvam(self):
-        print("\n--- Testing STT Sarvam Adapter ---")
+    def test_03_stt_sarvam_without_key_falls_back(self):
         stt = SarvamSTT()
-        transcript = stt.transcribe(b"dummy audio content", "test.webm", "audio/webm")
-        print(f"STT Transcript Result: '{transcript}'")
-        self.assertTrue(isinstance(transcript, str))
+        with mock.patch("app.stt_sarvam.settings") as st:
+            st.sarvam_api_key = ""
+            st.stt_cache_enabled = False
+            transcript = stt.transcribe(b"dummy audio content", "test.webm", "audio/webm")
+        self.assertIsInstance(transcript, str)
         self.assertGreater(len(transcript), 0)
-        print("[OK] STT test passed.")
+
+    def test_03b_stt_sarvam_with_key_posts_and_parses(self):
+        stt = SarvamSTT()
+        fake_resp = mock.Mock()
+        fake_resp.json.return_value = {"transcript": "  गोवा की राजधानी  "}
+        fake_resp.raise_for_status.return_value = None
+        with mock.patch("app.stt_sarvam.settings") as st,                 mock.patch("app.stt_sarvam.requests.post", return_value=fake_resp) as post:
+            st.sarvam_api_key = "test-key"
+            st.stt_cache_enabled = False
+            st.sarvam_stt_url = "https://example.invalid/stt"
+            st.sarvam_stt_model = "saarika:v2.5"
+            text = stt.transcribe(b"abc", "a.wav", "audio/wav")
+        self.assertEqual(text, "गोवा की राजधानी")
+        _, kwargs = post.call_args
+        self.assertEqual(kwargs["headers"]["api-subscription-key"], "test-key")
+        self.assertEqual(kwargs["data"]["model"], "saarika:v2.5")
+
+    def test_03c_stt_sarvam_retries_then_raises(self):
+        stt = SarvamSTT()
+        with mock.patch("app.stt_sarvam.settings") as st,                 mock.patch("app.stt_sarvam.requests.post",
+                           side_effect=requests.ConnectionError("boom")) as post:
+            st.sarvam_api_key = "test-key"
+            st.stt_cache_enabled = False
+            with self.assertRaises(requests.ConnectionError):
+                stt.transcribe(b"abc", "a.wav", "audio/wav")
+        self.assertEqual(post.call_count, 2)
 
     def test_04_generator(self):
         print("\n--- Testing Extractive Generator ---")
