@@ -159,10 +159,40 @@ def query_coverage(query: str, answer: str) -> Tuple[float, List[str]]:
 
 
 def _strip_title(ctx: RetrievedContext) -> str:
+    """Chunk text without the retrieval-only "Title: <title>" prefix, the
+    "Intro: " label of metadata_title_intro chunks, and the dataset question of
+    qa_fused chunks ("Question: ... Relevant evidence: <passage>"), which would
+    otherwise be the best "answer" to that very question (app/chunking.py)."""
     text = ctx.text or ""
+    if text.startswith("Question: ") and "Relevant evidence: " in text:
+        return text.split("Relevant evidence: ", 1)[1]
     if ctx.title and text.startswith(f"Title: {ctx.title}"):
         text = text[len(f"Title: {ctx.title}"):].lstrip()
+        if text.startswith("Intro: "):
+            text = text[len("Intro: "):]
     return text
+
+
+# Word-window chunks (app/chunking.py sliding_word_chunks) start and end at
+# arbitrary words, so their first and last "sentences" can be fragments. Quoting
+# "Children can take aspirin" from "...aspirin only when a doctor prescribes it"
+# would pass every check, since the fragment is a substring of the passage.
+_WINDOW_STRATEGY = regex.compile(r"^(?:micro|standard|macro)_\d+w")
+_SENTENCE_END = regex.compile(r"[.!?।॥؟۔。！？][\"'”’)\]]*\s*$")
+
+
+# These start at the document start but stop after a fixed number of words.
+_TRUNCATED_STRATEGIES = {"metadata_title_intro", "qa_fused"}
+
+
+def _whole_sentences(text: str, strategy: str | None) -> List[str]:
+    sents = split_sentences(text)
+    window = bool(strategy and _WINDOW_STRATEGY.match(strategy))
+    if window and len(sents) > 1:
+        sents = sents[1:]
+    if (window or strategy in _TRUNCATED_STRATEGIES) and sents and not _SENTENCE_END.search(sents[-1]):
+        sents = sents[:-1]
+    return sents
 
 
 class AnswerGenerator:
@@ -176,12 +206,10 @@ class AnswerGenerator:
         candidates = []
 
         for ctx_rank, ctx in enumerate(contexts):
-            text = ctx.text
             # Window/sentence-group chunks are prefixed with "Title: <title> " for
             # retrieval; don't let that prefix leak into the extracted answer.
-            if ctx.title and text.startswith(f"Title: {ctx.title}"):
-                text = text[len(f"Title: {ctx.title}"):].lstrip()
-            for sent in split_sentences(text):
+            text = _strip_title(ctx)
+            for sent in _whole_sentences(text, ctx.strategy):
                 sent = sent.strip()
                 if len(sent) < (8 if is_unspaced_token(sent) else 25):
                     continue

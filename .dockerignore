@@ -1,0 +1,17 @@
+# Build context for the root Dockerfile (`COPY . /app`). Dockerfile.demo has
+# its own Dockerfile.demo.dockerignore.
+.git
+.venv
+venv
+**/__pycache__
+.pytest_cache
+.env
+*.env
+INTERVIEW_GUIDE
+NIGHT_RUN_NOTES.md
+storage/collections
+storage/qdrant_db
+storage/qdrant
+storage/stt_cache
+storage/*.sqlite
+node_modules

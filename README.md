@@ -192,7 +192,7 @@ The suite runs fully offline: a fake STT, a deterministic hashing embedder with 
 
 ```bash
 python -m pip install -r requirements-dev.txt   # no torch / gradio / datasets
-python -m pytest -q                             # 414 tests, about 12 s
+python -m pytest -q                             # 459 tests, about 12 s
 ```
 
 New with Vouch: `tests/test_multilingual.py` (language detection on 21 scripts and languages, RTL hints, CJK tokenisation and sentence splitting, injection patterns and benign look-alikes in 12 languages, localised emergency triage, answering in 9 languages from the sample collection, translation hook) and `tests/test_collections_api.py` (collection lifecycle, Spanish and Chinese ingestion, PDF/HTML/Markdown extraction, URL fetching and the SSRF guard, STT provider selection, Whisper request format, insights and gap report, the full HTTP API, admin token, pages and widget). The earlier suites cover retrieval ranking, guards, the learned classifier, citations, answerability, edge cases, the health demo and its agent.

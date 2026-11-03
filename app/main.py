@@ -6,6 +6,7 @@
 Pages: /  (landing), /app (ask), /admin (collections + insights),
 /embed/{collection} (widget frame), /widget.js (the embeddable script).
 """
+import hmac
 import os
 from contextlib import asynccontextmanager
 from typing import List, Optional
@@ -13,7 +14,7 @@ from typing import List, Optional
 from fastapi import FastAPI, File, Form, Header, HTTPException, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from app.agent import AgentRequest, AgentResponse, HealthAgent, planner_from_env
 from app.collection_store import CollectionError, CollectionNotFound
@@ -28,6 +29,8 @@ from app.stt_sarvam import SarvamSTT
 harness: VoiceRAGHarness | None = None
 _HarnessClass = VoiceRAGHarness
 WEB = "web"
+# A spoken question is seconds of audio; 25 MB is also the Whisper API's limit.
+MAX_AUDIO_BYTES = 25 * 1024 * 1024
 
 
 def demo_mode_enabled() -> bool:
@@ -98,8 +101,14 @@ def _need_store():
     return h.collections
 
 
+def _is_admin(token: Optional[str]) -> bool:
+    if not settings.admin_token:
+        return True
+    return hmac.compare_digest((token or "").encode("utf-8"), settings.admin_token.encode("utf-8"))
+
+
 def _check_admin(token: Optional[str]) -> None:
-    if settings.admin_token and token != settings.admin_token:
+    if not _is_admin(token):
         raise HTTPException(status_code=401, detail="Admin token required (X-Admin-Token header).")
 
 
@@ -146,7 +155,7 @@ def demo_info():
 
 
 class DetectRequest(BaseModel):
-    text: str
+    text: str = Field(max_length=1_000_000)
 
 
 @app.post("/api/detect-language")
@@ -161,7 +170,7 @@ def ask_text(req: TextRequest):
     try:
         return h.ask_text(req.query, collection=req.collection or None, language=req.language,
                           channel=req.channel if req.channel in {"text", "voice", "widget"} else "text")
-    except (CollectionNotFound, KeyError):
+    except CollectionNotFound:
         raise HTTPException(status_code=404, detail=f"Unknown collection '{req.collection}'.")
 
 
@@ -177,7 +186,9 @@ def agent_ask(req: AgentRequest):
 async def ask_audio(file: UploadFile = File(...), collection: Optional[str] = Form(None),
                     language: Optional[str] = Form(None), stt: Optional[str] = Form(None)):
     h = _need_harness()
-    audio_bytes = await file.read()
+    audio_bytes = await file.read(MAX_AUDIO_BYTES + 1)
+    if len(audio_bytes) > MAX_AUDIO_BYTES:
+        raise HTTPException(status_code=413, detail=f"Audio is larger than {MAX_AUDIO_BYTES // (1024 * 1024)} MB.")
     provider = None
     # Offline / test harnesses carry their own STT; production picks a provider
     # per request (Sarvam for Indian languages, Whisper for the rest).
@@ -190,7 +201,7 @@ async def ask_audio(file: UploadFile = File(...), collection: Optional[str] = Fo
         return h.ask_audio(audio_bytes=audio_bytes, filename=file.filename or "audio.webm",
                            content_type=file.content_type or "audio/webm",
                            collection=collection or None, language=language, stt=provider)
-    except (CollectionNotFound, KeyError):
+    except CollectionNotFound:
         raise HTTPException(status_code=404, detail=f"Unknown collection '{collection}'.")
 
 
@@ -231,7 +242,7 @@ def get_collection(name: str, x_admin_token: Optional[str] = Header(None)):
         summary = store.summary(name)
         # Summaries are public (the widget shows the title); with an admin token
         # configured, the document list is for admins only.
-        admin = not settings.admin_token or x_admin_token == settings.admin_token
+        admin = _is_admin(x_admin_token)
         return {**summary, "document_list": store.documents(name) if admin else []}
     except CollectionNotFound:
         raise HTTPException(status_code=404, detail=f"Unknown collection '{name}'.")

@@ -14,6 +14,7 @@ from __future__ import annotations
 import dataclasses
 import hashlib
 import json
+import os
 import re
 import shutil
 import sqlite3
@@ -78,12 +79,20 @@ class CollectionStore:
             try:
                 self._meta = json.loads(self._meta_path.read_text(encoding="utf-8"))
             except ValueError:
+                # Keep the unreadable file for recovery; the next save would
+                # otherwise overwrite every collection's metadata.
+                backup = self._meta_path.with_name(f"collections.json.corrupt-{int(time.time())}")
+                os.replace(self._meta_path, backup)
+                print(f"collections.json is unreadable; moved to {backup.name}")
                 self._meta = {}
 
     # ---- metadata ----------------------------------------------------------
     def _save(self) -> None:
         persist = {k: v for k, v in self._meta.items() if not v.get("external")}
-        self._meta_path.write_text(json.dumps(persist, ensure_ascii=False, indent=1), encoding="utf-8")
+        # Write-then-rename, so a crash mid-write cannot leave a truncated file.
+        tmp = self._meta_path.with_name(self._meta_path.name + ".tmp")
+        tmp.write_text(json.dumps(persist, ensure_ascii=False, indent=1), encoding="utf-8")
+        os.replace(tmp, self._meta_path)
 
     def _qname(self, name: str) -> str:
         return f"vouch_{name}"
@@ -179,12 +188,20 @@ class CollectionStore:
                 if not text:
                     continue
                 lang = detect_language(text[:2000]).code
-                doc_id = hashlib.sha1(f"{name}|{d.source}|{d.page}|{text[:200]}".encode("utf-8")).hexdigest()[:16]
+                # A file or URL is identified by where it came from, so uploading
+                # an edited version replaces the old one. Pasted text has no
+                # source, so its content identifies it.
+                key = f"{name}|{d.source}|{d.page}"
+                if not d.source or d.source == "pasted":
+                    key += "|" + hashlib.sha1(text.encode("utf-8")).hexdigest()
+                doc_id = hashlib.sha1(key.encode("utf-8")).hexdigest()[:16]
                 raw = RawDoc(doc_id, text, title=d.title, language=lang, source_type="upload",
                              metadata={"source": d.source, "page": d.page})
                 chunks = make_chunks(dataclasses.replace(raw, metadata=dict(raw.metadata)))
                 if not chunks:
                     continue
+                if any(x["doc_id"] == doc_id for x in m["documents"]):
+                    self._remove_doc_chunks(name, doc_id)
                 self._index_chunks(name, chunks)
                 rec = {"doc_id": doc_id, "title": d.title, "source": d.source, "page": d.page,
                        "language": lang, "chunks": len(chunks), "chars": len(text), "added_at": time.time()}
@@ -215,10 +232,20 @@ class CollectionStore:
         conn.commit()
         conn.close()
 
-    def delete_document(self, name: str, doc_id: str) -> Dict:
-        """Remove one document's chunks from both indexes and its metadata."""
+    def _remove_doc_chunks(self, name: str, doc_id: str) -> None:
         from qdrant_client.models import FieldCondition, Filter, FilterSelector, MatchValue
 
+        self.qdrant.delete(self._qname(name), points_selector=FilterSelector(filter=Filter(
+            must=[FieldCondition(key="parent_doc_id", match=MatchValue(value=doc_id))])))
+        conn = sqlite3.connect(str(self._sqlite(name)))
+        ids = [r[0] for r in conn.execute("SELECT chunk_id FROM chunks_meta WHERE parent_doc_id = ?", (doc_id,))]
+        conn.executemany("DELETE FROM chunks_fts WHERE chunk_id = ?", [(i,) for i in ids])
+        conn.execute("DELETE FROM chunks_meta WHERE parent_doc_id = ?", (doc_id,))
+        conn.commit()
+        conn.close()
+
+    def delete_document(self, name: str, doc_id: str) -> Dict:
+        """Remove one document's chunks from both indexes and its metadata."""
         with self._lock:
             m = self.get(name)
             if m.get("external"):
@@ -226,14 +253,7 @@ class CollectionStore:
             rec = next((d for d in m["documents"] if d["doc_id"] == doc_id), None)
             if rec is None:
                 raise CollectionNotFound(f"{name}/{doc_id}")
-            self.qdrant.delete(self._qname(name), points_selector=FilterSelector(filter=Filter(
-                must=[FieldCondition(key="parent_doc_id", match=MatchValue(value=doc_id))])))
-            conn = sqlite3.connect(str(self._sqlite(name)))
-            ids = [r[0] for r in conn.execute("SELECT chunk_id FROM chunks_meta WHERE parent_doc_id = ?", (doc_id,))]
-            conn.executemany("DELETE FROM chunks_fts WHERE chunk_id = ?", [(i,) for i in ids])
-            conn.execute("DELETE FROM chunks_meta WHERE parent_doc_id = ?", (doc_id,))
-            conn.commit()
-            conn.close()
+            self._remove_doc_chunks(name, doc_id)
             m["documents"] = [d for d in m["documents"] if d["doc_id"] != doc_id]
             self._save()
             return rec
@@ -257,6 +277,11 @@ class CollectionStore:
         from app.retriever import HybridRetriever
 
         self.get(name)
+        # Fast path without the lock: add_documents holds it while embedding a
+        # whole upload, and questions must not wait for that.
+        cached = self._retrievers.get(name)
+        if cached is not None:
+            return cached
         with self._lock:
             if name not in self._retrievers:
                 if name in self._external:

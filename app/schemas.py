@@ -55,9 +55,14 @@ class RagResponse(BaseModel):
     stt_provider: Optional[str] = None
 
 
+# Questions over 1000 characters get a friendly refusal from the input guard;
+# this hard cap only bounds the request body.
+MAX_QUERY_CHARS = 1_000_000
+
+
 class TextRequest(BaseModel):
-    query: str
-    collection: Optional[str] = None
+    query: str = Field(max_length=MAX_QUERY_CHARS)
+    collection: Optional[str] = Field(None, max_length=64)
     # Optional language hint from the UI ("auto" or a BCP-47 code).
-    language: Optional[str] = None
+    language: Optional[str] = Field(None, max_length=35)
     channel: str = "text"

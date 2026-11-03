@@ -73,6 +73,25 @@ def is_emergency(text: str) -> bool:
         return False
 
 
+_SELF_HARM_RE = re.compile(
+    r"\bsuicid\w*|\bkill(?:ing)? myself\b|\bend(?:ing)? my (?:own )?life\b|\bwant to die\b|\bself[- ]?harm\b|"
+    r"आत्महत्या|खुदकुशी|ख़ुदकुशी|जान दे दूँ|जान दे दूं",
+    flags=re.IGNORECASE,
+)
+
+
+def crisis_advisory(text: str, lang: Optional[str] = None) -> Optional[str]:
+    """Crisis-line advisory for self-harm / suicide statements, else None.
+    The input guard blocks some of these as unsafe, so without this the asker
+    would only see "I cannot process that request"."""
+    try:
+        if not text or not _SELF_HARM_RE.search(_norm(text)):
+            return None
+    except Exception:
+        return None
+    return message("crisis", lang or detect_language(text).code)
+
+
 def emergency_advisory(text: str, lang: Optional[str] = None) -> Optional[str]:
     """Localised call-for-help advisory, or None if no red flag is found."""
     if not is_emergency(text):

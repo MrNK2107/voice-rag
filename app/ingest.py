@@ -103,7 +103,16 @@ def markdown_to_text(md: str) -> str:
 
 
 def _decode(data: bytes) -> str:
-    for enc in ("utf-8-sig", "utf-16"):
+    # UTF-16 only with a BOM, or when NUL bytes show it (BOM-less ASCII-range
+    # UTF-16): almost any even-length byte string "decodes" as UTF-16, which
+    # turned Windows-1252 French / Spanish files into CJK mojibake.
+    candidates = ["utf-8-sig"]
+    if data.startswith((b"\xff\xfe", b"\xfe\xff")):
+        candidates.insert(0, "utf-16")
+    elif data and data.count(b"\x00") * 4 > len(data):
+        candidates.append("utf-16-le" if data[1:2] == b"\x00" else "utf-16-be")
+    candidates.append("cp1252")
+    for enc in candidates:
         try:
             return data.decode(enc)
         except UnicodeDecodeError:
@@ -166,9 +175,52 @@ def _check_host(url: str) -> None:
     except socket.gaierror as e:
         raise IngestError(f"Cannot resolve host '{parsed.hostname}'.") from e
     for info in infos:
-        ip = ipaddress.ip_address(info[4][0])
-        if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved or ip.is_multicast:
+        if _blocked_ip(info[4][0]):
             raise IngestError("URLs that point to private or local network addresses are not allowed.")
+
+
+_NAT64 = ipaddress.ip_network("64:ff9b::/96")
+
+
+def _blocked_ip(addr: str) -> bool:
+    """True unless ``addr`` is a public unicast address. ``is_global`` also
+    rejects shared/CGNAT space (100.64.0.0/10, where some clouds serve instance
+    metadata) and other special ranges the older flag list missed; IPv6 forms
+    that embed an IPv4 address (mapped, 6to4, Teredo, NAT64) are judged by it."""
+    try:
+        ip = ipaddress.ip_address(addr.split("%", 1)[0])
+    except ValueError:
+        return True
+    embedded = None
+    if ip.version == 6:
+        embedded = ip.ipv4_mapped or ip.sixtofour or (ip.teredo[1] if ip.teredo else None)
+        if embedded is None and ip in _NAT64:
+            embedded = ipaddress.IPv4Address(int(ip) & 0xFFFFFFFF)
+    for a in (ip, embedded):
+        if a is None:
+            continue
+        if (not a.is_global or a.is_private or a.is_loopback or a.is_link_local or a.is_reserved
+                or a.is_multicast or a.is_unspecified):
+            return True
+    return False
+
+
+def _peer_ip(resp) -> Optional[str]:
+    """IP address of the server a streamed requests response is connected to
+    (None if it cannot be determined, e.g. for a test double)."""
+    raw = getattr(resp, "raw", None)
+    for path in (("_connection", "sock"), ("_fp", "fp", "raw", "_sock")):
+        obj = raw
+        for attr in path:
+            obj = getattr(obj, attr, None)
+            if obj is None:
+                break
+        if obj is not None:
+            try:
+                return obj.getpeername()[0]
+            except (OSError, AttributeError, IndexError, TypeError):
+                continue
+    return None
 
 
 def fetch_url(url: str, get: Optional[Callable] = None, check_host: bool = True) -> List[ExtractedDoc]:
@@ -180,6 +232,13 @@ def fetch_url(url: str, get: Optional[Callable] = None, check_host: bool = True)
             _check_host(current)
         resp = get(current, timeout=10, stream=True, allow_redirects=False,
                    headers={"User-Agent": "Vouch-ingest/1.0"})
+        # _check_host resolved the name once; the connection resolved it again.
+        # A rebinding DNS name can answer differently the second time, so check
+        # the address actually connected to before reading anything.
+        peer = _peer_ip(resp)
+        if check_host and peer and _blocked_ip(peer):
+            resp.close()
+            raise IngestError("URLs that point to private or local network addresses are not allowed.")
         if resp.status_code in (301, 302, 303, 307, 308) and resp.headers.get("location"):
             current = urljoin(current, resp.headers["location"])
             continue

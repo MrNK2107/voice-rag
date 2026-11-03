@@ -1,9 +1,11 @@
+import re
 import time
 from typing import Dict, Optional
 
 from app.config import settings
 from app.generator import AnswerGenerator, query_coverage
 from app.citations import verify_answer
+from app.collection_store import CollectionNotFound
 from app.guardrails import grounding_check, input_guard, retrieval_guard
 from app.i18n import message
 from app.langid import LANGUAGE_NAMES, base_language, detect_language, is_rtl, normalize_code
@@ -12,7 +14,9 @@ from app.latency import timed_stage
 from app.retriever import HybridRetriever
 from app.schemas import RagResponse
 from app.stt_sarvam import SarvamSTT
-from app.triage import emergency_advisory
+from app.triage import crisis_advisory, emergency_advisory
+
+_LANG_TAG = re.compile(r"[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*")
 
 
 class VoiceRAGHarness:
@@ -47,7 +51,7 @@ class VoiceRAGHarness:
     def _retriever_for(self, collection: Optional[str]):
         if collection:
             if self.collections is None:
-                raise KeyError(collection)
+                raise CollectionNotFound(collection)
             return self.collections.retriever(collection)  # raises CollectionNotFound
         return self.retriever
 
@@ -58,8 +62,12 @@ class VoiceRAGHarness:
 
     @staticmethod
     def _language(text: str, hint: Optional[str]) -> str:
+        # The hint comes from the client and ends up in the translator prompt,
+        # so only well-formed tags for languages we know are accepted.
         if hint and hint != "auto":
-            return hint
+            code = normalize_code(hint)
+            if _LANG_TAG.fullmatch(code) and (code in LANGUAGE_NAMES or base_language(code) in LANGUAGE_NAMES):
+                return code
         return detect_language(text).code
 
     def _finish(self, resp: RagResponse, lang: str, collection: Optional[str], channel: str) -> RagResponse:
@@ -74,8 +82,10 @@ class VoiceRAGHarness:
         elif not resp.answer_language:
             resp.answer_language = lang
         if settings.emergency_triage and resp.advisory is None and resp.transcript:
+            # Crisis help is shown even when the guard blocked the question.
+            resp.advisory = crisis_advisory(resp.transcript, lang)
             blocked = resp.abstain_reason and "blocked" in resp.abstain_reason.lower()
-            if not blocked:
+            if resp.advisory is None and not blocked:
                 resp.advisory = emergency_advisory(resp.transcript, lang)
         if self.question_log is not None and settings.analytics_enabled:
             try:
@@ -145,7 +155,9 @@ class VoiceRAGHarness:
         corpus = self._corpus_name(collection)
 
         transcript = (query or "").strip()
-        lang = self._language(transcript, language)
+        # A prefix is enough to detect the language, and stays cheap for the
+        # oversized queries the input guard is about to refuse.
+        lang = self._language(transcript[:2000], language)
 
         def done(resp: RagResponse) -> RagResponse:
             timings["post_stt_total_ms"] = round((time.perf_counter() - rag_start) * 1000, 3)

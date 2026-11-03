@@ -26,14 +26,21 @@ _STOPWORDS = {
 }
 
 
+_FTS_OPERATORS = {"AND", "OR", "NOT", "NEAR"}
+
+
 def escape_fts_query(q: str) -> str:
     terms = []
     for t in tokenize(q):
         if t.lower() in _STOPWORDS:
             continue
         # CJK/Thai bigrams are indexed one character per token (textutil.fts_text),
-        # so a bigram is matched as a two-token phrase.
-        terms.append('"' + " ".join(t) + '"' if is_unspaced_token(t) and len(t) > 1 else t)
+        # so a bigram is matched as a two-token phrase. FTS5 operator words
+        # (NOT / AND / OR / NEAR) are quoted so they are searched for, not parsed.
+        if is_unspaced_token(t) and len(t) > 1:
+            terms.append('"' + " ".join(t) + '"')
+        else:
+            terms.append(f'"{t}"' if t in _FTS_OPERATORS else t)
     return " OR ".join(terms[:20]) if terms else ""
 
 
@@ -271,5 +278,29 @@ class HybridRetriever:
         dense = self.dense_search(query)
         lexical = self.lexical_search(query)
         contexts = self.fuse(dense, lexical)
+        self._fill_locations(contexts)
         confidence = self.confidence_from_dense_hits(dense)
         return contexts, confidence
+
+    def _fill_locations(self, contexts: List[RetrievedContext]) -> None:
+        """The FTS index stores no source URL / page, so a chunk found only by
+        lexical search would be cited without them. Read them from the Qdrant
+        payload instead."""
+        missing = [c for c in contexts if c.dense_score is None and c.source is None and c.page is None]
+        if not missing:
+            return
+        try:
+            points = self.qdrant.retrieve(
+                collection_name=self._collection or settings.qdrant_collection,
+                ids=[c.chunk_id for c in missing],
+                with_payload=True,
+                with_vectors=False,
+            )
+        except Exception as e:
+            print(f"Qdrant retrieve error: {e}")
+            return
+        by_id = {str(p.id): (p.payload or {}) for p in points}
+        for c in missing:
+            payload = by_id.get(c.chunk_id, {})
+            c.source = payload.get("source")
+            c.page = payload.get("page")

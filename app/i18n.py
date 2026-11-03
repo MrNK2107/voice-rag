@@ -131,6 +131,11 @@ MESSAGES: Dict[str, Dict[str, str]] = {
         "sw": "Hii inaweza kuwa dharura. Piga simu nambari ya dharura sasa (112 au 999) au nenda hospitali iliyo karibu.",
         "vi": "Đây có thể là trường hợp khẩn cấp. Hãy gọi ngay số cấp cứu (115 hoặc 112) hoặc đến bệnh viện gần nhất.",
     },
+    # Self-harm / suicide: shown whatever else happens to the question.
+    "crisis": {
+        "en": "If you are thinking about suicide or harming yourself, please talk to someone now. Call your local emergency number (112 in most countries, 988 in the US), or in India Tele-MANAS 14416 (free, 24x7).",
+        "hi": "अगर आप आत्महत्या या ख़ुद को नुकसान पहुँचाने के बारे में सोच रहे हैं, तो कृपया अभी किसी से बात करें। टेली-मानस 14416 (मुफ़्त, 24x7) या आपातकाल में 108 / 112 पर फ़ोन करें।",
+    },
 }
 
 

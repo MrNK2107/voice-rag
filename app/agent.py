@@ -42,9 +42,13 @@ from pydantic import BaseModel, Field
 from app.demo import ADVISORY_EN, ADVISORY_HI, red_flag_advisory
 from app.guardrails import input_guard
 from app.schemas import Citation
+from app.triage import crisis_advisory
 
 _DEVANAGARI = re.compile(r"[ऀ-ॿ]")
 MAX_STEPS = 6
+MAX_SLOTS = 4
+KNOWN_SLOTS = {"age"}
+MAX_SLOT_CHARS = 200
 
 # --------------------------------------------------------------------------
 # Bundled facility / helpline table. Facility *types* only (no addresses), so it
@@ -141,7 +145,7 @@ def parse_age_months(text: str) -> Optional[float]:
 # API models
 # --------------------------------------------------------------------------
 class AgentRequest(BaseModel):
-    query: str
+    query: str = Field(max_length=1_000_000)
     # Answers to earlier clarifying questions, e.g. {"age": "8 months"}.
     slots: Dict[str, str] = Field(default_factory=dict)
 
@@ -325,7 +329,8 @@ class OllamaPlanner:
                 cq = clarifying_question_for(state)
                 if not cq or "ask_clarifying" in state.called:
                     raise ValueError("clarification not needed")
-                args = cq if state.lang == "hi" else {"slot": cq["slot"], "question": args.get("question") or cq["question"]}
+                # The wording is always the fixed one: model text never reaches the user.
+                args = cq
             if tool == "facility_lookup":
                 if args.get("need") not in FACILITY_TABLE:
                     args = {"need": classify_need(state.query)}
@@ -359,7 +364,9 @@ class HealthAgent:
     def run(self, query: str, slots: Optional[Dict[str, str]] = None) -> AgentResponse:
         t0 = time.perf_counter()
         query = (query or "").strip()
-        state = AgentState(query=query, slots=dict(slots or {}), lang=_lang(query))
+        # Only slots the agent asks for are kept (their names reach the planner prompt).
+        state = AgentState(query=query, slots={k: v for k, v in (slots or {}).items() if k in KNOWN_SLOTS},
+                           lang=_lang(query))
         steps: List[AgentStep] = []
 
         def record(tool, args, obs, planner, started):
@@ -370,6 +377,14 @@ class HealthAgent:
         # Step 1 (forced): input guard + triage. Not delegated to any planner.
         s = time.perf_counter()
         ok, reason = input_guard(query)
+        if ok:
+            # Slot answers are user text too, and they reach the planner prompt.
+            if len(state.slots) > MAX_SLOTS or any(len(str(k)) > 40 or len(str(v)) > MAX_SLOT_CHARS
+                                                    for k, v in state.slots.items()):
+                ok, reason = False, "Clarification answers are too long."
+            for v in state.slots.values():
+                if ok:
+                    ok, reason = input_guard(str(v))
         if not ok:
             state.blocked_reason = reason
             crisis = re.search(r"suicid|kill myself|आत्महत्या", query, re.IGNORECASE)
@@ -395,6 +410,14 @@ class HealthAgent:
             state.rag = self.harness.ask_text(query)
             record("retrieve_guidance", {"query": query}, self._rag_obs(state.rag), "safety", s)
             return self._finish(state, steps, t0)
+
+        crisis = crisis_advisory(query, state.lang)
+        if crisis:
+            # Self-harm statements the guard did not block still get the crisis line.
+            s = time.perf_counter()
+            state.advisory = crisis
+            state.facility = facility_lookup("mental_health", state.lang)
+            record("facility_lookup", {"need": "mental_health"}, "crisis line 14416", "safety", s)
 
         for _ in range(self.max_steps):
             action = self.planner.next_action(state)

@@ -34,6 +34,7 @@ from app.offline import (
     build_offline_index,
 )
 from app.schemas import RagResponse
+from app.triage import crisis_advisory
 
 DEMO_EMBED_DIM = 4096
 DEMO_CORPUS_NAME = "Swasthya Saathi health demo corpus"
@@ -300,7 +301,8 @@ class HealthDemoHarness(VoiceRAGHarness):
         elif response.abstained and response.abstain_reason and response.abstain_reason.startswith(
                 "The retrieved passages do not answer") and (response.language or "en") in ("en", "hi-Latn"):
             response.answer += " Please ask your ASHA / ANM or a doctor."
-        response.advisory = red_flag_advisory(response.transcript)
+        response.advisory = (red_flag_advisory(response.transcript)
+                             or crisis_advisory(response.transcript, response.language))
         return response
 
 
@@ -345,7 +347,10 @@ def build_demo_harness(sqlite_path: Optional[Path] = None, stt=None, question_lo
     store.add_raw_docs(CITY_COLLECTION, CITY_DOCS)
 
     if stt is None:
-        if settings.sarvam_api_key:
+        from app.stt import _sarvam_ready
+
+        # .env.example ships a placeholder key; that is not a configured Sarvam.
+        if _sarvam_ready():
             from app.stt_sarvam import SarvamSTT
 
             stt = SarvamSTT()

@@ -7,6 +7,7 @@ from app.injection_clf import classify_injection
 from app.langid import detect_language
 from app.safety import detect_injection, normalize_text
 from app.schemas import RetrievedContext
+from app.textutil import split_sentences
 
 _WORD_PATTERN = regex.compile(r"[\p{L}\p{M}\p{N}]+", flags=regex.UNICODE)
 
@@ -56,11 +57,12 @@ def classifier_applies(text: str) -> bool:
 def input_guard(query: str) -> Tuple[bool, Optional[str]]:
     q = query.strip().lower()
 
-    if not normalize_text(q):
-        return False, "Empty transcript received."
-
+    # Length first: normalising a megabyte of text costs seconds of CPU.
     if len(q) > 1000:
         return False, "Query is too long (exceeds 1000 characters)."
+
+    if not normalize_text(q):
+        return False, "Empty transcript received."
 
     q_norm = normalize_text(q)
     for pat in UNSAFE_PATTERNS:
@@ -78,6 +80,16 @@ def input_guard(query: str) -> Tuple[bool, Optional[str]]:
     if (settings.injection_classifier_enabled and classifier_applies(query)
             and classify_injection(query)):
         return False, "Prompt-injection attempt detected and blocked."
+
+    # Also score each sentence on its own: a benign sentence (or one in a
+    # language the classifier skips) in front of an attack would otherwise
+    # dilute its score or switch the stage off for the whole query.
+    if settings.injection_classifier_enabled:
+        sentences = [s for s in split_sentences(query) if s.strip()]
+        if len(sentences) > 1:
+            for sent in sentences:
+                if classifier_applies(sent) and classify_injection(sent):
+                    return False, "Prompt-injection attempt detected and blocked."
 
     return True, None
 
